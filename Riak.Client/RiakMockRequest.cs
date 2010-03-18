@@ -22,6 +22,26 @@ namespace Riak.Client
             _requestStream = new MemoryStream();
         }
 
+        public override void AddHeader(string name, string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string ContentType
+        {
+            get; set;
+        }
+
+        public override string UserAgent
+        {
+            get; set;
+        }
+
+        public override string Accept
+        {
+            get; set;
+        }
+
         public static readonly Uri MockRiakRootUri = new Uri(MockUriRoot);
 
         public override RiakResponse GetResponse()

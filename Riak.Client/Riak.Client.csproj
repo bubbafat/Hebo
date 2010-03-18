@@ -51,6 +51,7 @@
     <Compile Include="RiakClient.cs" />
     <Compile Include="RiakException.cs" />
     <Compile Include="RiakHttpRequest.cs" />
+    <Compile Include="RiakHttpResponse.cs" />
     <Compile Include="RiakMockTextResponse.cs" />
     <Compile Include="RiakMockRequest.cs" />
     <Compile Include="RiakObject.cs" />

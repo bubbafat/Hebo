@@ -18,6 +18,12 @@ namespace Riak.Client
         private bool _allowMulti;
         private List<string> _keys;
 
+        internal Bucket(RiakClient client, string bucketName)
+            : this(client.Uri, bucketName)
+        {
+            this.UserAgent = client.UserAgent;
+        }
+
         internal Bucket(Uri riakRootUri, string bucketName)
         {
             _bucketUri = new Uri(string.Format("{0}/{1}",
@@ -36,27 +42,32 @@ namespace Riak.Client
         {
             _keys.Clear();
 
-            using(RiakRequest req = RiakRequest.Create(WebRequestVerb.GET, _bucketUri))
-            using(RiakResponse response = req.GetResponse())
+            using (RiakRequest req = RiakRequest.Create(WebRequestVerb.GET, _bucketUri))
             {
-                if(response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new RiakServerException("HTTP Response {0} while loading bucket {1} ({2})",
-                                                  response.StatusCode, 
-                                                  _name, 
-                                                  _bucketUri.AbsoluteUri);
-                }
+                req.UserAgent = UserAgent;
 
-                if(response.ContentType != "application/json")
+                using (RiakResponse response = req.GetResponse())
                 {
-                    throw new RiakServerException("Error while loading bucket {0} ({1}): Expected content type {2} but received {3}",
-                        _name,
-                        _bucketUri.AbsoluteUri,
-                        "application/json",
-                        response.ContentType);
-                }
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new RiakServerException("HTTP Response {0} while loading bucket {1} ({2})",
+                                                      response.StatusCode,
+                                                      _name,
+                                                      _bucketUri.AbsoluteUri);
+                    }
 
-                loadFromJson(response.GetResponseStream());
+                    if (response.ContentType != "application/json")
+                    {
+                        throw new RiakServerException(
+                            "Error while loading bucket {0} ({1}): Expected content type {2} but received {3}",
+                            _name,
+                            _bucketUri.AbsoluteUri,
+                            "application/json",
+                            response.ContentType);
+                    }
+
+                    loadFromJson(response.GetResponseStream());
+                }
             }
         }
 
@@ -83,6 +94,8 @@ namespace Riak.Client
             get { return _allowMulti; }
             set { _allowMulti = value; }
         }
+
+        public string UserAgent { get; set; }
 
         public string Name
         {

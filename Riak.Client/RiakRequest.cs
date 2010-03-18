@@ -9,27 +9,13 @@ namespace Riak.Client
 {
     public abstract class RiakRequest : IDisposable
     {
-        protected RiakRequest()
-        {
-            IfModifiedSince = DateTime.Now;
-            Headers = new WebHeaderCollection();
-        }
+        public abstract void AddHeader(string name, string value);
 
-        public WebHeaderCollection Headers
-        {
-            get;
-            private set;
-        }
+        public abstract string ContentType { get; set; }
 
-        public string Accept { get; set; }
+        public abstract string UserAgent { get; set; }
 
-        public string Expect { get; set; }
-
-        public string ContentType { get; set; }
-
-        public DateTime IfModifiedSince { get; set; }
-
-        public string UserAgent { get; set; }
+        public abstract string Accept { get; set; }
 
         public abstract RiakResponse GetResponse();
 

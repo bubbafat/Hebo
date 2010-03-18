@@ -59,7 +59,29 @@ namespace Riak.Client
 
         public virtual void Delete()
         {
-            throw new NotImplementedException();
+            using (RiakRequest req = RiakRequest.Create(WebRequestVerb.DELETE, Uri))
+            {
+                req.UserAgent = _bucket.UserAgent;
+                if (!string.IsNullOrEmpty(this.VClock))
+                {
+                    req.AddHeader("X-Riak-Vclock", this.VClock);
+                }
+
+                using (RiakResponse response = req.GetResponse())
+                {
+                    switch (response.StatusCode)
+                    {
+                        case HttpStatusCode.NoContent:
+                        case HttpStatusCode.NotFound:
+                            break;
+                        default:
+                            throw new RiakServerException(response,
+                                "Error storing key {0} at {1}",
+                                _name,
+                                Uri);
+                    }
+                }
+            }
         }
 
         public virtual void Store(string data)
@@ -83,16 +105,34 @@ namespace Riak.Client
         {
             using(RiakRequest req = RiakRequest.Create(WebRequestVerb.PUT, Uri))
             {
+                req.UserAgent = _bucket.UserAgent;
+
+                if(string.IsNullOrEmpty(ContentType))
+                {
+                    throw new RiakException("ContentType must be set when storing a riak object");
+                }
+
+                req.ContentType = this.ContentType;
+                
+                if (!string.IsNullOrEmpty(this.VClock))
+                {
+                    req.AddHeader("X-Riak-Vclock", this.VClock);
+                }
+
                 CopyStream(data, req.GetRequestStream());
 
                 using(RiakResponse response = req.GetResponse())
                 {
-                    if(response.StatusCode != HttpStatusCode.OK)
+                    switch(response.StatusCode)
                     {
-                        throw new RiakServerException(response,
-                            "Error storing key {0} at {1}",
-                            _name,
-                            Uri);
+                        case HttpStatusCode.OK:
+                        case HttpStatusCode.NoContent:
+                            break;
+                        default:
+                            throw new RiakServerException(response,
+                                "Error storing key {0} at {1}",
+                                _name,
+                                Uri);
                     }
                 }
             }

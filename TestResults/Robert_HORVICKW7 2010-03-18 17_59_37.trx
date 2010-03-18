@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="7268e5f8-4c44-411f-ab3b-08126fa5bc4f" name="Robert@HORVICKW7 2010-03-18 17:59:37" runUser="HORVICKW7\Robert" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="cccf0ead-bb7b-4fa6-80c8-b697078887da">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Robert_HORVICKW7 2010-03-18 17_59_37" />
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2010-03-18T17:59:37.1876595-04:00" queuing="2010-03-18T17:59:41.0178786-04:00" start="2010-03-18T17:59:41.5959117-04:00" finish="2010-03-18T18:00:31.0067378-04:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="5" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="SaveABinaryKeyValue" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="4ad0d6cc-b6bb-6b71-fab7-7bd0c1927a9f">
+      <Execution id="fc7fc393-e074-4210-8d34-29eb35998784" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="SaveABinaryKeyValue" />
+    </UnitTest>
+    <UnitTest name="DeleteExistingKeys" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="ecb7a2ec-95c2-bcd4-9208-598a9a8227f1">
+      <Execution id="6b155f6b-68e5-4f9b-902b-f367777fa585" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="DeleteExistingKeys" />
+    </UnitTest>
+    <UnitTest name="SaveAStringKeyValue" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="58939138-4342-8e72-2f65-c6ec6d5362d3">
+      <Execution id="76a6211c-841b-4bbb-89cd-1f6be184637b" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="SaveAStringKeyValue" />
+    </UnitTest>
+    <UnitTest name="GetKeyFromBucket" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="7ec93923-9b63-896f-6fbc-0de4f66812a0">
+      <Execution id="72d25d6f-3509-4126-ab8a-03d115eeef30" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.RiakRequestTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetKeyFromBucket" />
+    </UnitTest>
+    <UnitTest name="TestMethod1" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="4218db0c-c3cd-af6c-7a89-5cbb6ed4b0b4">
+      <Execution id="d11f7e24-77a5-40ed-99cf-560c84eb97e0" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.RiakRequestTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestMethod1" />
+    </UnitTest>
+    <UnitTest name="DeleteMissingKeys" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="8adbc453-a093-0889-b145-79d2f69be902">
+      <Execution id="ba816d04-17f7-43b8-b9d1-58d6b71e28c0" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="DeleteMissingKeys" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="4218db0c-c3cd-af6c-7a89-5cbb6ed4b0b4" executionId="d11f7e24-77a5-40ed-99cf-560c84eb97e0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7ec93923-9b63-896f-6fbc-0de4f66812a0" executionId="72d25d6f-3509-4126-ab8a-03d115eeef30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="58939138-4342-8e72-2f65-c6ec6d5362d3" executionId="76a6211c-841b-4bbb-89cd-1f6be184637b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4ad0d6cc-b6bb-6b71-fab7-7bd0c1927a9f" executionId="fc7fc393-e074-4210-8d34-29eb35998784" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ecb7a2ec-95c2-bcd4-9208-598a9a8227f1" executionId="6b155f6b-68e5-4f9b-902b-f367777fa585" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8adbc453-a093-0889-b145-79d2f69be902" executionId="ba816d04-17f7-43b8-b9d1-58d6b71e28c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="d11f7e24-77a5-40ed-99cf-560c84eb97e0" testId="4218db0c-c3cd-af6c-7a89-5cbb6ed4b0b4" testName="TestMethod1" computerName="HORVICKW7" duration="00:00:00.1903697" startTime="2010-03-18T17:59:41.9879341-04:00" endTime="2010-03-18T17:59:44.0110498-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d11f7e24-77a5-40ed-99cf-560c84eb97e0">
+    </UnitTestResult>
+    <UnitTestResult executionId="72d25d6f-3509-4126-ab8a-03d115eeef30" testId="7ec93923-9b63-896f-6fbc-0de4f66812a0" testName="GetKeyFromBucket" computerName="HORVICKW7" duration="00:00:00.4029919" startTime="2010-03-18T17:59:44.1020550-04:00" endTime="2010-03-18T17:59:44.5540809-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="72d25d6f-3509-4126-ab8a-03d115eeef30">
+    </UnitTestResult>
+    <UnitTestResult executionId="76a6211c-841b-4bbb-89cd-1f6be184637b" testId="58939138-4342-8e72-2f65-c6ec6d5362d3" testName="SaveAStringKeyValue" computerName="HORVICKW7" duration="00:00:00.3528523" startTime="2010-03-18T17:59:44.5730820-04:00" endTime="2010-03-18T17:59:44.9461033-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="76a6211c-841b-4bbb-89cd-1f6be184637b">
+    </UnitTestResult>
+    <UnitTestResult executionId="fc7fc393-e074-4210-8d34-29eb35998784" testId="4ad0d6cc-b6bb-6b71-fab7-7bd0c1927a9f" testName="SaveABinaryKeyValue" computerName="HORVICKW7" duration="00:00:00.2557628" startTime="2010-03-18T17:59:44.9721048-04:00" endTime="2010-03-18T17:59:45.2491206-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fc7fc393-e074-4210-8d34-29eb35998784">
+    </UnitTestResult>
+    <UnitTestResult executionId="6b155f6b-68e5-4f9b-902b-f367777fa585" testId="ecb7a2ec-95c2-bcd4-9208-598a9a8227f1" testName="DeleteExistingKeys" computerName="HORVICKW7" duration="00:00:00.6614802" startTime="2010-03-18T17:59:45.2791223-04:00" endTime="2010-03-18T17:59:45.9581612-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6b155f6b-68e5-4f9b-902b-f367777fa585">
+    </UnitTestResult>
+    <UnitTestResult executionId="ba816d04-17f7-43b8-b9d1-58d6b71e28c0" testId="8adbc453-a093-0889-b145-79d2f69be902" testName="DeleteMissingKeys" computerName="HORVICKW7" duration="00:00:44.7589008" startTime="2010-03-18T17:59:45.9881629-04:00" endTime="2010-03-18T18:00:30.7707243-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba816d04-17f7-43b8-b9d1-58d6b71e28c0">
+      <Output>
+        <DebugTrace>QTAgent32.exe Error: 0 : &lt;html&gt;&lt;head&gt;&lt;title&gt;500 Internal Server Error&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;Internal Server Error&lt;/h1&gt;The server encountered an error while processing this request:&lt;br&gt;&lt;pre&gt;[{webmachine_decision_core,'-decision/1-lc$^1/1-1-',
+     [{error,
+          {error,function_clause,
+              [{string,tokens1,[undefined,"; ",[]]},
+               {raw_http_resource,extract_content_type,1},
+               {raw_http_resource,content_types_provided,2},
+               {webmachine_resource,resource_call,3},
+               {webmachine_resource,do,3},
+               {webmachine_decision_core,resource_call,1},
+               {webmachine_decision_core,decision,1},
+               {webmachine_decision_core,handle_request,2}]}}]},
+ {webmachine_decision_core,decision,1},
+ {webmachine_decision_core,handle_request,2},
+ {webmachine_mochiweb,loop,1},
+ {mochiweb_http,headers,5},
+ {proc_lib,init_p_do_apply,3}]&lt;/pre&gt;&lt;P&gt;&lt;HR&gt;&lt;ADDRESS&gt;mochiweb+webmachine web server&lt;/ADDRESS&gt;&lt;/body&gt;&lt;/html&gt;
+</DebugTrace>
+        <ErrorInfo>
+          <Message>Test method Riak.Tests.BucketTests.DeleteMissingKeys threw exception: 
+System.Net.WebException: The remote server returned an error: (500) Internal Server Error.</Message>
+          <StackTrace>    at System.Net.HttpWebRequest.GetResponse()
+   at Riak.Client.RiakHttpRequest.GetResponse() in c:\projects\Riak.Client\Riak.Client\RiakHttpRequest.cs:line 59
+   at Riak.Client.RiakObject.Store(Stream data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 118
+   at Riak.Client.RiakObject.Store(String data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 89
+   at Riak.Tests.BucketTests.DeleteMissingKeys() in c:\projects\Riak.Client\Riak.Tests\BucketTests.cs:line 92
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>
