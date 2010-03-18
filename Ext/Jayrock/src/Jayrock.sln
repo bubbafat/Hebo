@@ -1,0 +1,31 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jayrock", "Jayrock\Jayrock.csproj", "{A178A4BB-CE12-4BF3-8B17-6DF0D82120C8}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jayrock.Json", "Jayrock.Json\Jayrock.Json.csproj", "{F10A6A7D-B8E4-4F8B-8BD9-5B42ACE5520E}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{A178A4BB-CE12-4BF3-8B17-6DF0D82120C8}.Debug.ActiveCfg = Debug|.NET
+		{A178A4BB-CE12-4BF3-8B17-6DF0D82120C8}.Debug.Build.0 = Debug|.NET
+		{A178A4BB-CE12-4BF3-8B17-6DF0D82120C8}.Release.ActiveCfg = Release|.NET
+		{A178A4BB-CE12-4BF3-8B17-6DF0D82120C8}.Release.Build.0 = Release|.NET
+		{F10A6A7D-B8E4-4F8B-8BD9-5B42ACE5520E}.Debug.ActiveCfg = Debug|.NET
+		{F10A6A7D-B8E4-4F8B-8BD9-5B42ACE5520E}.Debug.Build.0 = Debug|.NET
+		{F10A6A7D-B8E4-4F8B-8BD9-5B42ACE5520E}.Release.ActiveCfg = Release|.NET
+		{F10A6A7D-B8E4-4F8B-8BD9-5B42ACE5520E}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

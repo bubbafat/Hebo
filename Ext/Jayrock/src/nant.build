@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+//
+// Jayrock - JSON and JSON-RPC for Microsoft .NET Framework and Mono
+// Written by Atif Aziz (atif.aziz@skybow.com)
+// Copyright (c) 2005 Atif Aziz. All rights reserved.
+//
+// This library is free software; you can redistribute it and/or modify it under
+// the terms of the GNU Lesser General Public License as published by the Free
+// Software Foundation; either version 2.1 of the License, or (at your option)
+// any later version.
+//
+// This library is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+// FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+// details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this library; if not, write to the Free Software Foundation, Inc.,
+// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA 
+//
+-->
+<project default="all" xmlns="http://nant.sf.net/schemas/nant.xsd">
+
+    <!--======================== PROPERTY SECTION ========================-->
+
+    <!-- General -->
+
+    <property name="my.project.name" value="Jayrock" />
+    <property name="my.project.basedir" value="${project::get-base-directory()}" />
+    <property name="my.tools" value="${path::combine(my.project.basedir, '..\tools')}" />
+    
+    <!-- NCover (code coverage) -->
+
+    <property name="my.ncover.dir.path" value="${path::combine(my.tools, 'NCover')}" />
+    <property name="my.ncover.console.exe.path" value="${path::combine(my.ncover.dir.path, 'NCover.Console.exe')}" />
+    
+    <!-- NCoverExplorer (code coverage) -->
+
+    <property name="my.ncoverexplorer.dir.path" value="${path::combine(my.tools, 'NCoverExplorer')}" />
+    <property name="my.ncoverexplorer.console.exe.path" value="${path::combine(my.ncoverexplorer.dir.path, 'NCoverExplorer.Console.exe')}" />
+
+    <!-- NUnit 2.2.3 (unit-testing) -->
+
+    <property name="my.tests" value="${path::combine(my.project.basedir, '..\tests')}" />
+    <property name="my.nunit.dir.path" value="${path::combine(my.tools, 'NUnit 2.2.3')}" />
+    <property name="my.nunit.console.exe.path" value="${path::combine(my.nunit.dir.path, 'nunit-console.exe')}" />
+
+    <!-- Output and Binaries -->
+
+    <property name="my.bin.dir.name" value="..\bin" />
+    <property name="my.bin.dir.path" value="${path::combine(my.project.basedir, my.bin.dir.name)}" />
+   
+    <property name="my.output.assembly.name" value="${my.project.name}" />
+    <property name="my.output.assembly.filename" value="${my.output.assembly.name + '.dll'}" />
+    
+    <property name="my.output.jsonassembly.name" value="${my.project.name + '.Json'}" />
+    <property name="my.output.jsonassembly.filename" value="${my.output.jsonassembly.name + '.dll'}" />
+
+    <property name="my.output.testassembly.name" value="${my.project.name + '.Tests'}" />
+    <property name="my.output.testassembly.filename" value="${my.output.testassembly.name + '.dll'}" />
+    
+    <!-- Mailing -->
+
+    <property name="my.smtp.server" value="" />
+    <if test="${environment::variable-exists('SMTPSERVER')}">
+        <property name="my.smtp.server" value="${environment::get-variable('SMTPSERVER')}" />
+    </if>
+    <property name="my.mail.from" value="buildserver@jayrock.org" />
+    <property name="my.mail.to" value="atif.aziz@skybow.com" />
+
+    <!-- Draco (build server) -->
+
+    <property name="draco" value="false" overwrite="false" />
+
+    <!--======================== PROPERTY SECTION ========================-->
+
+    <target name="build" depends="" />
+
+    <target name="clean">
+        <delete dir="${my.bin.dir.path}" failonerror="false" />
+        <delete dir="Jayrock\obj" failonerror="false" />
+        <delete dir="Jayrock.Json\obj" failonerror="false" />
+    </target>
+
+    <target name="debug">
+        <property name="my.output.dir.path" value="${path::combine(my.bin.dir.path, 'Debug')}" />
+        <solution configuration="Debug">
+            <projects>
+                <include name="Jayrock\Jayrock.csproj" />
+                <include name="Jayrock.Json\Jayrock.Json.csproj" />
+            </projects>
+        </solution>
+    </target>
+
+    <target name="release">
+        <property name="my.output.dir.path" value="${path::combine(my.bin.dir.path, 'Release')}" />
+        <solution configuration="Release">
+            <projects>
+                <include name="Jayrock\Jayrock.csproj" />
+                <include name="Jayrock.Json\Jayrock.Json.csproj" />
+            </projects>
+        </solution>
+    </target>
+    
+    <target name="compile-test">
+        <solution configuration="Debug">
+            <projects>
+                <include name="Jayrock\Jayrock.csproj" />
+                <include name="Jayrock.Json\Jayrock.Json.csproj" />
+                <include name="${path::combine(my.tests, 'Jayrock\Jayrock.Tests.csproj')}" />
+            </projects>
+        </solution>
+    </target>
+
+    <target name="all">
+        
+        <echo message="NOTE: Code coverage has been disabled in the &apos;all&apos;" />
+        <echo message="target since NCover appears to fail on some machines." />
+        <echo message="To get code coverage, build the &apos;cover&apos; target." />
+        
+        <call target="test" />
+        <call target="debug" />
+        <call target="release" />
+
+    </target>
+
+    <target name="test" depends="compile-test">
+        <call target="set-binpath-test" />
+        <property name="my.output.testassembly.path" value="${path::combine(my.output.dir.path, my.output.testassembly.filename)}" />
+        <exec program="${my.nunit.console.exe.path}" commandline='"${my.output.testassembly.path}"' />
+    </target>
+    
+    <target name="cover" depends="compile-test">
+        <call target="set-binpath-test" />
+        <property name="my.output.testassembly.path" value="${path::combine(my.output.dir.path, my.output.testassembly.filename)}" />
+        <exec program="${my.ncover.console.exe.path}" commandline='/q /w "${my.output.dir.path}" /o "${my.project.basedir}\coverage.xml" /a ${my.output.assembly.name};${my.output.jsonassembly.name} /c "${my.nunit.console.exe.path}" "\"${my.output.testassembly.path}\""' />
+        <exec program="${my.ncoverexplorer.console.exe.path}" commandline='"${my.project.basedir}\coverage.xml" /html:coverage-report.html /report:2 /excluded /p:${my.project.name} /minCoverage:85 "/c:${my.project.basedir}\NCoverExplorer.config"' />
+        <call target="draco" if="${draco}" />
+    </target>
+    
+    <target name="draco">
+        <fail if="${string::get-length(my.smtp.server) == 0}" 
+            message="You must specify an SMTP server host value via the SMTPSERVER environment variable for this build target to succeed." />
+        <mail 
+            from="${my.mail.from}" 
+            tolist="${my.mail.to}" 
+            subject="Jayrock coverage for build ${build.id}"
+            format="Html"
+            mailhost="${my.smtp.server}">
+            <files>
+                <include name="${my.project.basedir}\coverage-report.htm" />
+            </files>
+        </mail>
+    </target>
+    
+    <target name="set-binpath-test">
+        <property name="my.output.dir.path" value="${path::combine(my.bin.dir.path, 'Test')}" />
+    </target>
+    
+    <target name="props">
+
+        <!-- 
+            This target is used to check proper setup of properties 
+            Find what: \<property name="{[^"]+}".+$
+            Replace with: <echo message="\1 = ${\1}" />
+        -->
+
+        <echo message="my.project.basedir = ${my.project.basedir}" />
+        <echo message="my.tools = ${my.tools}" />
+        
+        <echo message="my.ncover.dir.path = ${my.ncover.dir.path}" />
+        <echo message="my.ncover.console.exe.path = ${my.ncover.console.exe.path}" />
+
+        <echo message="my.tests= ${my.tests}" />
+        <echo message="my.nunit.dir.path = ${my.nunit.dir.path}" />
+        <echo message="my.nunit.console.exe.path = ${my.nunit.console.exe.path}" />
+
+        <echo message="my.bin.dir.name = ${my.bin.dir.name}" />
+        <echo message="my.bin.dir.path = ${my.bin.dir.path}" />
+       
+        <echo message="my.output.assembly.name = ${my.output.assembly.name}" />
+        <echo message="my.output.assembly.filename = ${my.output.assembly.filename}" />
+        <echo message="my.output.jsonassembly.name= ${my.output.jsonassembly.name}" />
+        <echo message="my.output.jsonassembly.filename = ${my.output.jsonassembly.filename}" />
+        <echo message="my.output.testassembly.name = ${my.output.testassembly.name}" />
+        <echo message="my.output.testassembly.filename = ${my.output.testassembly.filename}" />
+        
+        <echo message="my.smtp.server = ${my.smtp.server}" />
+        <echo message="my.mail.from = ${my.mail.from}" />
+        <echo message="my.mail.to = ${my.mail.to}" />
+
+        <echo message="draco = ${draco}" />
+
+    </target>
+
+</project>

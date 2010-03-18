@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="9cefb2cb-586d-4551-bb84-a2878d8cd6d7" name="Robert@HORVICKW7 2010-03-18 06:29:37" runUser="HORVICKW7\Robert" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="cccf0ead-bb7b-4fa6-80c8-b697078887da">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Robert_HORVICKW7 2010-03-18 06_29_37" />
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2010-03-18T06:29:37.0167052-04:00" queuing="2010-03-18T06:29:39.6488558-04:00" start="2010-03-18T06:29:39.8218657-04:00" finish="2010-03-18T06:29:56.8498396-04:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="1" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="TestMethod1" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="4218db0c-c3cd-af6c-7a89-5cbb6ed4b0b4">
+      <Execution id="07014a94-c0cc-4c5f-ae31-d8a3a052b379" />
+      <TestMethod codeBase="C:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.RiakRequestTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestMethod1" />
+    </UnitTest>
+    <UnitTest name="CreateAndDeleteKey" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="1cbbf656-9ca7-e0c1-33ad-857ff07ea21a">
+      <Execution id="bc1988a4-ed79-4b04-ace7-ec1d1245bfba" />
+      <TestMethod codeBase="C:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.RiakRequestTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="CreateAndDeleteKey" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="4218db0c-c3cd-af6c-7a89-5cbb6ed4b0b4" executionId="07014a94-c0cc-4c5f-ae31-d8a3a052b379" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1cbbf656-9ca7-e0c1-33ad-857ff07ea21a" executionId="bc1988a4-ed79-4b04-ace7-ec1d1245bfba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="07014a94-c0cc-4c5f-ae31-d8a3a052b379" testId="4218db0c-c3cd-af6c-7a89-5cbb6ed4b0b4" testName="TestMethod1" computerName="HORVICKW7" duration="00:00:00.0601886" startTime="2010-03-18T06:29:39.9218714-04:00" endTime="2010-03-18T06:29:41.2489473-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="07014a94-c0cc-4c5f-ae31-d8a3a052b379">
+    </UnitTestResult>
+    <UnitTestResult executionId="bc1988a4-ed79-4b04-ace7-ec1d1245bfba" testId="1cbbf656-9ca7-e0c1-33ad-857ff07ea21a" testName="CreateAndDeleteKey" computerName="HORVICKW7" duration="00:00:15.4229436" startTime="2010-03-18T06:29:41.2739487-04:00" endTime="2010-03-18T06:29:56.7188321-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bc1988a4-ed79-4b04-ace7-ec1d1245bfba">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method Riak.Tests.RiakRequestTests.CreateAndDeleteKey threw exception: 
+System.NotImplementedException: The method or operation is not implemented.</Message>
+          <StackTrace>    at Riak.Client.Bucket.Get(String name) in C:\projects\Riak.Client\Riak.Client\Bucket.cs:line 97
+   at Riak.Tests.RiakRequestTests.CreateAndDeleteKey() in C:\projects\Riak.Client\Riak.Tests\UnitTest1.cs:line 34
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

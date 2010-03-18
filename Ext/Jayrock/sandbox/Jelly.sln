@@ -1,0 +1,39 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jelly", "Jelly\Jelly.csproj", "{405B6AFF-52D4-4326-84F8-814FBF89AA12}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JellyDemo", "JellyDemo\JellyDemo.csproj", "{C8103BCD-D47F-4A21-A60C-82B8CB762818}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jayrock.Json", "..\src\Jayrock.Json\Jayrock.Json.csproj", "{F10A6A7D-B8E4-4F8B-8BD9-5B42ACE5520E}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{405B6AFF-52D4-4326-84F8-814FBF89AA12}.Debug.ActiveCfg = Debug|.NET
+		{405B6AFF-52D4-4326-84F8-814FBF89AA12}.Debug.Build.0 = Debug|.NET
+		{405B6AFF-52D4-4326-84F8-814FBF89AA12}.Release.ActiveCfg = Release|.NET
+		{405B6AFF-52D4-4326-84F8-814FBF89AA12}.Release.Build.0 = Release|.NET
+		{C8103BCD-D47F-4A21-A60C-82B8CB762818}.Debug.ActiveCfg = Debug|.NET
+		{C8103BCD-D47F-4A21-A60C-82B8CB762818}.Debug.Build.0 = Debug|.NET
+		{C8103BCD-D47F-4A21-A60C-82B8CB762818}.Release.ActiveCfg = Release|.NET
+		{C8103BCD-D47F-4A21-A60C-82B8CB762818}.Release.Build.0 = Release|.NET
+		{F10A6A7D-B8E4-4F8B-8BD9-5B42ACE5520E}.Debug.ActiveCfg = Debug|.NET
+		{F10A6A7D-B8E4-4F8B-8BD9-5B42ACE5520E}.Debug.Build.0 = Debug|.NET
+		{F10A6A7D-B8E4-4F8B-8BD9-5B42ACE5520E}.Release.ActiveCfg = Release|.NET
+		{F10A6A7D-B8E4-4F8B-8BD9-5B42ACE5520E}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

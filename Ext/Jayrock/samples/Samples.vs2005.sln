@@ -1,0 +1,53 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TidyJson", "tidyjson\TidyJson.csproj", "{F3ACEE61-71C7-4ACB-8A76-7F5225A9FB14}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonImportDemo", "JsonImportDemo\JsonImportDemo.csproj", "{D34A9F1C-3F7C-414E-84F3-9927FD6B8BED}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonOutputDemo", "JsonOutputDemo\JsonOutputDemo.csproj", "{9C6A7068-B6C1-481C-BA54-3A8CDEF5958B}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YahooJsonNewsReader", "YahooJsonNewsReader\YahooJsonNewsReader.csproj", "{E3BFDE70-F896-4ADA-8150-F03D83E1A706}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3ACEE61-71C7-4ACB-8A76-7F5225A9FB14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3ACEE61-71C7-4ACB-8A76-7F5225A9FB14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3ACEE61-71C7-4ACB-8A76-7F5225A9FB14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3ACEE61-71C7-4ACB-8A76-7F5225A9FB14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D34A9F1C-3F7C-414E-84F3-9927FD6B8BED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D34A9F1C-3F7C-414E-84F3-9927FD6B8BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D34A9F1C-3F7C-414E-84F3-9927FD6B8BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D34A9F1C-3F7C-414E-84F3-9927FD6B8BED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C6A7068-B6C1-481C-BA54-3A8CDEF5958B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C6A7068-B6C1-481C-BA54-3A8CDEF5958B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C6A7068-B6C1-481C-BA54-3A8CDEF5958B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C6A7068-B6C1-481C-BA54-3A8CDEF5958B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3BFDE70-F896-4ADA-8150-F03D83E1A706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3BFDE70-F896-4ADA-8150-F03D83E1A706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3BFDE70-F896-4ADA-8150-F03D83E1A706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3BFDE70-F896-4ADA-8150-F03D83E1A706}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
