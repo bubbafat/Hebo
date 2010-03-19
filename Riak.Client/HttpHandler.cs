@@ -60,6 +60,16 @@ namespace Riak.Client
                 Stream.Null);
         }
 
+        public RiakResponse Head(Uri uri)
+        {
+            return Head(uri, null);
+        }
+
+        public RiakResponse Head(Uri uri, IList<HttpStatusCode> allowedCodes)
+        {
+            return Execute(WebRequestVerb.HEAD, uri, null, allowedCodes, Stream.Null);
+        }
+
         public RiakResponse Put(Uri uri, string contentType, IList<HttpStatusCode> allowedCodes, string data)
         {
             return Execute(WebRequestVerb.PUT, 

@@ -57,13 +57,24 @@ namespace Riak.Client
             }
         }
 
+        public void Refresh()
+        {
+            using(RiakResponse response = _bucket.Client.Http.Head(
+                _bucket.Client.Http.BuildUri(_bucket.Name, Name, null),
+                new List<HttpStatusCode>{HttpStatusCode.OK, HttpStatusCode.Ambiguous, HttpStatusCode.NotModified, HttpStatusCode.NotFound}
+                ))
+            {
+                LoadHeaders(response);
+            }
+        }
+
         private Dictionary<string,string> GetHeaders()
         {
             Dictionary<string, string> headers = new Dictionary<string, string>();
 
             if(!string.IsNullOrEmpty(VClock))
             {
-                headers["X-Riak-Vclock"] = VClock;
+                headers[HttpWellKnownHeader.RiakVClock] = VClock;
             }
 
             return headers;
@@ -117,17 +128,24 @@ namespace Riak.Client
             using(RiakResponse response = _bucket.Client.Http.Get(
                 _bucket.Client.Http.BuildUri(_bucket.Name, Name, null)))
             {
-                LoadHeaders(response.Headers);
+                LoadHeaders(response);
                 return callback(response.Headers, response.GetResponseStream());
             }
         }
 
-        private void LoadHeaders(NameValueCollection webHeaderCollection)
+        public bool HasSiblings
         {
-            VClock = GetOrDefault<string>(webHeaderCollection, "X-Riak-Vclock", null);
-            ContentType = GetOrDefault<string>(webHeaderCollection, "Content-Type", null);
-            ETag = GetOrDefault<string>(webHeaderCollection, "ETag", null);
-            LastModified = GetOrDefault(webHeaderCollection, "Last-Modified", DateTime.UtcNow);
+            get; private set;
+        }
+
+        private void LoadHeaders(RiakResponse response)
+        {
+            HasSiblings = response.StatusCode == HttpStatusCode.Ambiguous;
+
+            VClock = GetOrDefault<string>(response.Headers, "X-Riak-Vclock", null);
+            ContentType = GetOrDefault<string>(response.Headers, "Content-Type", null);
+            ETag = GetOrDefault<string>(response.Headers, "ETag", null);
+            LastModified = GetOrDefault(response.Headers, "Last-Modified", DateTime.UtcNow);
         }
 
         private static T GetOrDefault<T>(NameValueCollection webHeaderCollection, string name, T defaultValue)

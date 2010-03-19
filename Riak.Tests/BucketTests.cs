@@ -179,6 +179,15 @@ namespace Riak.Tests
             conflict1.Store("Conflict1");
             conflict2.Store("Conflict2");
 
+            keyToConflictOn.Refresh();
+            Assert.IsTrue(keyToConflictOn.HasSiblings);
+
+            conflict1.Refresh();
+            Assert.IsTrue(conflict1.HasSiblings);
+
+            conflict2.Refresh();
+            Assert.IsTrue(conflict2.HasSiblings);
+
             Assert.AreEqual(keyToConflictOn.GetString(), "Conflict2");
         }
     }
