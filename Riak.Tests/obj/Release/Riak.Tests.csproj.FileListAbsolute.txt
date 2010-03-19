@@ -1,0 +1,9 @@
+c:\projects\Riak.Client\Riak.Tests\bin\Release\Riak.Tests.dll
+c:\projects\Riak.Client\Riak.Tests\bin\Release\Riak.Tests.pdb
+c:\projects\Riak.Client\Riak.Tests\bin\Release\Riak.Client.dll
+c:\projects\Riak.Client\Riak.Tests\bin\Release\Jayrock.Json.dll
+c:\projects\Riak.Client\Riak.Tests\bin\Release\Riak.Client.pdb
+c:\projects\Riak.Client\Riak.Tests\bin\Release\Jayrock.Json.pdb
+c:\projects\Riak.Client\Riak.Tests\obj\Release\ResolveAssemblyReference.cache
+c:\projects\Riak.Client\Riak.Tests\obj\Release\Riak.Tests.dll
+c:\projects\Riak.Client\Riak.Tests\obj\Release\Riak.Tests.pdb

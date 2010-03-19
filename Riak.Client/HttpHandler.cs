@@ -42,15 +42,15 @@ namespace Riak.Client
 
         public RiakResponse Get(Uri uri, string accept)
         {
-            return Get(uri, accept, new List<HttpStatusCode> {HttpStatusCode.OK});
+            return Get(uri, accept, BuildListOf(HttpStatusCode.OK));
         }
 
-        public RiakResponse Get(Uri uri, IList<HttpStatusCode> allowedCodes)
+        public RiakResponse Get(Uri uri, ICollection<HttpStatusCode> allowedCodes)
         {
             return Get(uri, "*/*", allowedCodes);
         }
 
-        public RiakResponse Get(Uri uri, string accept, IList<HttpStatusCode> allowedCodes)
+        public RiakResponse Get(Uri uri, string accept, ICollection<HttpStatusCode> allowedCodes)
         {
             return Execute(
                 WebRequestVerb.GET,
@@ -65,12 +65,12 @@ namespace Riak.Client
             return Head(uri, null);
         }
 
-        public RiakResponse Head(Uri uri, IList<HttpStatusCode> allowedCodes)
+        public RiakResponse Head(Uri uri, ICollection<HttpStatusCode> allowedCodes)
         {
             return Execute(WebRequestVerb.HEAD, uri, null, allowedCodes, Stream.Null);
         }
 
-        public RiakResponse Put(Uri uri, string contentType, IList<HttpStatusCode> allowedCodes, string data)
+        public RiakResponse Put(Uri uri, string contentType, ICollection<HttpStatusCode> allowedCodes, string data)
         {
             return Execute(WebRequestVerb.PUT, 
                 uri, 
@@ -79,7 +79,7 @@ namespace Riak.Client
                 data);
         }
 
-        public RiakResponse Put(Uri uri, string contentType, IList<HttpStatusCode> allowedCodes, Stream data)
+        public RiakResponse Put(Uri uri, string contentType, ICollection<HttpStatusCode> allowedCodes, Stream data)
         {
             return Execute(WebRequestVerb.PUT, 
                 uri, 
@@ -88,7 +88,7 @@ namespace Riak.Client
                 data);
         }
 
-        public RiakResponse Put(Uri uri, string contentType, Dictionary<string, string> headers, IList<HttpStatusCode> allowedCodes, string data)
+        public RiakResponse Put(Uri uri, string contentType, Dictionary<string, string> headers, ICollection<HttpStatusCode> allowedCodes, string data)
         {
             headers[HttpWellKnownHeader.ContentType] = contentType;
 
@@ -99,7 +99,7 @@ namespace Riak.Client
                 data);
         }
 
-        public RiakResponse Put(Uri uri, string contentType, Dictionary<string, string> headers, IList<HttpStatusCode> allowedCodes, Stream data)
+        public RiakResponse Put(Uri uri, string contentType, Dictionary<string, string> headers, ICollection<HttpStatusCode> allowedCodes, Stream data)
         {
             headers[HttpWellKnownHeader.ContentType] = contentType;
 
@@ -111,7 +111,7 @@ namespace Riak.Client
         }
 
 
-        public RiakResponse Delete(Uri uri, Dictionary<string, string> headers, IList<HttpStatusCode> allowedCodes)
+        public RiakResponse Delete(Uri uri, Dictionary<string, string> headers, ICollection<HttpStatusCode> allowedCodes)
         {
             return Execute(WebRequestVerb.DELETE,
                 uri,
@@ -120,11 +120,11 @@ namespace Riak.Client
                 Stream.Null);
         }
 
-        public RiakResponse Execute(
+        private RiakResponse Execute(
             WebRequestVerb verb,
             Uri uri,
             Dictionary<string, string> headers,
-            IList<HttpStatusCode> allowedCodes,
+            ICollection<HttpStatusCode> allowedCodes,
             string requestData)
         {
             if (string.IsNullOrEmpty(requestData))
@@ -138,11 +138,11 @@ namespace Riak.Client
             }
         }
 
-        public RiakResponse Execute(
+        private RiakResponse Execute(
             WebRequestVerb verb, 
             Uri uri, 
             Dictionary<string,string> headers,
-            IList<HttpStatusCode> allowedCodes,
+            ICollection<HttpStatusCode> allowedCodes,
             Stream requestDataStream)
         {
             if(allowedCodes == null)
@@ -232,6 +232,7 @@ namespace Riak.Client
                     {
                         fullUri.Append("&");
                     }
+
                     fullUri.AppendFormat("{0}={1}",
                                          Uri.EscapeUriString(argument.Key),
                                          Uri.EscapeUriString(argument.Value));
@@ -253,6 +254,11 @@ namespace Riak.Client
                     return;
                 output.Write(buffer, 0, read);
             }
+        }
+
+        public static ICollection<T> BuildListOf<T>(params T[] codes)
+        {
+            return codes;
         }
     }
 }

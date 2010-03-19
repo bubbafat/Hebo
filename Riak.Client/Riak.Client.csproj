@@ -46,15 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GetMockResponse.cs" />
     <Compile Include="HttpHandler.cs" />
-    <Compile Include="RegisteredMockRequests.cs" />
     <Compile Include="RiakClient.cs" />
     <Compile Include="RiakException.cs" />
     <Compile Include="RiakHttpRequest.cs" />
     <Compile Include="RiakHttpResponse.cs" />
-    <Compile Include="RiakMockTextResponse.cs" />
-    <Compile Include="RiakMockRequest.cs" />
     <Compile Include="RiakObject.cs" />
     <Compile Include="RiakRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

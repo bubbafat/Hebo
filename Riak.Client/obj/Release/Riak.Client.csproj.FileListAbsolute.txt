@@ -1,0 +1,9 @@
+c:\projects\Riak.Client\Riak.Client\bin\Release\Riak.Client.dll
+c:\projects\Riak.Client\Riak.Client\bin\Release\Riak.Client.pdb
+c:\projects\Riak.Client\Riak.Client\bin\Release\Jayrock.dll
+c:\projects\Riak.Client\Riak.Client\bin\Release\Jayrock.Json.dll
+c:\projects\Riak.Client\Riak.Client\bin\Release\Jayrock.pdb
+c:\projects\Riak.Client\Riak.Client\bin\Release\Jayrock.Json.pdb
+c:\projects\Riak.Client\Riak.Client\obj\Release\ResolveAssemblyReference.cache
+c:\projects\Riak.Client\Riak.Client\obj\Release\Riak.Client.dll
+c:\projects\Riak.Client\Riak.Client\obj\Release\Riak.Client.pdb

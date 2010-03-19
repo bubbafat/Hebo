@@ -87,7 +87,7 @@ namespace Riak.Client
             using (Client.Http.Put(
                         Client.Http.BuildUri(Name, null, null),
                         "application/json",
-                        new List<HttpStatusCode> {HttpStatusCode.NoContent},
+                        HttpHandler.BuildListOf(HttpStatusCode.NoContent),
                         json))
             {
                 AllowMulti = allowMulti;

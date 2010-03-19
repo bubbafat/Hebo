@@ -50,6 +50,10 @@ namespace Riak.Tests
                 });
 
             Assert.AreEqual(referenceString, newString);
+
+            o1.Refresh();
+
+            Assert.AreEqual("application/binary", o1.ContentType);
         }
 
         [TestMethod]

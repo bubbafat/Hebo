@@ -13,14 +13,6 @@ namespace Riak.Client
 
         public static RiakRequest Create(WebRequestVerb verb, Uri riakUri)
         {
-#if DEBUG
-            if (RiakMockRequest.IsMockableRequest(riakUri, verb))
-            {
-                RegisteredMockRequests mock = RiakMockRequest.GetMockByUriAndVerb(riakUri, verb);
-                return mock.ResponseCallback(verb, riakUri, mock);
-            }
-#endif
-
             return new RiakHttpRequest(verb, riakUri);
         }
 

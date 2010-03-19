@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -12,8 +10,10 @@ namespace Riak.Client
     
     public class RiakObject
     {
-        private readonly Bucket _bucket;
-        private readonly string _name;
+        public long ContentLength
+        {
+            get; private set;
+        }
 
         public string ContentType
         {
@@ -37,32 +37,25 @@ namespace Riak.Client
 
         internal RiakObject(Bucket bucket, string name)
         {
-            _bucket = bucket;
-            _name = name;
+            Bucket = bucket;
+            Name = name;
         }
 
         public Bucket Bucket
         {
-            get
-            {
-                return _bucket;
-            }
+            get; private set;
         }
 
         public string Name
         {
-            get
-            {
-                return _name;
-            }
+            get; private set;
         }
 
         public void Refresh()
         {
-            using(RiakResponse response = _bucket.Client.Http.Head(
-                _bucket.Client.Http.BuildUri(_bucket.Name, Name, null),
-                new List<HttpStatusCode>{HttpStatusCode.OK, HttpStatusCode.Ambiguous, HttpStatusCode.NotModified, HttpStatusCode.NotFound}
-                ))
+            using(RiakResponse response = Bucket.Client.Http.Head(
+                Bucket.Client.Http.BuildUri(Bucket.Name, Name, null),
+                HttpHandler.BuildListOf(HttpStatusCode.OK, HttpStatusCode.Ambiguous, HttpStatusCode.NotModified, HttpStatusCode.NotFound)))
             {
                 LoadHeaders(response);
             }
@@ -82,10 +75,10 @@ namespace Riak.Client
 
         public virtual void Delete()
         {
-            using (_bucket.Client.Http.Delete(
-                _bucket.Client.Http.BuildUri(_bucket.Name, Name, null), 
+            using (Bucket.Client.Http.Delete(
+                Bucket.Client.Http.BuildUri(Bucket.Name, Name, null), 
                 GetHeaders(),
-                new List<HttpStatusCode>{HttpStatusCode.NoContent, HttpStatusCode.NotFound}))
+                HttpHandler.BuildListOf(HttpStatusCode.NoContent, HttpStatusCode.NotFound)))
             {
             }
         }
@@ -100,11 +93,11 @@ namespace Riak.Client
 
         public virtual void Store(Stream data)
         {
-            using(_bucket.Client.Http.Put(
-                _bucket.Client.Http.BuildUri(_bucket.Name, Name, null),
+            using(Bucket.Client.Http.Put(
+                Bucket.Client.Http.BuildUri(Bucket.Name, Name, null),
                 ContentType,
                 GetHeaders(),
-                new List<HttpStatusCode>{HttpStatusCode.OK, HttpStatusCode.NoContent},
+                HttpHandler.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent),
                 data))
             {
             }
@@ -135,8 +128,8 @@ namespace Riak.Client
                 throw new RiakUnresolvedConflictException("Error: key has conflicts that must be resolved.");
             }
 
-            using (RiakResponse response = _bucket.Client.Http.Get(
-                _bucket.Client.Http.BuildUri(_bucket.Name, Name, null)))
+            using (RiakResponse response = Bucket.Client.Http.Get(
+                Bucket.Client.Http.BuildUri(Bucket.Name, Name, null)))
             {
                 LoadHeaders(response);
                 return callback(response.Headers, response.GetResponseStream());
@@ -152,32 +145,11 @@ namespace Riak.Client
         {
             HasSiblings = response.StatusCode == HttpStatusCode.Ambiguous;
 
-            VClock = GetOrDefault<string>(response.Headers, "X-Riak-Vclock", null);
-            ContentType = GetOrDefault<string>(response.Headers, "Content-Type", null);
-            ETag = GetOrDefault<string>(response.Headers, "ETag", null);
-            LastModified = GetOrDefault(response.Headers, "Last-Modified", DateTime.UtcNow);
-        }
-
-        private static T GetOrDefault<T>(NameValueCollection webHeaderCollection, string name, T defaultValue)
-        {
-            string header = webHeaderCollection[name];
-            if (!string.IsNullOrEmpty(header))
-            {
-                try
-                {
-                    return (T) Convert.ChangeType(header, typeof (T));
-
-                }
-                catch (FormatException)
-                {
-                    Debug.Fail(string.Format("Error converting header {0} with value \"{1}\"",
-                                             name,
-                                             header));
-
-                }
-            }
-
-            return defaultValue;
+            VClock = response.Headers[HttpWellKnownHeader.RiakVClock];
+            ContentType = response.ContentType;
+            ETag = response.Headers[HttpWellKnownHeader.ETag];
+            LastModified = response.LastModified;
+            ContentLength = response.ContentLength;
         }
     }
 }

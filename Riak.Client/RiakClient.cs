@@ -8,7 +8,7 @@ namespace Riak.Client
         {
             if(!riakUri.IsAbsoluteUri)
             {
-                throw new RiakException("The RiakClient uri must be absolute.");
+                throw new RiakClientException("The RiakClient uri must be absolute.");
             }
 
             Http = new HttpHandler(riakUri.AbsoluteUri);
@@ -29,7 +29,5 @@ namespace Riak.Client
 
             return b;
         }
-
-        public Uri Uri { get { return Http.Uri; } }
     }
 }

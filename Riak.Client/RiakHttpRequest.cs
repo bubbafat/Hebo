@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 
@@ -22,6 +21,7 @@ namespace Riak.Client
         public const string UserAgent = "User-Agent";
         public const string RiakClientId = "X-Riak-ClientId";
         public const string RiakVClock = "X-Riak-Vclock";
+        public const string ETag = "ETag";
     }
 
     public delegate void SetHeaderValue(string name, string value);
@@ -61,8 +61,8 @@ namespace Riak.Client
         void SetContentLength(string name, string value) { _webRequest.ContentLength = long.Parse(value); }
         void SetContentType(string name, string value) { _webRequest.ContentType = value; }
         void SetExpect(string name, string value) { _webRequest.Expect = value; }
-        void SetReserved(string name, string value) { throw new RiakException("The HTTP header value {0} is reserved and cannot be set explicitly.", name); }
-        void SetNotImplemented(string name, string value) { throw new RiakException("The HTTP header value {0} is not currently implemented by Riak.Client and cannot be set explicitly.", name); }
+        void SetReserved(string name, string value) { throw new RiakClientException("The HTTP header value {0} is reserved and cannot be set explicitly.", name); }
+        void SetNotImplemented(string name, string value) { throw new RiakClientException("The HTTP header value {0} is not currently implemented by Riak.Client and cannot be set explicitly.", name); }
         void SetIfModifiedSince(string name, string value) { _webRequest.IfModifiedSince = DateTime.Parse(value); }
         
         void SetReferer(string name, string value) { _webRequest.Referer = value; }
@@ -101,16 +101,6 @@ namespace Riak.Client
                 {
                     return new RiakHttpResponse((HttpWebResponse) we.Response);
                 }
-
-#if DEBUG
-                if (we.Response != null)
-                {
-                    using (StreamReader sr = new StreamReader(we.Response.GetResponseStream()))
-                    {
-                        Trace.TraceError(sr.ReadToEnd());
-                    }
-                }
-#endif
 
                 throw;
             }
