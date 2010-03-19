@@ -56,24 +56,22 @@ namespace Riak.Client
                              };
         }
 
+        static void SetReserved(string name, string value) { throw new RiakClientException("The HTTP header value {0} is reserved and cannot be set explicitly.", name); }
+        static void SetNotImplemented(string name, string value) { throw new RiakClientException("The HTTP header value {0} is not currently implemented by Riak.Client and cannot be set explicitly.", name); }
         void SetAccept(string name, string value) { _webRequest.Accept = value; }
         void SetConnection(string name, string value) { _webRequest.Connection = value; }
         void SetContentLength(string name, string value) { _webRequest.ContentLength = long.Parse(value); }
         void SetContentType(string name, string value) { _webRequest.ContentType = value; }
         void SetExpect(string name, string value) { _webRequest.Expect = value; }
-        void SetReserved(string name, string value) { throw new RiakClientException("The HTTP header value {0} is reserved and cannot be set explicitly.", name); }
-        void SetNotImplemented(string name, string value) { throw new RiakClientException("The HTTP header value {0} is not currently implemented by Riak.Client and cannot be set explicitly.", name); }
         void SetIfModifiedSince(string name, string value) { _webRequest.IfModifiedSince = DateTime.Parse(value); }
-        
+        void SetUserAgent(string name, string value) { _webRequest.UserAgent = value; }
+        void SetNonReservedValue(string name, string value) { _webRequest.Headers[name] = value; }
         void SetReferer(string name, string value) { _webRequest.Referer = value; }
         void SetTransferEncoding(string name, string value)
         {
             _webRequest.TransferEncoding = value;
             _webRequest.SendChunked = value.Length > 0;
         }
-
-        void SetUserAgent(string name, string value) { _webRequest.UserAgent = value; }
-        void SetNonReservedValue(string name, string value) { _webRequest.Headers[name] = value; }
         
         public override void AddHeader(string name, string value)
         {

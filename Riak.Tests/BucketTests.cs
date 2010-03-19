@@ -38,20 +38,22 @@ namespace Riak.Tests
 
             const string referenceString = "Sample Stream Data";
 
-            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(referenceString));
-            o1.Store(ms);
+            using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(referenceString)))
+            {
+                o1.Store(ms);
 
-            string newString = o1.GetStream(
-                delegate(WebHeaderCollection headers,
-                         Stream stream)
-                {
-                    using (StreamReader sr = new StreamReader(stream))
-                    {
-                        return sr.ReadToEnd();
-                    }
-                });
+                string newString = o1.GetStream(
+                    delegate(WebHeaderCollection headers,
+                             Stream stream)
+                        {
+                            using (StreamReader sr = new StreamReader(stream))
+                            {
+                                return sr.ReadToEnd();
+                            }
+                        });
 
-            Assert.AreEqual(referenceString, newString);
+                Assert.AreEqual(referenceString, newString);
+            }
 
             o1.Refresh();
 
