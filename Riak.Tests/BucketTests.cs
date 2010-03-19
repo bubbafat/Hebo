@@ -157,6 +157,7 @@ namespace Riak.Tests
 
 
         [TestMethod]
+        [ExpectedException(typeof(RiakUnresolvedConflictException))]
         public void ConflictOnAllowMultiBucket()
         {
             RiakClient client = new RiakClient(Settings.RiakServerUri);
@@ -188,7 +189,7 @@ namespace Riak.Tests
             conflict2.Refresh();
             Assert.IsTrue(conflict2.HasSiblings);
 
-            Assert.AreEqual(keyToConflictOn.GetString(), "Conflict2");
+            keyToConflictOn.GetString();
         }
     }
 }

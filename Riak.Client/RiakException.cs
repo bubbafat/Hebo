@@ -38,6 +38,72 @@ namespace Riak.Client
     }
 
     [Serializable]
+    public class RiakClientException : RiakException
+    {
+        public RiakClientException()
+        {
+        }
+
+        public RiakClientException(String message)
+            : base(message)
+        {
+        }
+
+        public RiakClientException(String messageFormat, params object[] args)
+            : base(string.Format(messageFormat, args))
+        {
+        }
+
+        public RiakClientException(String message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
+
+        public RiakClientException(Exception innerException, String messageFormat, params object[] args)
+            : base(string.Format(messageFormat, args), innerException)
+        {
+        }
+
+        protected RiakClientException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
+    }
+
+    [Serializable]
+    public class RiakUnresolvedConflictException : RiakClientException
+    {
+        public RiakUnresolvedConflictException()
+        {
+        }
+
+        public RiakUnresolvedConflictException(String message)
+            : base(message)
+        {
+        }
+
+        public RiakUnresolvedConflictException(String messageFormat, params object[] args)
+            : base(string.Format(messageFormat, args))
+        {
+        }
+
+        public RiakUnresolvedConflictException(String message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
+
+        public RiakUnresolvedConflictException(Exception innerException, String messageFormat, params object[] args)
+            : base(string.Format(messageFormat, args), innerException)
+        {
+        }
+
+        protected RiakUnresolvedConflictException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
+    }
+
+    [Serializable]
     public class RiakServerException : RiakException
     {
         private readonly HttpStatusCode _statusCode;

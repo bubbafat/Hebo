@@ -112,6 +112,11 @@ namespace Riak.Client
 
         public string GetString()
         {
+            if(HasSiblings)
+            {
+                throw new RiakUnresolvedConflictException("Error: key has conflicts that must be resolved.");
+            }
+
             return GetStream(
                 delegate(WebHeaderCollection headers,
                          Stream stream)
@@ -125,7 +130,12 @@ namespace Riak.Client
 
         public T GetStream<T>(StreamDownloadedCallback<T> callback)
         {
-            using(RiakResponse response = _bucket.Client.Http.Get(
+            if (HasSiblings)
+            {
+                throw new RiakUnresolvedConflictException("Error: key has conflicts that must be resolved.");
+            }
+
+            using (RiakResponse response = _bucket.Client.Http.Get(
                 _bucket.Client.Http.BuildUri(_bucket.Name, Name, null)))
             {
                 LoadHeaders(response);
