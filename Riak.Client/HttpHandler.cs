@@ -78,6 +78,29 @@ namespace Riak.Client
                 data);
         }
 
+        public RiakResponse Put(Uri uri, string contentType, Dictionary<string, string> headers, IList<HttpStatusCode> allowedCodes, string data)
+        {
+            headers[HttpWellKnownHeader.ContentType] = contentType;
+
+            return Execute(WebRequestVerb.PUT,
+                uri,
+                headers,
+                allowedCodes,
+                data);
+        }
+
+        public RiakResponse Put(Uri uri, string contentType, Dictionary<string, string> headers, IList<HttpStatusCode> allowedCodes, Stream data)
+        {
+            headers[HttpWellKnownHeader.ContentType] = contentType;
+
+            return Execute(WebRequestVerb.PUT,
+                uri,
+                headers,
+                allowedCodes,
+                data);
+        }
+
+
         public RiakResponse Delete(Uri uri, Dictionary<string, string> headers, IList<HttpStatusCode> allowedCodes)
         {
             return Execute(WebRequestVerb.DELETE,
@@ -94,16 +117,14 @@ namespace Riak.Client
             IList<HttpStatusCode> allowedCodes,
             string requestData)
         {
-            if(!string.IsNullOrEmpty(requestData))
-            {
-                using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(requestData.ToCharArray()), false))
-                {
-                    return Execute(verb, uri, headers, allowedCodes, stream);
-                }
-            }
-            else
+            if (string.IsNullOrEmpty(requestData))
             {
                 return Execute(verb, uri, headers, allowedCodes, Stream.Null);
+            }
+         
+            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(requestData.ToCharArray()), false))
+            {
+                return Execute(verb, uri, headers, allowedCodes, stream);
             }
         }
 

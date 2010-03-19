@@ -7,14 +7,6 @@ namespace Riak.Client
     {
         public abstract void AddHeader(string name, string value);
 
-        public abstract string ContentType { get; set; }
-
-        public abstract string ClientId { get; set; }
-
-        public abstract string UserAgent { get; set; }
-
-        public abstract string Accept { get; set; }
-
         public abstract RiakResponse GetResponse();
 
         public abstract Stream GetRequestStream();

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Jayrock.Json;
@@ -9,16 +8,12 @@ namespace Riak.Client
 {
     public class Bucket
     {
-        private readonly Uri _bucketUri;
         private readonly List<string> _keys;
-
         private bool _allowMulti;
 
         internal Bucket(RiakClient client, string bucketName)
         {
             Client = client;
-            _bucketUri = Client.Http.BuildUri(bucketName, null, null);
-
             Name = bucketName;
             _keys = new List<string>();
         }
@@ -26,11 +21,6 @@ namespace Riak.Client
         public RiakClient Client
         {
             get; private set;
-        }
-
-        public Uri Uri
-        {
-            get { return _bucketUri;  }
         }
 
         public void Refresh()
@@ -68,9 +58,6 @@ namespace Riak.Client
             get { return _allowMulti; }
             set { _allowMulti = value; }
         }
-
-        public string UserAgent { get; set; }
-        public string ClientId { get; set; }
 
         public string Name
         {

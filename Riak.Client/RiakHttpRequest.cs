@@ -20,6 +20,8 @@ namespace Riak.Client
         public const string Referer = "Referer";
         public const string TransferEncoding = "Transfer-Encoding";
         public const string UserAgent = "User-Agent";
+        public const string RiakClientId = "X-Riak-ClientId";
+        public const string RiakVClock = "X-Riak-Vclock";
     }
 
     public delegate void SetHeaderValue(string name, string value);
@@ -49,6 +51,8 @@ namespace Riak.Client
                                  {HttpWellKnownHeader.Referer, SetReferer},
                                  {HttpWellKnownHeader.TransferEncoding, SetTransferEncoding},
                                  {HttpWellKnownHeader.UserAgent, SetUserAgent},
+                                 {HttpWellKnownHeader.RiakClientId, SetNonReservedValue },
+                                 {HttpWellKnownHeader.RiakVClock, SetNonReservedValue },
                              };
         }
 
@@ -69,6 +73,7 @@ namespace Riak.Client
         }
 
         void SetUserAgent(string name, string value) { _webRequest.UserAgent = value; }
+        void SetNonReservedValue(string name, string value) { _webRequest.Headers[name] = value; }
         
         public override void AddHeader(string name, string value)
         {
@@ -83,42 +88,18 @@ namespace Riak.Client
             }
         }
 
-        public override string ContentType
-        {
-            get { return _webRequest.ContentType; }
-            set { _webRequest.ContentType = value; }
-        }
-
-        public override string ClientId
-        {
-            get { return _webRequest.Headers["X-Riak-ClientId"]; }
-            set { _webRequest.Headers["X-Riak-ClientId"] = value; }
-        }
-
-        public override string UserAgent
-        {
-            get { return _webRequest.UserAgent; }
-            set { _webRequest.UserAgent = value; }
-        }
-
-        public override string Accept
-        {
-            get { return _webRequest.Accept; }
-            set { _webRequest.Accept = value; }
-        }
-
         public override RiakResponse GetResponse()
         {
             try
             {
                 HttpWebResponse webResponse = (HttpWebResponse)_webRequest.GetResponse();
-                return new RiakHttpResponse(this, webResponse);
+                return new RiakHttpResponse(webResponse);
             }
             catch (WebException we)
             {
                 if(we.Response != null && we.Response is HttpWebResponse)
                 {
-                    return new RiakHttpResponse(this, (HttpWebResponse) we.Response);
+                    return new RiakHttpResponse((HttpWebResponse) we.Response);
                 }
 
 #if DEBUG

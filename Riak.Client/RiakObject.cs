@@ -59,10 +59,12 @@ namespace Riak.Client
 
         private Dictionary<string,string> GetHeaders()
         {
-            Dictionary<string, string> headers = new Dictionary<string, string>
-                                                     {
-                                                         {"X-Riak-Vclock", VClock},
-                                                     };
+            Dictionary<string, string> headers = new Dictionary<string, string>();
+
+            if(!string.IsNullOrEmpty(VClock))
+            {
+                headers["X-Riak-Vclock"] = VClock;
+            }
 
             return headers;
         }
@@ -85,65 +87,15 @@ namespace Riak.Client
             }
         }
 
-        public static void CopyStream(Stream input, Stream output)
-        {
-            byte[] buffer = new byte[32768];
-            while (true)
-            {
-                int read = input.Read(buffer, 0, buffer.Length);
-                if (read <= 0)
-                    return;
-                output.Write(buffer, 0, read);
-            }
-        }
-
         public virtual void Store(Stream data)
         {
-            using(RiakRequest req = RiakRequest.Create(WebRequestVerb.PUT, Uri))
+            using(_bucket.Client.Http.Put(
+                _bucket.Client.Http.BuildUri(_bucket.Name, Name, null),
+                ContentType,
+                GetHeaders(),
+                new List<HttpStatusCode>{HttpStatusCode.OK, HttpStatusCode.NoContent},
+                data))
             {
-                req.UserAgent = _bucket.UserAgent;
-
-                if(string.IsNullOrEmpty(ContentType))
-                {
-                    throw new RiakException("ContentType must be set when storing a riak object");
-                }
-
-                req.ContentType = ContentType;
-                
-                if (!string.IsNullOrEmpty(VClock))
-                {
-                    req.AddHeader("X-Riak-Vclock", VClock);
-                }
-
-                using (Stream requestStream = req.GetRequestStream())
-                {
-                    CopyStream(data, requestStream);
-                }
-
-                using(RiakResponse response = req.GetResponse())
-                {
-                    switch(response.StatusCode)
-                    {
-                        case HttpStatusCode.OK:
-                        case HttpStatusCode.NoContent:
-                            break;
-                        default:
-                            throw new RiakServerException(response,
-                                "Error storing key {0} at {1}",
-                                _name,
-                                Uri);
-                    }
-                }
-            }
-        }
-
-        public virtual Uri Uri
-        {
-            get
-            {
-                return new Uri(string.Format("{0}/{1}",
-                    _bucket.Uri.AbsoluteUri,
-                    Uri.EscapeUriString(Name)));
             }
         }
 
@@ -162,19 +114,10 @@ namespace Riak.Client
 
         public T GetStream<T>(StreamDownloadedCallback<T> callback)
         {
-            using (RiakRequest req = RiakRequest.Create(WebRequestVerb.GET, Uri))
-            using (RiakResponse response = req.GetResponse())
+            using(RiakResponse response = _bucket.Client.Http.Get(
+                _bucket.Client.Http.BuildUri(_bucket.Name, Name, null)))
             {
                 LoadHeaders(response.Headers);
-
-                if(response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new RiakServerException(response, 
-                        "Error downloading content for key {0} at {1}",
-                        Name,
-                        Uri);
-                }
-
                 return callback(response.Headers, response.GetResponseStream());
             }
         }

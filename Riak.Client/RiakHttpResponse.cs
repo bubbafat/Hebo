@@ -6,12 +6,10 @@ namespace Riak.Client
 {
     class RiakHttpResponse : RiakResponse
     {
-        private readonly RiakHttpRequest _riakHttpRequest;
         private readonly HttpWebResponse _webResponse;
 
-        public RiakHttpResponse(RiakHttpRequest riakHttpRequest, HttpWebResponse webResponse)
+        public RiakHttpResponse(HttpWebResponse webResponse)
         {
-            _riakHttpRequest = riakHttpRequest;
             _webResponse = webResponse;
             Headers = _webResponse.Headers;
         }

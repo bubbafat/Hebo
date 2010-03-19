@@ -13,8 +13,8 @@ namespace Riak.Client
 
             Http = new HttpHandler(riakUri.AbsoluteUri);
 
-            UserAgent = "Riak Client for .NET Applications version blah";
-            ClientId = Guid.NewGuid().ToString();
+            Http.DefaultHeaders[HttpWellKnownHeader.UserAgent] = "Riak Client for .NET";
+            Http.DefaultHeaders[HttpWellKnownHeader.RiakClientId] = Guid.NewGuid().ToString();
         }
 
         public HttpHandler Http
@@ -31,8 +31,5 @@ namespace Riak.Client
         }
 
         public Uri Uri { get { return Http.Uri; } }
-
-        public string UserAgent { get; set; }
-        public string ClientId { get; set; }
     }
 }
