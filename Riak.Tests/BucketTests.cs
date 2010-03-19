@@ -181,6 +181,5 @@ namespace Riak.Tests
 
             Assert.AreEqual(keyToConflictOn.GetString(), "Conflict2");
         }
-
     }
 }

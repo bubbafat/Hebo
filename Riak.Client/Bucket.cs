@@ -15,19 +15,17 @@ namespace Riak.Client
         private bool _allowMulti;
 
         internal Bucket(RiakClient client, string bucketName)
-            : this(client.Uri, bucketName)
         {
-            UserAgent = client.UserAgent;
-            ClientId = client.ClientId;
-        }
+            Client = client;
+            _bucketUri = Client.Http.BuildUri(bucketName, null, null);
 
-        internal Bucket(Uri riakRootUri, string bucketName)
-        {
-            _bucketUri = new Uri(string.Format("{0}/{1}",
-                                               riakRootUri.AbsoluteUri.TrimEnd('/'),
-                                               Uri.EscapeUriString(bucketName)));
             Name = bucketName;
             _keys = new List<string>();
+        }
+
+        public RiakClient Client
+        {
+            get; private set;
         }
 
         public Uri Uri
@@ -39,32 +37,11 @@ namespace Riak.Client
         {
             _keys.Clear();
 
-            using (RiakRequest req = RiakRequest.Create(WebRequestVerb.GET, _bucketUri))
+            using (RiakResponse response = Client.Http.Get(
+                        Client.Http.BuildUri(Name, null, null), 
+                        "application/json"))
             {
-                req.UserAgent = UserAgent;
-
-                using (RiakResponse response = req.GetResponse())
-                {
-                    if (response.StatusCode != HttpStatusCode.OK)
-                    {
-                        throw new RiakServerException("HTTP Response {0} while loading bucket {1} ({2})",
-                                                      response.StatusCode,
-                                                      Name,
-                                                      _bucketUri.AbsoluteUri);
-                    }
-
-                    if (response.ContentType != "application/json")
-                    {
-                        throw new RiakServerException(
-                            "Error while loading bucket {0} ({1}): Expected content type {2} but received {3}",
-                            Name,
-                            _bucketUri.AbsoluteUri,
-                            "application/json",
-                            response.ContentType);
-                    }
-
-                    LoadFromJson(response.GetResponseStream());
-                }
+                LoadFromJson(response.GetResponseStream());
             }
         }
 
@@ -117,33 +94,16 @@ namespace Riak.Client
         {
             // {"props":{"allow_mult":false}}
 
-            using(RiakRequest req = RiakRequest.Create(WebRequestVerb.PUT, Uri))
+            string json = string.Format("{{\"props\":{{\"allow_mult\":{0}}}}}",
+                                        allowMulti ? "true" : "false");
+
+            using (Client.Http.Put(
+                        Client.Http.BuildUri(Name, null, null),
+                        "application/json",
+                        new List<HttpStatusCode> {HttpStatusCode.NoContent},
+                        json))
             {
-                req.ClientId = ClientId;
-                req.UserAgent = UserAgent;
-                req.ContentType = "application/json";
-
-                using(StreamWriter sw = new StreamWriter(req.GetRequestStream()))
-                {
-                    // value must be lower cased (default is upper)
-                    string json = string.Format("{{\"props\":{{\"allow_mult\":{0}}}}}", 
-                        allowMulti ? "true" : "false");
-
-                    sw.Write(json);
-                }
-
-                using(RiakResponse response = req.GetResponse())
-                {
-                    if(response.StatusCode == HttpStatusCode.NoContent)
-                    {
-                        AllowMulti = allowMulti;
-                    }
-                    else
-                    {
-                        throw new RiakServerException(response, 
-                            "Error setting allow_mutl property on bucket {0}", _bucketUri.AbsoluteUri);
-                    }
-                }
+                AllowMulti = allowMulti;
             }
         }
     }

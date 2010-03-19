@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
@@ -56,32 +57,23 @@ namespace Riak.Client
             }
         }
 
+        private Dictionary<string,string> GetHeaders()
+        {
+            Dictionary<string, string> headers = new Dictionary<string, string>
+                                                     {
+                                                         {"X-Riak-Vclock", VClock},
+                                                     };
+
+            return headers;
+        }
+
         public virtual void Delete()
         {
-            using (RiakRequest req = RiakRequest.Create(WebRequestVerb.DELETE, Uri))
+            using (_bucket.Client.Http.Delete(
+                _bucket.Client.Http.BuildUri(_bucket.Name, Name, null), 
+                GetHeaders(),
+                new List<HttpStatusCode>{HttpStatusCode.NoContent, HttpStatusCode.NotFound}))
             {
-                req.UserAgent = _bucket.UserAgent;
-                req.ClientId = _bucket.ClientId;
-
-                if (!string.IsNullOrEmpty(VClock))
-                {
-                    req.AddHeader("X-Riak-Vclock", VClock);
-                }
-
-                using (RiakResponse response = req.GetResponse())
-                {
-                    switch (response.StatusCode)
-                    {
-                        case HttpStatusCode.NoContent:
-                        case HttpStatusCode.NotFound:
-                            break;
-                        default:
-                            throw new RiakServerException(response,
-                                "Error storing key {0} at {1}",
-                                _name,
-                                Uri);
-                    }
-                }
             }
         }
 
