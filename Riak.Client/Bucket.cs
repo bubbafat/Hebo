@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using Jayrock.Json;
 using Jayrock.Json.Conversion;
@@ -75,6 +78,53 @@ namespace Riak.Client
         public RiakObject Get(string name)
         {
             return new RiakObject(this, name);
+        }
+
+        public ICollection<RiakObject> GetAll(string keyName)
+        {
+            using(RiakResponse response = Client.Http.Get(
+                    Client.Http.BuildUri(Name, keyName, null),
+                    HttpHandler.BuildListOf(HttpStatusCode.OK, HttpStatusCode.Ambiguous, HttpStatusCode.NotFound)))
+            {
+                switch(response.StatusCode)
+                {
+                    case HttpStatusCode.NotFound:
+                        return new List<RiakObject>();
+                    case HttpStatusCode.Ambiguous:
+                        return LoadSiblingObjects(response, keyName);
+                    case HttpStatusCode.OK:
+                        return new List<RiakObject> {new RiakObject(this, response)};
+                    default:
+                        throw new RiakClientException("The response code {0} was unexpected", response.StatusCode);
+                }
+            }
+        }
+
+        private ICollection<RiakObject> LoadSiblingObjects(RiakResponse response, string keyName)
+        {
+            Debug.Assert(response.ContentType == "text/plain",
+                string.Format("ContentType was {0} but expected text/plain", response.ContentType));
+
+            List<string> siblingIds = new List<string>();
+
+            using(StreamReader sr = new StreamReader(response.GetResponseStream()))
+            {
+                string siblingHeader = sr.ReadLine();
+
+                Debug.Assert(siblingHeader == "Siblings:",
+                    string.Format("The header was \"{0}\" but expected \"Siblings:\"", siblingHeader));
+
+                while(!sr.EndOfStream)
+                {
+                    siblingIds.Add(sr.ReadLine());
+                }
+            }
+
+            List<RiakObject> siblingObjects = new List<RiakObject>(siblingIds.Count);
+            
+            siblingObjects.AddRange(siblingIds.Select(siblingId => new RiakObject(this, keyName, siblingId)));
+
+            return siblingObjects;
         }
 
         public void SetAllowMulti(bool allowMulti)

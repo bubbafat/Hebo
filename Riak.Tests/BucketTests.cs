@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -194,6 +196,49 @@ namespace Riak.Tests
             Assert.IsTrue(conflict2.HasSiblings);
 
             keyToConflictOn.GetString();
+        }
+
+        [TestMethod]
+        public void GetAllSiblingsOnConflict()
+        {
+            RiakClient client = new RiakClient(Settings.RiakServerUri);
+            Bucket bucket = client.Bucket("ConflictOnAllowMultiBucket");
+            bucket.SetAllowMulti(true);
+
+            RiakObject keyToConflictOn = bucket.Get(Guid.NewGuid().ToString());
+            keyToConflictOn.ContentType = "text/plain";
+            keyToConflictOn.Store("Data1");
+
+            RiakObject conflict1 = bucket.Get(keyToConflictOn.Name);
+            conflict1.GetString();
+
+            RiakObject conflict2 = bucket.Get(keyToConflictOn.Name);
+            conflict2.GetString();
+
+            Assert.IsNotNull(conflict1.VClock);
+            Assert.AreEqual(conflict1.VClock, conflict2.VClock);
+
+            conflict1.Store("Conflict1");
+            conflict2.Store("Conflict2");
+
+            keyToConflictOn.Refresh();
+            Assert.IsTrue(keyToConflictOn.HasSiblings);
+
+            conflict1.Refresh();
+            Assert.IsTrue(conflict1.HasSiblings);
+
+            conflict2.Refresh();
+            Assert.IsTrue(conflict2.HasSiblings);
+
+            ICollection<RiakObject> siblings = bucket.GetAll(keyToConflictOn.Name);
+            Assert.AreEqual(2, siblings.Count);
+
+            string string0 = siblings.ElementAt(0).GetString();
+            string string1 = siblings.ElementAt(1).GetString();
+
+            List<string> expect = new List<string>{"Conflict1", "Conflict2"};
+            Assert.IsTrue(expect.Contains(string0));
+            Assert.IsTrue(expect.Contains(string1));
         }
     }
 }

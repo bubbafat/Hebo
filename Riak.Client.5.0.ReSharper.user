@@ -8,55 +8,51 @@
   </SettingsComponent>
   <RecentFiles>
     <RecentFiles>
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:GetMockResponse.cs" caret="160" fromTop="4" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RegisteredMockRequests.cs" caret="210" fromTop="7" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakResponse.cs" caret="233" fromTop="9" />
-      <File id="63C08E06-DD04-4CA2-921C-87890DB829AB/f:UnitTest1.cs" caret="1526" fromTop="14" />
       <File id="63C08E06-DD04-4CA2-921C-87890DB829AB/f:Settings.cs" caret="229" fromTop="11" />
-      <File id="63C08E06-DD04-4CA2-921C-87890DB829AB/f:BucketTests.cs" caret="13" fromTop="0" />
       <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/d:Properties/f:AssemblyInfo.cs" caret="26" fromTop="0" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakException.cs" caret="15" fromTop="0" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpResponse.cs" caret="155" fromTop="7" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakMockTextResponse.cs" caret="222" fromTop="9" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakRequest.cs" caret="15" fromTop="0" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="5412" fromTop="17" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakMockRequest.cs" caret="656" fromTop="17" />
       <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:WebRequestVerb.cs" caret="73" fromTop="3" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakClient.cs" caret="0" fromTop="0" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="0" fromTop="0" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpRequest.cs" caret="1716" fromTop="19" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpResponse.cs" caret="13" fromTop="0" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakRequest.cs" caret="485" fromTop="17" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakException.cs" caret="2939" fromTop="14" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakResponse.cs" caret="672" fromTop="25" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakClient.cs" caret="635" fromTop="13" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="1954" fromTop="18" />
+      <File id="63C08E06-DD04-4CA2-921C-87890DB829AB/f:BucketTests.cs" caret="5798" fromTop="17" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="2157" fromTop="14" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpRequest.cs" caret="4740" fromTop="8" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:HttpHandler.cs" caret="983" fromTop="8" />
     </RecentFiles>
     <RecentEdits>
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="2324" fromTop="4" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakException.cs" caret="986" fromTop="17" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="69" fromTop="2" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/d:Properties/f:AssemblyInfo.cs" caret="26" fromTop="0" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakClient.cs" caret="103" fromTop="5" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakException.cs" caret="15" fromTop="0" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpRequest.cs" caret="37" fromTop="0" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpResponse.cs" caret="50" fromTop="1" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpResponse.cs" caret="155" fromTop="7" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakMockTextResponse.cs" caret="222" fromTop="9" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="70" fromTop="0" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="376" fromTop="12" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="217" fromTop="7" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="5886" fromTop="17" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakRequest.cs" caret="15" fromTop="0" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="5415" fromTop="17" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="457" fromTop="17" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="2336" fromTop="17" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakMockRequest.cs" caret="6921" fromTop="17" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakMockRequest.cs" caret="7088" fromTop="22" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakMockRequest.cs" caret="171" fromTop="8" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakMockRequest.cs" caret="454" fromTop="15" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="3178" fromTop="19" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="290" fromTop="13" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="817" fromTop="26" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="1616" fromTop="18" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="2017" fromTop="18" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="2799" fromTop="18" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpRequest.cs" caret="1917" fromTop="18" />
-      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpRequest.cs" caret="1918" fromTop="23" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpRequest.cs" caret="5135" fromTop="20" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:HttpHandler.cs" caret="0" fromTop="0" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:HttpHandler.cs" caret="658" fromTop="28" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:HttpHandler.cs" caret="798" fromTop="35" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakClient.cs" caret="801" fromTop="17" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakClient.cs" caret="221" fromTop="9" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpRequest.cs" caret="3362" fromTop="1" />
+      <File id="63C08E06-DD04-4CA2-921C-87890DB829AB/f:BucketTests.cs" caret="281" fromTop="10" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpRequest.cs" caret="63" fromTop="1" />
+      <File id="63C08E06-DD04-4CA2-921C-87890DB829AB/f:BucketTests.cs" caret="6691" fromTop="2" />
+      <File id="63C08E06-DD04-4CA2-921C-87890DB829AB/f:BucketTests.cs" caret="68" fromTop="1" />
+      <File id="63C08E06-DD04-4CA2-921C-87890DB829AB/f:BucketTests.cs" caret="8225" fromTop="34" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="2942" fromTop="29" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpRequest.cs" caret="4813" fromTop="26" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="2238" fromTop="13" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="3330" fromTop="19" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="3089" fromTop="6" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="4308" fromTop="30" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="3916" fromTop="28" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:Bucket.cs" caret="2663" fromTop="17" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="1039" fromTop="12" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="441" fromTop="10" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="278" fromTop="1" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="929" fromTop="6" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="1290" fromTop="20" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakHttpRequest.cs" caret="1005" fromTop="23" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="2327" fromTop="31" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="2365" fromTop="31" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="1580" fromTop="15" />
+      <File id="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D/f:RiakObject.cs" caret="1955" fromTop="20" />
     </RecentEdits>
   </RecentFiles>
   <NAntValidationSettings>
@@ -72,55 +68,55 @@
   </UnitTestRunnerNUnit>
   <CompletionStatisticsManager>
     <ItemStatistics item="Default">
-      <Item value="public" priority="87" />
-      <Item value="class" priority="10" />
+      <Item value="public" priority="124" />
+      <Item value="class" priority="11" />
       <Item value="RiakHttpRequest`0" priority="2" />
       <Item value="base" priority="5" />
-      <Item value="string" priority="65" />
+      <Item value="string" priority="117" />
       <Item value="object" priority="3" />
-      <Item value="throw" priority="27" />
-      <Item value="new" priority="67" />
-      <Item value="NotImplementedException" priority="14" />
-      <Item value="IDictionary" priority="0" />
+      <Item value="throw" priority="39" />
+      <Item value="new" priority="105" />
+      <Item value="NotImplementedException" priority="16" />
+      <Item value="IDictionary" priority="2" />
       <Item value="enum" priority="0" />
       <Item value="internal" priority="4" />
       <Item value="RiakHttpResponse`0" priority="2" />
-      <Item value="WebRequestVerb`0" priority="8" />
-      <Item value="Uri`0" priority="22" />
+      <Item value="WebRequestVerb`0" priority="13" />
+      <Item value="Uri`0" priority="35" />
       <Item value="HttpWebRequest`0" priority="1" />
       <Item value="WebRequest`0" priority="1" />
-      <Item value="req" priority="15" />
+      <Item value="req" priority="25" />
       <Item value="WebHeaderCollection`0" priority="2" />
       <Item value="DateTime`0" priority="8" />
-      <Item value="if" priority="26" />
+      <Item value="if" priority="55" />
       <Item value="IfModifiedSince" priority="0" />
       <Item value="Headers" priority="3" />
       <Item value="abstract" priority="3" />
-      <Item value="long" priority="0" />
-      <Item value="HttpStatusCode`0" priority="6" />
-      <Item value="RiakRequest`0" priority="10" />
-      <Item value="riakUri" priority="11" />
-      <Item value="return" priority="49" />
-      <Item value="verb" priority="5" />
-      <Item value="else" priority="1" />
+      <Item value="long" priority="1" />
+      <Item value="HttpStatusCode`0" priority="19" />
+      <Item value="RiakRequest`0" priority="13" />
+      <Item value="riakUri" priority="18" />
+      <Item value="return" priority="70" />
+      <Item value="verb" priority="9" />
+      <Item value="else" priority="4" />
       <Item value="RiakMockRequest`0" priority="9" />
       <Item value="_verb" priority="2" />
       <Item value="_uri" priority="5" />
-      <Item value="Riak" priority="2" />
-      <Item value="static" priority="3" />
-      <Item value="delegate" priority="1" />
-      <Item value="RiakResponse`0" priority="10" />
-      <Item value="GetMockResponse`0" priority="1" />
-      <Item value="List" priority="2" />
+      <Item value="Riak" priority="6" />
+      <Item value="static" priority="4" />
+      <Item value="delegate" priority="2" />
+      <Item value="RiakResponse`0" priority="30" />
+      <Item value="GetMockResponse`0" priority="3" />
+      <Item value="List" priority="7" />
       <Item value="RegisteredMockRequests`0" priority="4" />
       <Item value="List&lt;RegisteredMockRequests&gt;" priority="0" />
       <Item value="RegisteredMockRequests" priority="1" />
       <Item value="MockUri" priority="1" />
-      <Item value="Name" priority="0" />
+      <Item value="Name" priority="3" />
       <Item value="Verb" priority="0" />
       <Item value="ResponseCallback" priority="0" />
-      <Item value="private" priority="12" />
-      <Item value="bool" priority="4" />
+      <Item value="private" priority="16" />
+      <Item value="bool" priority="8" />
       <Item value="Mocks" priority="3" />
       <Item value="m" priority="2" />
       <Item value="int" priority="5" />
@@ -132,14 +128,14 @@
       <Item value="mock" priority="6" />
       <Item value="request" priority="1" />
       <Item value="RiakMockRequest" priority="0" />
-      <Item value="const" priority="0" />
+      <Item value="const" priority="5" />
       <Item value="_response" priority="1" />
       <Item value="mockResponse" priority="0" />
       <Item value="_content" priority="2" />
       <Item value="responseContent" priority="1" />
       <Item value="TimeSpan`0" priority="0" />
-      <Item value="MemoryStream`0" priority="4" />
-      <Item value="Stream`0" priority="3" />
+      <Item value="MemoryStream`0" priority="5" />
+      <Item value="Stream`0" priority="10" />
       <Item value="MemoryStream" priority="3" />
       <Item value="StringReader`0" priority="0" />
       <Item value="s" priority="0" />
@@ -148,53 +144,53 @@
       <Item value="RiakMockJsonResponse`0" priority="0" />
       <Item value="AbandonedMutexException" priority="0" />
       <Item value="NotImplementedException`0" priority="1" />
-      <Item value="void" priority="14" />
-      <Item value="RiakObject`0" priority="0" />
-      <Item value="Bucket`0" priority="8" />
-      <Item value="bucket" priority="18" />
-      <Item value="_bucket" priority="4" />
+      <Item value="void" priority="20" />
+      <Item value="RiakObject`0" priority="8" />
+      <Item value="Bucket`0" priority="9" />
+      <Item value="bucket" priority="27" />
+      <Item value="_bucket" priority="15" />
       <Item value="TestMethod" priority="0" />
-      <Item value="RiakClient`0" priority="1" />
-      <Item value="RiakClient" priority="1" />
-      <Item value="Uri" priority="6" />
+      <Item value="RiakClient`0" priority="4" />
+      <Item value="RiakClient" priority="2" />
+      <Item value="Uri" priority="9" />
       <Item value="GetMultiBucketProperties" priority="0" />
-      <Item value="client" priority="5" />
-      <Item value="b" priority="8" />
+      <Item value="client" priority="8" />
+      <Item value="b" priority="9" />
       <Item value="ro" priority="12" />
       <Item value="T`0" priority="3" />
-      <Item value="this" priority="11" />
+      <Item value="this" priority="13" />
       <Item value="Bucket" priority="0" />
-      <Item value="_bucketUri" priority="4" />
-      <Item value="UriBuilder`0" priority="0" />
+      <Item value="_bucketUri" priority="5" />
+      <Item value="UriBuilder`0" priority="1" />
       <Item value="riakRootUri" priority="0" />
-      <Item value="bucketName" priority="1" />
+      <Item value="bucketName" priority="2" />
       <Item value="NotFiniteNumberException" priority="0" />
-      <Item value="Assert`0" priority="20" />
-      <Item value="response" priority="23" />
+      <Item value="Assert`0" priority="30" />
+      <Item value="response" priority="45" />
       <Item value="IDisposable`0" priority="1" />
-      <Item value="null" priority="1" />
+      <Item value="null" priority="8" />
       <Item value="k" priority="0" />
       <Item value="OK" priority="0" />
       <Item value="RiakServerException`0" priority="0" />
-      <Item value="params" priority="1" />
+      <Item value="params" priority="2" />
       <Item value="messageFormat" priority="0" />
-      <Item value="_name" priority="6" />
-      <Item value="RiakServerException" priority="2" />
+      <Item value="_name" priority="7" />
+      <Item value="RiakServerException" priority="4" />
       <Item value="BucketName" priority="1" />
       <Item value="Jayrock" priority="0" />
       <Item value="Json" priority="0" />
       <Item value="JsonReader`0" priority="0" />
-      <Item value="TextReader`0" priority="3" />
-      <Item value="using" priority="4" />
-      <Item value="StreamReader`0" priority="1" />
-      <Item value="StreamReader" priority="2" />
-      <Item value="value" priority="4" />
+      <Item value="TextReader`0" priority="4" />
+      <Item value="using" priority="16" />
+      <Item value="StreamReader`0" priority="2" />
+      <Item value="StreamReader" priority="3" />
+      <Item value="value" priority="7" />
       <Item value="JsonObject`0" priority="1" />
       <Item value="JsonArray`0" priority="1" />
-      <Item value="foreach" priority="1" />
+      <Item value="foreach" priority="6" />
       <Item value="JsonString`0" priority="0" />
-      <Item value="in" priority="1" />
-      <Item value="List&lt;string&gt;" priority="0" />
+      <Item value="in" priority="8" />
+      <Item value="List&lt;string&gt;" priority="2" />
       <Item value="Keys" priority="0" />
       <Item value="key" priority="1" />
       <Item value="_allowMulti" priority="0" />
@@ -206,30 +202,30 @@
       <Item value="IRiakObject`0" priority="2" />
       <Item value="virtual" priority="0" />
       <Item value="protected" priority="0" />
-      <Item value="name" priority="1" />
+      <Item value="name" priority="4" />
       <Item value="_requestStream" priority="1" />
-      <Item value="override" priority="1" />
+      <Item value="override" priority="2" />
       <Item value="disposing" priority="0" />
-      <Item value="RiakObject" priority="2" />
+      <Item value="RiakObject" priority="3" />
       <Item value="RiakTextObject`0" priority="0" />
       <Item value="UploadData`0" priority="0" />
       <Item value="uploadStream" priority="0" />
-      <Item value="data" priority="1" />
-      <Item value="StreamWriter" priority="0" />
-      <Item value="info" priority="0" />
+      <Item value="data" priority="2" />
+      <Item value="StreamWriter" priority="1" />
+      <Item value="info" priority="1" />
       <Item value="callback" priority="1" />
-      <Item value="switch" priority="1" />
-      <Item value="StreamDownloadedCallback" priority="1" />
-      <Item value="sr" priority="1" />
-      <Item value="Dictionary" priority="0" />
-      <Item value="Dictionary&lt;string,string&gt;" priority="0" />
-      <Item value="webHeaderCollection" priority="2" />
-      <Item value="VClock" priority="0" />
+      <Item value="switch" priority="2" />
+      <Item value="StreamDownloadedCallback" priority="2" />
+      <Item value="sr" priority="6" />
+      <Item value="Dictionary" priority="6" />
+      <Item value="Dictionary&lt;string,string&gt;" priority="7" />
+      <Item value="webHeaderCollection" priority="3" />
+      <Item value="VClock" priority="4" />
       <Item value="Convert`0" priority="0" />
       <Item value="header" priority="0" />
-      <Item value="typeof" priority="0" />
-      <Item value="default" priority="1" />
-      <Item value="ContentType" priority="4" />
+      <Item value="typeof" priority="1" />
+      <Item value="default" priority="2" />
+      <Item value="ContentType" priority="5" />
       <Item value="ETag" priority="0" />
       <Item value="LastModified" priority="0" />
       <Item value="try" priority="1" />
@@ -237,12 +233,12 @@
       <Item value="defaultValue" priority="0" />
       <Item value="NameValueCollection" priority="0" />
       <Item value="WebHeaderCollection" priority="0" />
-      <Item value="Settings`0" priority="0" />
-      <Item value="o1" priority="8" />
-      <Item value="Guid`0" priority="0" />
+      <Item value="Settings`0" priority="1" />
+      <Item value="o1" priority="10" />
+      <Item value="Guid`0" priority="3" />
       <Item value="storedValue" priority="1" />
-      <Item value="_webRequest" priority="14" />
-      <Item value="webResponse" priority="0" />
+      <Item value="_webRequest" priority="19" />
+      <Item value="webResponse" priority="1" />
       <Item value="_webResponse" priority="7" />
       <Item value="lastModTime" priority="1" />
       <Item value="out" priority="0" />
@@ -251,55 +247,146 @@
       <Item value="WebException`0" priority="0" />
       <Item value="we" priority="5" />
       <Item value="Trace`0" priority="0" />
-      <Item value="case" priority="2" />
+      <Item value="case" priority="5" />
       <Item value="break" priority="0" />
       <Item value="Encoder`0" priority="0" />
       <Item value="referenceString" priority="1" />
       <Item value="newString" priority="1" />
       <Item value="ParamArrayAttribute`0" priority="0" />
-      <Item value="UserAgent" priority="1" />
+      <Item value="UserAgent" priority="2" />
       <Item value="for" priority="0" />
       <Item value="i" priority="2" />
-      <Item value="Debug`0" priority="0" />
-      <Item value="RiakException" priority="0" />
+      <Item value="Debug`0" priority="2" />
+      <Item value="RiakException" priority="2" />
       <Item value="is" priority="0" />
       <Item value="HttpWebResponse`0" priority="0" />
       <Item value="Serializable" priority="1" />
+      <Item value="_statusCode" priority="2" />
+      <Item value="ISerializable`0" priority="0" />
+      <Item value="keyToConflictOn" priority="6" />
+      <Item value="conflict2" priority="3" />
+      <Item value="conflict1" priority="2" />
+      <Item value="ClientId" priority="2" />
+      <Item value="true" priority="3" />
+      <Item value="sw" priority="1" />
+      <Item value="allowMulti" priority="1" />
+      <Item value="NoContent" priority="1" />
+      <Item value="AllowMulti" priority="0" />
+      <Item value="requestStream" priority="0" />
+      <Item value="StreamWriter`0" priority="0" />
+      <Item value="HttpHandler`0" priority="4" />
+      <Item value="DefaultHeaders" priority="2" />
+      <Item value="KeyValuePair" priority="0" />
+      <Item value="parameters" priority="4" />
+      <Item value="fulluri" priority="0" />
+      <Item value="Absolute" priority="1" />
+      <Item value="ArgumentNullException" priority="3" />
+      <Item value="StringBuilder" priority="0" />
+      <Item value="fullUri" priority="4" />
+      <Item value="var" priority="2" />
+      <Item value="pair" priority="3" />
+      <Item value="argument" priority="2" />
+      <Item value="false" priority="1" />
+      <Item value="ampNeeded" priority="1" />
+      <Item value="IList" priority="0" />
+      <Item value="requestData" priority="2" />
+      <Item value="allowedCodes" priority="9" />
+      <Item value="headers" priority="4" />
+      <Item value="uri" priority="10" />
+      <Item value="exception" priority="0" />
+      <Item value="stream" priority="0" />
+      <Item value="requestDataStream" priority="0" />
+      <Item value="_riakRootUri" priority="3" />
+      <Item value="Execute`0" priority="5" />
+      <Item value="BuildUri`0" priority="0" />
+      <Item value="Http" priority="3" />
+      <Item value="HttpHandler" priority="0" />
+      <Item value="Client" priority="5" />
+      <Item value="readonly" priority="0" />
+      <Item value="_client" priority="1" />
+      <Item value="SetHeaderValue`0" priority="1" />
+      <Item value="Dictionary&lt;string,SetHeaderValue&gt;" priority="0" />
+      <Item value="HttpWellKnownHeader`0" priority="12" />
+      <Item value="_AppDomain`0" priority="0" />
+      <Item value="setter" priority="0" />
+      <Item value="contentType" priority="3" />
+      <Item value="List&lt;HttpStatusCode&gt;" priority="5" />
+      <Item value="String`0" priority="0" />
+      <Item value="Get`0" priority="2" />
+      <Item value="accept" priority="0" />
+      <Item value="EndOfStreamException`0" priority="0" />
+      <Item value="Put`0" priority="0" />
+      <Item value="HybridDictionary`0" priority="0" />
+      <Item value="GetHeaders`0" priority="0" />
+      <Item value="Continue" priority="2" />
+      <Item value="LoadHeaders`0" priority="2" />
+      <Item value="_hasSiblings" priority="0" />
+      <Item value="HasSiblings" priority="0" />
+      <Item value="ExpectedException" priority="1" />
+      <Item value="TestExecution`0" priority="0" />
+      <Item value="ICollection" priority="1" />
+      <Item value="codes" priority="1" />
+      <Item value="codeList" priority="0" />
+      <Item value="ContentLength" priority="0" />
+      <Item value="siblings" priority="4" />
+      <Item value="co" priority="1" />
+      <Item value="expect" priority="0" />
+      <Item value="HttpResponseHeader`0" priority="0" />
+      <Item value="RiakClientException" priority="0" />
+      <Item value="while" priority="1" />
+      <Item value="line" priority="2" />
+      <Item value="StringComparer`0" priority="0" />
+      <Item value="StringComparison`0" priority="0" />
+      <Item value="DebuggableAttribute`0" priority="0" />
+      <Item value="siblingHeader" priority="1" />
+      <Item value="siblingIds" priority="2" />
+      <Item value="List&lt;RiakObject&gt;" priority="0" />
+      <Item value="siblingObjects" priority="1" />
+      <Item value="Refresh`0" priority="0" />
+      <Item value="SiblingId" priority="2" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Net.WebRequest">
       <Item value="Create`0" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Net.HttpWebRequest">
-      <Item value="Headers" priority="2" />
+      <Item value="Headers" priority="5" />
       <Item value="Method" priority="0" />
       <Item value="GetResponse`0" priority="0" />
       <Item value="GetRequestStream`0" priority="0" />
-      <Item value="ContentType" priority="1" />
-      <Item value="UserAgent" priority="1" />
-      <Item value="Accept" priority="2" />
+      <Item value="ContentType" priority="2" />
+      <Item value="UserAgent" priority="2" />
+      <Item value="Accept" priority="3" />
+      <Item value="Connection" priority="0" />
+      <Item value="ContentLength" priority="0" />
+      <Item value="IfModifiedSince" priority="0" />
+      <Item value="AddRange`0" priority="0" />
+      <Item value="Referer" priority="0" />
+      <Item value="TransferEncoding" priority="0" />
+      <Item value="SendChunked" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.String">
-      <Item value="IsNullOrEmpty`0" priority="5" />
-      <Item value="Format`0" priority="7" />
-      <Item value="Empty" priority="1" />
+      <Item value="IsNullOrEmpty`0" priority="14" />
+      <Item value="Format`0" priority="10" />
+      <Item value="Empty" priority="3" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Uri">
       <Item value="Host" priority="0" />
-      <Item value="AbsoluteUri" priority="6" />
+      <Item value="AbsoluteUri" priority="10" />
       <Item value="AbsolutePath" priority="0" />
       <Item value="IsAbsoluteUri" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@Riak.Client.WebRequestVerb">
-      <Item value="GET" priority="1" />
-      <Item value="PUT" priority="0" />
+      <Item value="GET" priority="2" />
+      <Item value="PUT" priority="3" />
+      <Item value="HEAD" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Collections.Generic.List`1">
       <Item value="Any`1" priority="0" />
       <Item value="Find`0" priority="1" />
-      <Item value="Count" priority="1" />
+      <Item value="Count" priority="2" />
       <Item value="Clear`0" priority="0" />
-      <Item value="Add`0" priority="0" />
-      <Item value="Contains`0" priority="0" />
+      <Item value="Add`0" priority="3" />
+      <Item value="Contains`0" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Riak.Client.RegisteredMockRequests">
       <Item value="MockUri" priority="1" />
@@ -321,24 +408,30 @@
       <Item value="GetHelloWorldKey" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@Riak.Client.RiakRequest">
-      <Item value="Create`0" priority="2" />
+      <Item value="Create`0" priority="4" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Riak.Client.RiakRequest">
-      <Item value="GetResponse`0" priority="6" />
-      <Item value="GetRequestStream`0" priority="1" />
+      <Item value="GetResponse`0" priority="8" />
+      <Item value="GetRequestStream`0" priority="4" />
       <Item value="Headers" priority="2" />
-      <Item value="ContentType" priority="0" />
-      <Item value="UserAgent" priority="1" />
+      <Item value="ContentType" priority="1" />
+      <Item value="UserAgent" priority="2" />
+      <Item value="ClientId" priority="0" />
+      <Item value="Accept" priority="0" />
+      <Item value="AddHeader`0" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.String">
-      <Item value="Length" priority="0" />
+      <Item value="Length" priority="1" />
       <Item value="ToCharArray`0" priority="0" />
-      <Item value="TrimEnd`0" priority="2" />
+      <Item value="TrimEnd`0" priority="6" />
+      <Item value="Trim`0" priority="2" />
+      <Item value="Equals`0" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.DateTime">
       <Item value="Now" priority="0" />
       <Item value="UtcNow" priority="1" />
       <Item value="TryParse`0" priority="0" />
+      <Item value="Parse`0" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.DateTime">
       <Item value="Subtract`0" priority="0" />
@@ -347,9 +440,11 @@
       <Item value="FromMinutes`0" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Net.HttpStatusCode">
-      <Item value="OK" priority="1" />
-      <Item value="NoContent" priority="0" />
-      <Item value="NotFound" priority="0" />
+      <Item value="OK" priority="5" />
+      <Item value="NoContent" priority="1" />
+      <Item value="NotFound" priority="1" />
+      <Item value="Ambiguous" priority="2" />
+      <Item value="NotModified" priority="2" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Text.UTF8Encoding">
       <Item value="ASCII" priority="0" />
@@ -370,49 +465,61 @@
       <Item value="FirstOrDefault`1" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Riak.Client.RiakClient">
-      <Item value="Bucket`0" priority="2" />
+      <Item value="Bucket`0" priority="3" />
       <Item value="UserAgent" priority="1" />
+      <Item value="ClientId" priority="0" />
+      <Item value="Uri" priority="0" />
+      <Item value="Http" priority="12" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Riak.Client.Bucket">
-      <Item value="Get`0" priority="4" />
-      <Item value="Refresh`0" priority="2" />
+      <Item value="Get`0" priority="6" />
+      <Item value="Refresh`0" priority="3" />
       <Item value="Keys" priority="5" />
       <Item value="Uri" priority="1" />
-      <Item value="AllowMulti" priority="0" />
+      <Item value="AllowMulti" priority="2" />
       <Item value="UserAgent" priority="0" />
+      <Item value="ClientId" priority="4" />
+      <Item value="Name" priority="3" />
+      <Item value="Client" priority="3" />
+      <Item value="GetAll`0" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Riak.Client.RiakObject">
-      <Item value="Store`0" priority="3" />
-      <Item value="Name" priority="0" />
+      <Item value="Store`0" priority="5" />
+      <Item value="Name" priority="2" />
       <Item value="Uri" priority="0" />
       <Item value="GetStream`1" priority="2" />
-      <Item value="GetString`0" priority="1" />
+      <Item value="GetString`0" priority="5" />
       <Item value="ETag" priority="0" />
       <Item value="LastModified" priority="0" />
-      <Item value="ContentType" priority="3" />
-      <Item value="VClock" priority="3" />
+      <Item value="ContentType" priority="5" />
+      <Item value="VClock" priority="6" />
       <Item value="Delete`0" priority="1" />
+      <Item value="HasSiblings" priority="1" />
+      <Item value="Refresh`0" priority="2" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Uri">
-      <Item value="EscapeUriString`0" priority="2" />
+      <Item value="EscapeUriString`0" priority="6" />
+      <Item value="TryCreate`0" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@Microsoft.VisualStudio.TestTools.UnitTesting.Assert">
-      <Item value="IsNotNull`0" priority="6" />
-      <Item value="AreEqual`0" priority="5" />
+      <Item value="IsNotNull`0" priority="8" />
+      <Item value="AreEqual`0" priority="10" />
       <Item value="AreNotEqual`0" priority="1" />
-      <Item value="IsTrue`0" priority="0" />
+      <Item value="IsTrue`0" priority="3" />
       <Item value="Inconclusive`0" priority="1" />
-      <Item value="IsFalse`0" priority="0" />
+      <Item value="IsFalse`0" priority="2" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Riak.Client.RiakResponse">
-      <Item value="ContentType" priority="3" />
-      <Item value="ContentLength" priority="0" />
-      <Item value="StatusCode" priority="6" />
-      <Item value="GetResponseStream`0" priority="2" />
-      <Item value="Headers" priority="4" />
+      <Item value="ContentType" priority="6" />
+      <Item value="ContentLength" priority="1" />
+      <Item value="StatusCode" priority="14" />
+      <Item value="GetResponseStream`0" priority="3" />
+      <Item value="Headers" priority="5" />
+      <Item value="Dispose`0" priority="1" />
+      <Item value="LastModified" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Diagnostics.Debug">
-      <Item value="Assert`0" priority="0" />
+      <Item value="Assert`0" priority="2" />
       <Item value="Fail`0" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Jayrock.Json.JsonString">
@@ -425,13 +532,16 @@
       <Item value="Equals`0" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.IO.StreamWriter">
-      <Item value="Write`0" priority="0" />
+      <Item value="Write`0" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Runtime.Serialization.SerializationInfo">
       <Item value="AddValue`0" priority="0" />
+      <Item value="GetInt32`0" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.IO.StreamReader">
       <Item value="ReadToEnd`0" priority="1" />
+      <Item value="EndOfStream" priority="0" />
+      <Item value="ReadLine`0" priority="2" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Convert">
       <Item value="ChangeType`0" priority="0" />
@@ -442,16 +552,16 @@
       <Item value="Add`0" priority="4" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@Riak.Tests.Settings">
-      <Item value="RiakServerUri" priority="0" />
+      <Item value="RiakServerUri" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Guid">
-      <Item value="NewGuid`0" priority="0" />
+      <Item value="NewGuid`0" priority="3" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Guid">
-      <Item value="ToString`0" priority="0" />
+      <Item value="ToString`0" priority="3" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Riak.Client.WebRequestVerb">
-      <Item value="ToString`0" priority="0" />
+      <Item value="ToString`0" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Net.WebResponse">
       <Item value="ContentType" priority="0" />
@@ -476,6 +586,66 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Int32">
       <Item value="ToString`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Specialized.NameValueCollection">
+      <Item value="Count" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Text.StringBuilder">
+      <Item value="AppendFormat`0" priority="1" />
+      <Item value="Append`0" priority="1" />
+      <Item value="ToString`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.KeyValuePair`2">
+      <Item value="Key" priority="1" />
+      <Item value="Value" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IList`1">
+      <Item value="Count" priority="0" />
+      <Item value="Contains`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Net.HttpStatusCode">
+      <Item value="CompareTo`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.IO.Stream">
+      <Item value="Null" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Riak.Client.HttpHandler">
+      <Item value="BuildUri`0" priority="6" />
+      <Item value="Execute`0" priority="0" />
+      <Item value="Put`0" priority="1" />
+      <Item value="Get`0" priority="1" />
+      <Item value="DefaultHeaders" priority="1" />
+      <Item value="Head`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Int32">
+      <Item value="Parse`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Riak.Client.HttpWellKnownHeader">
+      <Item value="Accept" priority="1" />
+      <Item value="IfModifiedSince" priority="0" />
+      <Item value="Referer" priority="0" />
+      <Item value="TransferEncoding" priority="0" />
+      <Item value="UserAgent" priority="1" />
+      <Item value="ContentType" priority="2" />
+      <Item value="RiakClientId" priority="1" />
+      <Item value="RiakVClock" priority="2" />
+      <Item value="VTag" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Riak.Client.HttpHandler">
+      <Item value="BuildListOf`1" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.ICollection`1">
+      <Item value="Clear`0" priority="0" />
+      <Item value="Count" priority="0" />
+      <Item value="GetEnumerator`0" priority="0" />
+      <Item value="Where`1" priority="0" />
+      <Item value="ElementAt`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IEnumerator`1">
+      <Item value="Current" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.StringComparison">
+      <Item value="InvariantCultureIgnoreCase" priority="0" />
     </ItemStatistics>
   </CompletionStatisticsManager>
 </Configuration>

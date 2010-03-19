@@ -38,5 +38,15 @@ namespace Riak.Client
         {
             return _webResponse.GetResponseStream();
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                _webResponse.Close();
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

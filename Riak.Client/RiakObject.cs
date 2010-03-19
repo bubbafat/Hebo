@@ -15,6 +15,11 @@ namespace Riak.Client
             get; private set;
         }
 
+        public string SiblingId
+        {
+            get; private set;
+        }
+
         public string ContentType
         {
             get; set;
@@ -39,6 +44,21 @@ namespace Riak.Client
         {
             Bucket = bucket;
             Name = name;
+            Refresh();
+        }
+
+        public RiakObject(Bucket bucket, RiakResponse response)
+        {
+            Bucket = bucket;
+            LoadHeaders(response);
+        }
+
+        public RiakObject(Bucket bucket, string keyName, string siblingId)
+        {
+            Bucket = bucket;
+            SiblingId = siblingId;
+            Name = keyName;
+            Refresh();
         }
 
         public Bucket Bucket
@@ -53,12 +73,26 @@ namespace Riak.Client
 
         public void Refresh()
         {
-            using(RiakResponse response = Bucket.Client.Http.Head(
-                Bucket.Client.Http.BuildUri(Bucket.Name, Name, null),
-                HttpHandler.BuildListOf(HttpStatusCode.OK, HttpStatusCode.Ambiguous, HttpStatusCode.NotModified, HttpStatusCode.NotFound)))
+            using (RiakResponse response = Bucket.Client.Http.Head(CreateUri(),
+                                                HttpHandler.BuildListOf(
+                                                    HttpStatusCode.OK, 
+                                                    HttpStatusCode.Ambiguous, 
+                                                    HttpStatusCode.NotModified, 
+                                                    HttpStatusCode.NotFound)))
             {
                 LoadHeaders(response);
             }
+        }
+
+        private Uri CreateUri()
+        {
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            if(!string.IsNullOrEmpty(SiblingId))
+            {
+                parameters["vtag"] = SiblingId;
+            }
+
+            return Bucket.Client.Http.BuildUri(Bucket.Name, Name, parameters);
         }
 
         private Dictionary<string,string> GetHeaders()
@@ -76,7 +110,7 @@ namespace Riak.Client
         public virtual void Delete()
         {
             using (Bucket.Client.Http.Delete(
-                Bucket.Client.Http.BuildUri(Bucket.Name, Name, null), 
+                CreateUri(), 
                 GetHeaders(),
                 HttpHandler.BuildListOf(HttpStatusCode.NoContent, HttpStatusCode.NotFound)))
             {
@@ -94,7 +128,7 @@ namespace Riak.Client
         public virtual void Store(Stream data)
         {
             using(Bucket.Client.Http.Put(
-                Bucket.Client.Http.BuildUri(Bucket.Name, Name, null),
+                CreateUri(),
                 ContentType,
                 GetHeaders(),
                 HttpHandler.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent),
@@ -129,7 +163,7 @@ namespace Riak.Client
             }
 
             using (RiakResponse response = Bucket.Client.Http.Get(
-                Bucket.Client.Http.BuildUri(Bucket.Name, Name, null)))
+                CreateUri()))
             {
                 LoadHeaders(response);
                 return callback(response.Headers, response.GetResponseStream());
