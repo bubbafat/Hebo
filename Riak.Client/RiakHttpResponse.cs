@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 
 namespace Riak.Client
 {
     class RiakHttpResponse : RiakResponse
     {
-        private RiakHttpRequest _riakHttpRequest;
-        private HttpWebResponse _webResponse;
+        private readonly RiakHttpRequest _riakHttpRequest;
+        private readonly HttpWebResponse _webResponse;
 
         public RiakHttpResponse(RiakHttpRequest riakHttpRequest, HttpWebResponse webResponse)
         {
             _riakHttpRequest = riakHttpRequest;
             _webResponse = webResponse;
-            base.Headers = _webResponse.Headers;
+            Headers = _webResponse.Headers;
         }
 
         public override string ContentType

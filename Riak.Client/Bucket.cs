@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading;
 using Jayrock.Json;
 using Jayrock.Json.Conversion;
 
@@ -13,15 +9,16 @@ namespace Riak.Client
 {
     public class Bucket
     {
-        private Uri _bucketUri;
-        private string _name;
+        private readonly Uri _bucketUri;
+        private readonly List<string> _keys;
+
         private bool _allowMulti;
-        private List<string> _keys;
 
         internal Bucket(RiakClient client, string bucketName)
             : this(client.Uri, bucketName)
         {
-            this.UserAgent = client.UserAgent;
+            UserAgent = client.UserAgent;
+            ClientId = client.ClientId;
         }
 
         internal Bucket(Uri riakRootUri, string bucketName)
@@ -29,7 +26,7 @@ namespace Riak.Client
             _bucketUri = new Uri(string.Format("{0}/{1}",
                                                riakRootUri.AbsoluteUri.TrimEnd('/'),
                                                Uri.EscapeUriString(bucketName)));
-            _name = bucketName;
+            Name = bucketName;
             _keys = new List<string>();
         }
 
@@ -52,7 +49,7 @@ namespace Riak.Client
                     {
                         throw new RiakServerException("HTTP Response {0} while loading bucket {1} ({2})",
                                                       response.StatusCode,
-                                                      _name,
+                                                      Name,
                                                       _bucketUri.AbsoluteUri);
                     }
 
@@ -60,18 +57,18 @@ namespace Riak.Client
                     {
                         throw new RiakServerException(
                             "Error while loading bucket {0} ({1}): Expected content type {2} but received {3}",
-                            _name,
+                            Name,
                             _bucketUri.AbsoluteUri,
                             "application/json",
                             response.ContentType);
                     }
 
-                    loadFromJson(response.GetResponseStream());
+                    LoadFromJson(response.GetResponseStream());
                 }
             }
         }
 
-        private void loadFromJson(Stream stream)
+        private void LoadFromJson(Stream stream)
         {
             using (StreamReader sr = new StreamReader(stream))
             {
@@ -84,7 +81,7 @@ namespace Riak.Client
                 }
 
                 JsonObject properties = (JsonObject)bucket["props"];
-                _name = (string)properties["name"];
+                Name = (string)properties["name"];
                 _allowMulti = (bool)properties["allow_mult"];
             }
         }
@@ -96,10 +93,11 @@ namespace Riak.Client
         }
 
         public string UserAgent { get; set; }
+        public string ClientId { get; set; }
 
         public string Name
         {
-            get { return _name; }
+            get; private set;
         }
 
         public List<string> Keys
@@ -113,6 +111,40 @@ namespace Riak.Client
         public RiakObject Get(string name)
         {
             return new RiakObject(this, name);
+        }
+
+        public void SetAllowMulti(bool allowMulti)
+        {
+            // {"props":{"allow_mult":false}}
+
+            using(RiakRequest req = RiakRequest.Create(WebRequestVerb.PUT, Uri))
+            {
+                req.ClientId = ClientId;
+                req.UserAgent = UserAgent;
+                req.ContentType = "application/json";
+
+                using(StreamWriter sw = new StreamWriter(req.GetRequestStream()))
+                {
+                    // value must be lower cased (default is upper)
+                    string json = string.Format("{{\"props\":{{\"allow_mult\":{0}}}}}", 
+                        allowMulti ? "true" : "false");
+
+                    sw.Write(json);
+                }
+
+                using(RiakResponse response = req.GetResponse())
+                {
+                    if(response.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        AllowMulti = allowMulti;
+                    }
+                    else
+                    {
+                        throw new RiakServerException(response, 
+                            "Error setting allow_mutl property on bucket {0}", _bucketUri.AbsoluteUri);
+                    }
+                }
+            }
         }
     }
 }

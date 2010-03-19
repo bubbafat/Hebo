@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
 
 namespace Riak.Client
 {
@@ -12,6 +8,8 @@ namespace Riak.Client
         public abstract void AddHeader(string name, string value);
 
         public abstract string ContentType { get; set; }
+
+        public abstract string ClientId { get; set; }
 
         public abstract string UserAgent { get; set; }
 

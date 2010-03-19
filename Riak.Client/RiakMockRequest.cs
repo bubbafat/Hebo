@@ -7,8 +7,6 @@ namespace Riak.Client
 {
     public class RiakMockRequest : RiakRequest
     {
-        private WebRequestVerb _verb;
-        private Uri _uri;
         private readonly RiakResponse _response;
         private readonly MemoryStream _requestStream;
 
@@ -16,18 +14,21 @@ namespace Riak.Client
 
         private RiakMockRequest(WebRequestVerb verb, Uri riakUri, RiakResponse mockResponse)
         {
-            _verb = verb;
-            _uri = riakUri;
             _response = mockResponse;
             _requestStream = new MemoryStream();
         }
 
         public override void AddHeader(string name, string value)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public override string ContentType
+        {
+            get; set;
+        }
+
+        public override string ClientId
         {
             get; set;
         }
@@ -114,50 +115,50 @@ namespace Riak.Client
             return Mocks.Values.ElementAt(r.Next(0, Mocks.Values.Count - 1));
         }
 
-        public static Dictionary<string, RegisteredMockRequests> Mocks = new Dictionary<string, RegisteredMockRequests>()
+        public static Dictionary<string, RegisteredMockRequests> Mocks = new Dictionary<string, RegisteredMockRequests>
             {
                 { 
                     GetBucketProperties,
-                    new RegisteredMockRequests()
+                    new RegisteredMockRequests
                     {
                         MockName=GetBucketProperties,
                         BucketName = "getbucketprops",
-                        MockUri = getUriForBucket("getbucketprops"),
+                        MockUri = GetUriForBucket("getbucketprops"),
                         Verb = WebRequestVerb.GET,
                         ResponseCallback = GetBucketPropertiesCallback
                     }
                 },
                 {
                     GetMultiBucketProperties,
-                    new RegisteredMockRequests()
+                    new RegisteredMockRequests
                         {
                             MockName = GetMultiBucketProperties,
                             BucketName = "getbucketmultiprops",
-                            MockUri = getUriForBucket("getbucketmultiprops"),
+                            MockUri = GetUriForBucket("getbucketmultiprops"),
                             Verb = WebRequestVerb.GET,
                             ResponseCallback = GetMultiBucketPropertiesCallback
                         }
                 },
                 {
                     GetHelloWorldKey,
-                    new RegisteredMockRequests()
+                    new RegisteredMockRequests
                         {
                             MockName = GetHelloWorldKey,
                             BucketName = "say",
                             KeyName = "helloworld",
-                            MockUri = getUriForBucketAndKey("say", "helloworld"),
+                            MockUri = GetUriForBucketAndKey("say", "helloworld"),
                             Verb = WebRequestVerb.GET,
                             ResponseCallback = GetHelloWorldKeyCallback
                         }
                 },
                 {
                     GetHelloWorldKeyBucket,
-                    new RegisteredMockRequests()
+                    new RegisteredMockRequests
                         {
                             MockName = GetHelloWorldKeyBucket,
                             BucketName = "say",
                             KeyName = "helloworld",
-                            MockUri = getUriForBucket("say"),
+                            MockUri = GetUriForBucket("say"),
                             Verb = WebRequestVerb.GET,
                             ResponseCallback = GetHelloWorldKeyBucketCallback
                         }
@@ -165,12 +166,12 @@ namespace Riak.Client
 
             };
 
-        private static Uri getUriForBucket(string bucketName)
+        private static Uri GetUriForBucket(string bucketName)
         {
             return new Uri(string.Format("{0}/{1}", MockUriRoot, bucketName));
         }
 
-        private static Uri getUriForBucketAndKey(string bucketName, string key)
+        private static Uri GetUriForBucketAndKey(string bucketName, string key)
         {
             return new Uri(string.Format("{0}/{1}/{2}", MockUriRoot, bucketName, key));
         }

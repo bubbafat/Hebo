@@ -8,9 +8,9 @@ namespace Riak.Client
 {
     public abstract class RiakMockResponse : RiakResponse
     {
-        public RiakMockResponse()
+        protected RiakMockResponse()
         {
-            Headers.Add(new NameValueCollection()
+            Headers.Add(new NameValueCollection
                             {
                                 { "X-Riak-Vclock", "a85hYGBgzGDKBVIsbLvm1WYwJTLmsTLcjeE5ypcFAA==" },
                                 { "Last-Modified", "Wed, 10 Mar 2010 18:11:41 GMT" },

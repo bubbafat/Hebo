@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 
 namespace Riak.Client
 {
-    public delegate T StreamDownloadedCallback<T>(WebHeaderCollection headers, Stream content);
+    public delegate T StreamDownloadedCallback<out T>(WebHeaderCollection headers, Stream content);
     
     public class RiakObject
     {
-        private Bucket _bucket;
-        private string _name;
+        private readonly Bucket _bucket;
+        private readonly string _name;
 
         public string ContentType
         {
@@ -62,9 +61,11 @@ namespace Riak.Client
             using (RiakRequest req = RiakRequest.Create(WebRequestVerb.DELETE, Uri))
             {
                 req.UserAgent = _bucket.UserAgent;
-                if (!string.IsNullOrEmpty(this.VClock))
+                req.ClientId = _bucket.ClientId;
+
+                if (!string.IsNullOrEmpty(VClock))
                 {
-                    req.AddHeader("X-Riak-Vclock", this.VClock);
+                    req.AddHeader("X-Riak-Vclock", VClock);
                 }
 
                 using (RiakResponse response = req.GetResponse())
@@ -86,7 +87,10 @@ namespace Riak.Client
 
         public virtual void Store(string data)
         {
-            Store(new MemoryStream(Encoding.UTF8.GetBytes(data.ToCharArray()), false));
+            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(data.ToCharArray()), false))
+            {
+                Store(stream);
+            }
         }
 
         public static void CopyStream(Stream input, Stream output)
@@ -112,14 +116,17 @@ namespace Riak.Client
                     throw new RiakException("ContentType must be set when storing a riak object");
                 }
 
-                req.ContentType = this.ContentType;
+                req.ContentType = ContentType;
                 
-                if (!string.IsNullOrEmpty(this.VClock))
+                if (!string.IsNullOrEmpty(VClock))
                 {
-                    req.AddHeader("X-Riak-Vclock", this.VClock);
+                    req.AddHeader("X-Riak-Vclock", VClock);
                 }
 
-                CopyStream(data, req.GetRequestStream());
+                using (Stream requestStream = req.GetRequestStream())
+                {
+                    CopyStream(data, requestStream);
+                }
 
                 using(RiakResponse response = req.GetResponse())
                 {
@@ -144,13 +151,13 @@ namespace Riak.Client
             {
                 return new Uri(string.Format("{0}/{1}",
                     _bucket.Uri.AbsoluteUri,
-                    System.Uri.EscapeUriString(Name)));
+                    Uri.EscapeUriString(Name)));
             }
         }
 
         public string GetString()
         {
-            return GetStream<string>(
+            return GetStream(
                 delegate(WebHeaderCollection headers,
                          Stream stream)
             {
@@ -180,37 +187,34 @@ namespace Riak.Client
             }
         }
 
-        private void LoadHeaders(WebHeaderCollection webHeaderCollection)
+        private void LoadHeaders(NameValueCollection webHeaderCollection)
         {
             VClock = GetOrDefault<string>(webHeaderCollection, "X-Riak-Vclock", null);
             ContentType = GetOrDefault<string>(webHeaderCollection, "Content-Type", null);
             ETag = GetOrDefault<string>(webHeaderCollection, "ETag", null);
-            LastModified = GetOrDefault<DateTime>(webHeaderCollection, "Last-Modified", DateTime.UtcNow);
+            LastModified = GetOrDefault(webHeaderCollection, "Last-Modified", DateTime.UtcNow);
         }
 
-        private T GetOrDefault<T>(WebHeaderCollection webHeaderCollection, string name, T defaultValue)
+        private static T GetOrDefault<T>(NameValueCollection webHeaderCollection, string name, T defaultValue)
         {
             string header = webHeaderCollection[name];
-            if(!string.IsNullOrEmpty(header))
+            if (!string.IsNullOrEmpty(header))
             {
                 try
                 {
-                    return (T)Convert.ChangeType(header, typeof(T));
+                    return (T) Convert.ChangeType(header, typeof (T));
 
                 }
                 catch (FormatException)
                 {
                     Debug.Fail(string.Format("Error converting header {0} with value \"{1}\"",
-                                              name,
-                                              header));
+                                             name,
+                                             header));
 
-                    return defaultValue;
                 }
             }
-            else
-            {
-                return defaultValue;
-            }
+
+            return defaultValue;
         }
     }
 }

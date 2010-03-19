@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 
 namespace Riak.Client
 {
@@ -28,6 +25,12 @@ namespace Riak.Client
         {
             get { return _webRequest.ContentType; }
             set { _webRequest.ContentType = value; }
+        }
+
+        public override string ClientId
+        {
+            get { return _webRequest.Headers["X-Riak-ClientId"]; }
+            set { _webRequest.Headers["X-Riak-ClientId"] = value; }
         }
 
         public override string UserAgent
@@ -57,9 +60,12 @@ namespace Riak.Client
                 }
 
 #if DEBUG
-                using(StreamReader sr = new StreamReader(we.Response.GetResponseStream()))
+                if (we.Response != null)
                 {
-                    Trace.TraceError(sr.ReadToEnd());
+                    using (StreamReader sr = new StreamReader(we.Response.GetResponseStream()))
+                    {
+                        Trace.TraceError(sr.ReadToEnd());
+                    }
                 }
 #endif
 

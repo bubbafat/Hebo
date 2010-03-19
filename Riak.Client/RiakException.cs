@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace Riak.Client
 {
+    [Serializable]
     public class RiakException : Exception
     {
         public RiakException()
@@ -39,9 +37,10 @@ namespace Riak.Client
         }
     }
 
+    [Serializable]
     public class RiakServerException : RiakException
     {
-        private HttpStatusCode _statusCode;
+        private readonly HttpStatusCode _statusCode;
 
         public RiakServerException()
         {
@@ -82,6 +81,25 @@ namespace Riak.Client
         protected RiakServerException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
+            _statusCode = (HttpStatusCode)info.GetInt32("StatusCode");
+        }
+
+        #region ISerializable Members
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("StatusCode", StatusCode);
+        }
+
+        #endregion
+
+        public HttpStatusCode StatusCode
+        {
+            get
+            {
+                return _statusCode;
+            }
         }
     }
 }

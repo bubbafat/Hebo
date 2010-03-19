@@ -4,7 +4,7 @@ namespace Riak.Client
 {
     public class RiakClient
     {
-        private Uri _uri;
+        private readonly Uri _uri;
 
         public RiakClient(Uri riakUri)
         {
@@ -15,6 +15,7 @@ namespace Riak.Client
             _uri = riakUri;
 
             UserAgent = "Riak Client for .NET Applications version blah";
+            ClientId = Guid.NewGuid().ToString();
         }
 
         public Bucket Bucket(string name)
@@ -28,5 +29,6 @@ namespace Riak.Client
         public Uri Uri { get { return _uri; } }
 
         public string UserAgent { get; set; }
+        public string ClientId { get; set; }
     }
 }
