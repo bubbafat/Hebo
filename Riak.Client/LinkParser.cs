@@ -79,10 +79,7 @@ namespace Riak.Client
         {
             if (!Eof())
             {
-                StringBuilder parameter = new StringBuilder();
-
                 // if we ever need to support non-quoted attributes (e.g. title*) fix this method.
-
                 string key = ReadUntil('=');
                 Skip(); // skip the '='
                 SkipWhiteSpaceAndAnother('"'); // read past the opening "
@@ -107,11 +104,6 @@ namespace Riak.Client
             }
 
             return false;
-        }
-
-        private static string Trim(string value)
-        {
-            return value.Trim();
         }
 
         private void DemandRelationalUri(Link link)
