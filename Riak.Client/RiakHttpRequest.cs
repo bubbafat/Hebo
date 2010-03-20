@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 
@@ -91,6 +92,7 @@ namespace Riak.Client
         {
             try
             {
+                Trace.WriteLine(string.Format("{0}: {1}", _webRequest.Method, _webRequest.RequestUri.AbsoluteUri));
                 HttpWebResponse webResponse = (HttpWebResponse)_webRequest.GetResponse();
                 return new RiakHttpResponse(webResponse);
             }

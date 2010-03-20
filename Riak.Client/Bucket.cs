@@ -87,8 +87,16 @@ namespace Riak.Client
 
         public ICollection<RiakObject> GetAll(string keyName)
         {
+            return GetAll(keyName, true);
+        }
+
+        public ICollection<RiakObject> GetAll(string keyName, bool lazy)
+        {
+            string accept = lazy ? "*/*" : "multipart/mixed";
+
             using(RiakHttpResponse response = Client.Http.Get(
                     Client.Http.BuildUri(Name, keyName, null),
+                    accept,
                     Util.BuildListOf(HttpStatusCode.OK, HttpStatusCode.Ambiguous, HttpStatusCode.NotFound)))
             {
                 switch(response.StatusCode)
@@ -107,26 +115,35 @@ namespace Riak.Client
 
         private ICollection<RiakObject> LoadSiblingObjects(RiakHttpResponse response, string keyName)
         {
-            Debug.Assert(response.ContentType == "text/plain",
-                string.Format("ContentType was {0} but expected text/plain", response.ContentType));
+            if (response.IsMultiPart)
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                return LoadConflictSiblings(response, keyName);
+            }
+        }
 
+        private ICollection<RiakObject> LoadConflictSiblings(RiakHttpResponse response, string keyName)
+        {
             List<string> siblingIds = new List<string>();
 
-            using(StreamReader sr = new StreamReader(response.GetResponseStream()))
+            using (StreamReader sr = new StreamReader(response.GetResponseStream()))
             {
                 string siblingHeader = sr.ReadLine();
 
                 Debug.Assert(siblingHeader == "Siblings:",
-                    string.Format("The header was \"{0}\" but expected \"Siblings:\"", siblingHeader));
+                             string.Format("The header was \"{0}\" but expected \"Siblings:\"", siblingHeader));
 
-                while(!sr.EndOfStream)
+                while (!sr.EndOfStream)
                 {
                     siblingIds.Add(sr.ReadLine());
                 }
             }
 
             List<RiakObject> siblingObjects = new List<RiakObject>(siblingIds.Count);
-            
+
             siblingObjects.AddRange(siblingIds.Select(siblingId => new RiakObject(this, keyName, siblingId)));
 
             return siblingObjects;

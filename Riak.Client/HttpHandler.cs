@@ -53,10 +53,19 @@ namespace Riak.Client
 
         public RiakHttpResponse Get(Uri uri, string accept, ICollection<HttpStatusCode> allowedCodes)
         {
+            Dictionary<string, string> headers = null;
+            if(!string.IsNullOrWhiteSpace(accept))
+            {
+                headers = new Dictionary<string, string>
+                              {
+                                  { "Accept", accept }
+                              };
+            }
+
             return Execute(
                 WebRequestVerb.GET,
                 uri,
-                null,
+                headers,
                 allowedCodes,
                 Stream.Null);
         }

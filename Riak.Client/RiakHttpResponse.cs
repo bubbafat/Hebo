@@ -58,5 +58,15 @@ namespace Riak.Client
                 GC.SuppressFinalize(this);
             }
         }
+
+        public bool IsMultiPart
+        {
+            get
+            {
+                // TODO: this feels really hokey.
+                string contentType = _webResponse.ContentType;
+                return contentType.StartsWith("multipart/mixed;");
+            }
+        }
     }
 }

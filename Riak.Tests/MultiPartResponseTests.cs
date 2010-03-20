@@ -24,19 +24,26 @@ namespace Riak.Tests
             _randomTextData = new List<string>();
             RiakClient client = new RiakClient(Settings.RiakServerUri);
             Bucket bucket = client.Bucket(MultiPartBucket);
+            TestUtil.DeleteAllKeys(bucket);
             bucket.SetAllowMulti(true);
 
-            RiakObject textKey = bucket.Get(AllTextKeyName);
-            _randomTextData.Add(GetRandomTextData());
-            _randomTextData.Add(GetRandomTextData());
-            _randomTextData.Add(GetRandomTextData());
-            _randomTextData.Add(GetRandomTextData());
+            RiakObject key1 = bucket.Get(AllTextKeyName);
+            RiakObject key2 = bucket.Get(AllTextKeyName);
+            RiakObject key3 = bucket.Get(AllTextKeyName);
+            RiakObject key4 = bucket.Get(AllTextKeyName);
 
-            foreach(string rtd in _randomTextData)
-            {
-                textKey.Store(rtd);
-                textKey.Refresh();
-            }
+            SetAndStoreTextKey(key1);
+            SetAndStoreTextKey(key2);
+            SetAndStoreTextKey(key3);
+            SetAndStoreTextKey(key4);
+        }
+
+        private void SetAndStoreTextKey(RiakObject textKey)
+        {
+            textKey.ContentType = "text/plain";
+            string data = GetRandomTextData();
+            textKey.Store(data);
+            _randomTextData.Add(data);
         }
 
         [TestMethod]
@@ -44,9 +51,18 @@ namespace Riak.Tests
         {
             RiakClient client = new RiakClient(Settings.RiakServerUri);
             Bucket bucket = client.Bucket(MultiPartBucket);
-            bucket.SetAllowMulti(true);
 
-            Assert.Fail("fail");
+            ICollection<RiakObject> conflicts = bucket.GetAll(AllTextKeyName, false);
+            Assert.AreEqual(4, conflicts.Count);
+
+            foreach(RiakObject ro in conflicts)
+            {
+                Assert.AreEqual("text/plain", ro.ContentType);
+                string content = ro.DataString();
+                Assert.IsNotNull(content);
+                Assert.IsTrue(_randomTextData.Contains(content));
+                Assert.AreEqual(ro.ContentLength, content.Length);
+            }
         }
 
         private string GetRandomTextData()

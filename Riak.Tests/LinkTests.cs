@@ -162,12 +162,12 @@ namespace Riak.Tests
         {
             RiakClient client = new RiakClient(Settings.RiakServerUri);
             Bucket artist = client.Bucket("Artist");
-            DeleteAllKeys(artist);
+            TestUtil.DeleteAllKeys(artist);
 
             RiakObject miles = CreateTextObject(artist, "Miles Davis");
             
             Bucket album = client.Bucket("Album");
-            DeleteAllKeys(album);
+            TestUtil.DeleteAllKeys(album);
 
             RiakObject kindofblue = CreateTextObject(album, "Kind of Blue");
             RiakObject conception = CreateTextObject(album, "Conception");
@@ -201,15 +201,6 @@ namespace Riak.Tests
 
             Assert.AreEqual(4, loadedMiles.Links.Count(l => l.RiakTag != null));
             Assert.AreEqual(0, loadedMiles.Links.Count(l => l.RiakTag != null && l.RiakTag != "album"));
-        }
-
-        private static void DeleteAllKeys(Bucket bucket)
-        {
-            foreach(string key in bucket.Keys)
-            {
-                RiakObject o = bucket.Get(key);
-                o.Delete();
-            }
         }
 
         private static RiakObject CreateTextObject(Bucket bucket, string name)
