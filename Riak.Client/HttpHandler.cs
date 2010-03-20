@@ -43,7 +43,7 @@ namespace Riak.Client
 
         public RiakHttpResponse Get(Uri uri, string accept)
         {
-            return Get(uri, accept, BuildListOf(HttpStatusCode.OK));
+            return Get(uri, accept, Util.BuildListOf(HttpStatusCode.OK));
         }
 
         public RiakHttpResponse Get(Uri uri, ICollection<HttpStatusCode> allowedCodes)
@@ -179,7 +179,7 @@ namespace Riak.Client
             {
                 using (Stream requestStream = req.GetRequestStream())
                 {
-                    CopyStream(requestDataStream, requestStream);
+                    Util.CopyStream(requestDataStream, requestStream);
                 }
             }
 
@@ -253,21 +253,5 @@ namespace Riak.Client
             return new Uri(fullUri.ToString(), UriKind.Absolute);
         }
 
-        public static void CopyStream(Stream input, Stream output)
-        {
-            byte[] buffer = new byte[32768];
-            while (true)
-            {
-                int read = input.Read(buffer, 0, buffer.Length);
-                if (read <= 0)
-                    return;
-                output.Write(buffer, 0, read);
-            }
-        }
-
-        public static ICollection<T> BuildListOf<T>(params T[] codes)
-        {
-            return codes;
-        }
     }
 }

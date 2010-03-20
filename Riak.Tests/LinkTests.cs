@@ -23,7 +23,8 @@ namespace Riak.Tests
             Assert.AreEqual("foo", links[1].RiakTag);
             Assert.AreEqual("</raw/hb/fourth>; riaktag=\"foo\"", links[1].ToString());
 
-            Assert.AreEqual("</raw/hb>; rel=\"up\", </raw/hb/fourth>; riaktag=\"foo\"",
+            // we strip out the rel="up" link if it is the only thing in the link
+            Assert.AreEqual("</raw/hb/fourth>; riaktag=\"foo\"",
                 links.ToString());
         }
 
@@ -38,6 +39,7 @@ namespace Riak.Tests
             Assert.AreEqual("up", links[0].Rel);
             Assert.AreEqual("foo", links[0].RiakTag);
 
+            // we don't strip rel="up" out here since there is a riaktag too.
             Assert.AreEqual("</raw/hb>; rel=\"up\"; riaktag=\"foo\"",
                 links.ToString());
         }
@@ -107,7 +109,7 @@ namespace Riak.Tests
             string storedValue = Guid.NewGuid().ToString();
 
             o1.Store(storedValue);
-            Assert.AreEqual(storedValue, o1.GetString());
+            Assert.AreEqual(storedValue, Util.ReadString(o1.Data()));
 
             // the key should have one link back to the bucket.
             o1.Refresh();

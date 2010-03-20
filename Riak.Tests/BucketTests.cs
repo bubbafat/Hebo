@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
-using System.Net;
+using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Riak.Client;
@@ -24,7 +23,7 @@ namespace Riak.Tests
             string storedValue = Guid.NewGuid().ToString();
 
             o1.Store(storedValue);
-            Assert.AreEqual(storedValue, o1.GetString());
+            Assert.AreEqual(storedValue, Util.ReadString(o1.Data()));
         }
 
         [TestMethod]
@@ -42,15 +41,7 @@ namespace Riak.Tests
             {
                 o1.Store(ms);
 
-                string newString = o1.GetStream(
-                    delegate(WebHeaderCollection headers,
-                             Stream stream)
-                        {
-                            using (StreamReader sr = new StreamReader(stream))
-                            {
-                                return sr.ReadToEnd();
-                            }
-                        });
+                string newString = Util.ReadString(o1.Data());
 
                 Assert.AreEqual(referenceString, newString);
             }
@@ -127,10 +118,10 @@ namespace Riak.Tests
             keyToConflictOn.Store("Data1");
 
             RiakObject conflict1 = bucket.Get(keyToConflictOn.Name);
-            conflict1.GetString();
+            Util.ReadString(conflict1.Data());
 
             RiakObject conflict2 = bucket.Get(keyToConflictOn.Name);
-            conflict2.GetString();
+            Util.ReadString(conflict2.Data());
 
             Assert.IsNotNull(conflict1.VClock);
             Assert.AreEqual(conflict1.VClock, conflict2.VClock);
@@ -138,7 +129,7 @@ namespace Riak.Tests
             conflict1.Store("Conflict1");
             conflict2.Store("Conflict2");
 
-            Assert.AreEqual(keyToConflictOn.GetString(), "Conflict2");
+            Assert.AreEqual(Util.ReadString(keyToConflictOn.Data()), "Conflict2");
         }
 
         [TestMethod]
@@ -177,10 +168,10 @@ namespace Riak.Tests
             keyToConflictOn.Store("Data1");
 
             RiakObject conflict1 = bucket.Get(keyToConflictOn.Name);
-            conflict1.GetString();
+            Util.ReadString(conflict1.Data());
 
             RiakObject conflict2 = bucket.Get(keyToConflictOn.Name);
-            conflict2.GetString();
+            Util.ReadString(conflict2.Data());
 
             Assert.IsNotNull(conflict1.VClock);
             Assert.AreEqual(conflict1.VClock, conflict2.VClock);
@@ -197,7 +188,7 @@ namespace Riak.Tests
             conflict2.Refresh();
             Assert.IsTrue(conflict2.HasSiblings);
 
-            keyToConflictOn.GetString();
+            Util.ReadString(keyToConflictOn.Data());
         }
 
         [TestMethod]
@@ -212,10 +203,10 @@ namespace Riak.Tests
             keyToConflictOn.Store("Data1");
 
             RiakObject conflict1 = bucket.Get(keyToConflictOn.Name);
-            conflict1.GetString();
+            Util.ReadString(conflict1.Data());
 
             RiakObject conflict2 = bucket.Get(keyToConflictOn.Name);
-            conflict2.GetString();
+            Util.ReadString(conflict2.Data());
 
             Assert.IsNotNull(conflict1.VClock);
             Assert.AreEqual(conflict1.VClock, conflict2.VClock);
@@ -235,8 +226,8 @@ namespace Riak.Tests
             ICollection<RiakObject> siblings = bucket.GetAll(keyToConflictOn.Name);
             Assert.AreEqual(2, siblings.Count);
 
-            string string0 = siblings.ElementAt(0).GetString();
-            string string1 = siblings.ElementAt(1).GetString();
+            string string0 = Util.ReadString(siblings.ElementAt(0).Data());
+            string string1 = Util.ReadString(siblings.ElementAt(1).Data());
 
             List<string> expect = new List<string>{"Conflict1", "Conflict2"};
             Assert.IsTrue(expect.Contains(string0));

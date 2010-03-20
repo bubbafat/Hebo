@@ -11,6 +11,33 @@ namespace Riak.Client
     
     public class RiakObject
     {
+        private byte[] _cachedData;
+
+        public byte[] Data()
+        {
+            if (HasSiblings)
+            {
+                throw new RiakUnresolvedConflictException("Error: key has conflicts that must be resolved.");
+            }
+
+            if (_cachedData == null)
+            {
+                using (RiakHttpResponse response = Bucket.Client.Http.Get(
+                    CreateUri()))
+                {
+                    _cachedData = new byte[response.ContentLength];
+                    Util.CopyStream(response.GetResponseStream(), _cachedData);
+                }
+            }
+
+            return _cachedData;
+        }
+
+        public string DataString()
+        {
+            return Util.ReadString(Data());
+        }
+
         public long ContentLength
         {
             get; private set;
@@ -80,7 +107,7 @@ namespace Riak.Client
         public void Refresh()
         {
             using (RiakHttpResponse response = Bucket.Client.Http.Head(CreateUri(),
-                                                HttpHandler.BuildListOf(
+                                                Util.BuildListOf(
                                                     HttpStatusCode.OK, 
                                                     HttpStatusCode.Ambiguous, 
                                                     HttpStatusCode.NotModified, 
@@ -132,7 +159,7 @@ namespace Riak.Client
             using (Bucket.Client.Http.Delete(
                 CreateUri(), 
                 GetHeaders(WebRequestVerb.DELETE),
-                HttpHandler.BuildListOf(HttpStatusCode.NoContent, HttpStatusCode.NotFound)))
+                Util.BuildListOf(HttpStatusCode.NoContent, HttpStatusCode.NotFound)))
             {
             }
         }
@@ -151,42 +178,9 @@ namespace Riak.Client
                 CreateUri(),
                 ContentType,
                 GetHeaders(WebRequestVerb.PUT),
-                HttpHandler.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent),
+                Util.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent),
                 data))
             {
-            }
-        }
-
-        public string GetString()
-        {
-            if(HasSiblings)
-            {
-                throw new RiakUnresolvedConflictException("Error: key has conflicts that must be resolved.");
-            }
-
-            return GetStream(
-                delegate(WebHeaderCollection headers,
-                         Stream stream)
-            {
-                using (StreamReader sr = new StreamReader(stream))
-                {
-                    return sr.ReadToEnd();
-                }
-            });
-        }
-
-        public T GetStream<T>(StreamDownloadedCallback<T> callback)
-        {
-            if (HasSiblings)
-            {
-                throw new RiakUnresolvedConflictException("Error: key has conflicts that must be resolved.");
-            }
-
-            using (RiakHttpResponse response = Bucket.Client.Http.Get(
-                CreateUri()))
-            {
-                LoadHeaders(response);
-                return callback(response.Headers, response.GetResponseStream());
             }
         }
 

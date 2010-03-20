@@ -57,6 +57,7 @@
     <Compile Include="RiakObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Bucket.cs" />
+    <Compile Include="Util.cs" />
     <Compile Include="WebRequestVerb.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

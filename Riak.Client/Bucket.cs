@@ -12,7 +12,6 @@ namespace Riak.Client
     public class Bucket
     {
         private readonly List<string> _keys;
-        private bool _allowMulti;
 
         internal Bucket(RiakClient client, string bucketName)
         {
@@ -59,14 +58,13 @@ namespace Riak.Client
 
                 JsonObject properties = (JsonObject)bucket["props"];
                 Name = Uri.UnescapeDataString((string)properties["name"]);
-                _allowMulti = (bool)properties["allow_mult"];
+                AllowMulti = (bool)properties["allow_mult"];
             }
         }
 
         public bool AllowMulti
         {
-            get { return _allowMulti; }
-            set { _allowMulti = value; }
+            get; private set;
         }
 
         public string Name
@@ -91,7 +89,7 @@ namespace Riak.Client
         {
             using(RiakHttpResponse response = Client.Http.Get(
                     Client.Http.BuildUri(Name, keyName, null),
-                    HttpHandler.BuildListOf(HttpStatusCode.OK, HttpStatusCode.Ambiguous, HttpStatusCode.NotFound)))
+                    Util.BuildListOf(HttpStatusCode.OK, HttpStatusCode.Ambiguous, HttpStatusCode.NotFound)))
             {
                 switch(response.StatusCode)
                 {
@@ -144,7 +142,7 @@ namespace Riak.Client
             using (Client.Http.Put(
                         Client.Http.BuildUri(Name, null, null),
                         "application/json",
-                        HttpHandler.BuildListOf(HttpStatusCode.NoContent),
+                        Util.BuildListOf(HttpStatusCode.NoContent),
                         json))
             {
                 AllowMulti = allowMulti;

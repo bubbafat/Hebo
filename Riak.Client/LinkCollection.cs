@@ -86,15 +86,18 @@ namespace Riak.Client
             StringBuilder sb = new StringBuilder();
 
             bool needComma = false;
-            foreach(Link link in _links)
+            foreach (Link link in _links)
             {
-                if(needComma)
+                if (link.ShouldWrite)
                 {
-                    sb.Append(", ");
-                }
+                    if (needComma)
+                    {
+                        sb.Append(", ");
+                    }
 
-                sb.Append(link);
-                needComma = true;
+                    sb.Append(link);
+                    needComma = true;
+                }
             }
 
             return sb.ToString();
