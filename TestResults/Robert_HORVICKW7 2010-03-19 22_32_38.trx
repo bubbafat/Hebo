@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="825e555d-1088-4d1d-b7d9-f56fecf711b6" name="Robert@HORVICKW7 2010-03-19 22:32:38" runUser="HORVICKW7\Robert" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="cccf0ead-bb7b-4fa6-80c8-b697078887da">
+    <Description>These are default test settings for a local test run.</Description>
+    <Execution>
+      <TestTypeSpecific>
+        <UnitTestRunConfig testTypeId="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b">
+          <AssemblyResolution>
+            <TestDirectory useLoadContext="true" />
+          </AssemblyResolution>
+        </UnitTestRunConfig>
+        <WebTestRunConfiguration testTypeId="4e7599fa-5ecb-43e9-a887-cd63cf72d207">
+          <Browser name="Internet Explorer 7.0">
+            <Headers>
+              <Header name="User-Agent" value="Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)" />
+              <Header name="Accept" value="*/*" />
+              <Header name="Accept-Language" value="{{$IEAcceptLanguage}}" />
+              <Header name="Accept-Encoding" value="GZIP" />
+            </Headers>
+          </Browser>
+        </WebTestRunConfiguration>
+      </TestTypeSpecific>
+      <AgentRule name="LocalMachineDefaultRole">
+        <DataCollectors>
+          <DataCollector uri="datacollector://microsoft/CodeCoverage/1.0" assemblyQualifiedName="Microsoft.VisualStudio.TestTools.CodeCoverage.CoveragePlugIn, Microsoft.VisualStudio.QualityTools.Plugins.CodeCoverage, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" friendlyName="Code Coverage" enabled="false">
+            <Configuration>
+              <CodeCoverage xmlns="">
+                <Regular>
+                  <CodeCoverageItem binaryFile="Riak.Client\bin\Debug\Riak.Client.dll" pdbFile="Riak.Client\bin\Debug\Riak.Client.pdb" instrumentInPlace="true" />
+                </Regular>
+              </CodeCoverage>
+            </Configuration>
+          </DataCollector>
+        </DataCollectors>
+      </AgentRule>
+    </Execution>
+    <Deployment runDeploymentRoot="Robert_HORVICKW7 2010-03-19 22_32_38" />
+  </TestSettings>
+  <Times creation="2010-03-19T22:32:38.8394338-04:00" queuing="2010-03-19T22:32:42.8186614-04:00" start="2010-03-19T22:32:43.3886940-04:00" finish="2010-03-19T22:33:06.3200056-04:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="14" executed="14" passed="10" error="0" failed="4" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="LinkWithMultipleParameters" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="d79ef6f9-4e22-e7f6-a37e-b0e7a8cab61d">
+      <Execution id="89ea6f2f-75a6-4fb4-bddb-9aa0df623d8c" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkWithMultipleParameters" />
+    </UnitTest>
+    <UnitTest name="SettingAllowMultiPersistsCorrectly" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="33d4d279-34bd-6d5a-280e-4b82973def51">
+      <Execution id="4100d891-c71d-4352-bbeb-7d227fcc743b" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="SettingAllowMultiPersistsCorrectly" />
+    </UnitTest>
+    <UnitTest name="LinkCollectionOperationalTests" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="80c6668e-527f-7ce0-c7fa-d368165124a1">
+      <Execution id="8f91848b-fd2d-4c9e-9402-de9a3787d799" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkCollectionOperationalTests" />
+    </UnitTest>
+    <UnitTest name="GetAllSiblingsOnConflict" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="7a71b779-6444-5633-f109-dc2d069ca31b">
+      <Execution id="0defed8c-0e24-403f-b8b6-87dc97c5d969" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetAllSiblingsOnConflict" />
+    </UnitTest>
+    <UnitTest name="SaveAStringKeyValue" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="58939138-4342-8e72-2f65-c6ec6d5362d3">
+      <Execution id="c73f9c99-aca1-468e-b936-6c4b90d161c4" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="SaveAStringKeyValue" />
+    </UnitTest>
+    <UnitTest name="LinkOddlyFormedIsParsedAndNormalized" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="86d01318-0230-9e62-826b-6c3385d23407">
+      <Execution id="beae5430-a16d-4a37-b98e-bf78ad92179e" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkOddlyFormedIsParsedAndNormalized" />
+    </UnitTest>
+    <UnitTest name="SaveABinaryKeyValue" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="4ad0d6cc-b6bb-6b71-fab7-7bd0c1927a9f">
+      <Execution id="e4397c01-e7f2-4b1a-b630-c3c7e70aa23a" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="SaveABinaryKeyValue" />
+    </UnitTest>
+    <UnitTest name="LinkWithRelationalUri" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="30d12b1b-aa49-8c08-bd4a-866243aceb48">
+      <Execution id="5a8586fa-fe34-4e77-98e1-1b0549baad49" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkWithRelationalUri" />
+    </UnitTest>
+    <UnitTest name="ConflictOnAllowMultiBucket" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="beae7429-a6a2-4b8b-91b8-2242ec45c77a">
+      <Execution id="12ea90a6-2aa0-4d2b-b883-321ff9cb5199" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ConflictOnAllowMultiBucket" />
+    </UnitTest>
+    <UnitTest name="LinkWithUnknownParameters" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="d9c44692-30b5-c679-747b-7d385a54ef67">
+      <Execution id="0ba84018-4434-4a83-992a-6f928d6e28b2" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkWithUnknownParameters" />
+    </UnitTest>
+    <UnitTest name="DeleteMissingKeys" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="8adbc453-a093-0889-b145-79d2f69be902">
+      <Execution id="4ca4772e-ed32-4dd6-acac-dea2c83f6b96" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="DeleteMissingKeys" />
+    </UnitTest>
+    <UnitTest name="DeleteExistingKeys" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="ecb7a2ec-95c2-bcd4-9208-598a9a8227f1">
+      <Execution id="9388df86-8cfe-427b-a384-84c8cb676950" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="DeleteExistingKeys" />
+    </UnitTest>
+    <UnitTest name="ConflictOnNonMultiBucket" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="06a22416-08af-c0dc-b70f-5cec4761aa09">
+      <Execution id="828f4c87-37f0-49c4-acd3-9bfcaa41e84d" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ConflictOnNonMultiBucket" />
+    </UnitTest>
+    <UnitTest name="LinkOnNewKeyExistsAndParses" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="cb4b29f5-c7d3-2010-bb43-cecc9f41c474">
+      <Execution id="96269bdd-1a84-4a61-97ca-96e5f3cbb977" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkOnNewKeyExistsAndParses" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="58939138-4342-8e72-2f65-c6ec6d5362d3" executionId="c73f9c99-aca1-468e-b936-6c4b90d161c4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4ad0d6cc-b6bb-6b71-fab7-7bd0c1927a9f" executionId="e4397c01-e7f2-4b1a-b630-c3c7e70aa23a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ecb7a2ec-95c2-bcd4-9208-598a9a8227f1" executionId="9388df86-8cfe-427b-a384-84c8cb676950" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8adbc453-a093-0889-b145-79d2f69be902" executionId="4ca4772e-ed32-4dd6-acac-dea2c83f6b96" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="06a22416-08af-c0dc-b70f-5cec4761aa09" executionId="828f4c87-37f0-49c4-acd3-9bfcaa41e84d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="33d4d279-34bd-6d5a-280e-4b82973def51" executionId="4100d891-c71d-4352-bbeb-7d227fcc743b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="beae7429-a6a2-4b8b-91b8-2242ec45c77a" executionId="12ea90a6-2aa0-4d2b-b883-321ff9cb5199" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7a71b779-6444-5633-f109-dc2d069ca31b" executionId="0defed8c-0e24-403f-b8b6-87dc97c5d969" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="30d12b1b-aa49-8c08-bd4a-866243aceb48" executionId="5a8586fa-fe34-4e77-98e1-1b0549baad49" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d79ef6f9-4e22-e7f6-a37e-b0e7a8cab61d" executionId="89ea6f2f-75a6-4fb4-bddb-9aa0df623d8c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb4b29f5-c7d3-2010-bb43-cecc9f41c474" executionId="96269bdd-1a84-4a61-97ca-96e5f3cbb977" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="86d01318-0230-9e62-826b-6c3385d23407" executionId="beae5430-a16d-4a37-b98e-bf78ad92179e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="80c6668e-527f-7ce0-c7fa-d368165124a1" executionId="8f91848b-fd2d-4c9e-9402-de9a3787d799" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d9c44692-30b5-c679-747b-7d385a54ef67" executionId="0ba84018-4434-4a83-992a-6f928d6e28b2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="c73f9c99-aca1-468e-b936-6c4b90d161c4" testId="58939138-4342-8e72-2f65-c6ec6d5362d3" testName="SaveAStringKeyValue" computerName="HORVICKW7" duration="00:00:00.7888298" startTime="2010-03-19T22:32:44.0087294-04:00" endTime="2010-03-19T22:32:46.5338739-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c73f9c99-aca1-468e-b936-6c4b90d161c4">
+    </UnitTestResult>
+    <UnitTestResult executionId="e4397c01-e7f2-4b1a-b630-c3c7e70aa23a" testId="4ad0d6cc-b6bb-6b71-fab7-7bd0c1927a9f" testName="SaveABinaryKeyValue" computerName="HORVICKW7" duration="00:00:00.3215143" startTime="2010-03-19T22:32:46.5578752-04:00" endTime="2010-03-19T22:32:46.9038950-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e4397c01-e7f2-4b1a-b630-c3c7e70aa23a">
+    </UnitTestResult>
+    <UnitTestResult executionId="9388df86-8cfe-427b-a384-84c8cb676950" testId="ecb7a2ec-95c2-bcd4-9208-598a9a8227f1" testName="DeleteExistingKeys" computerName="HORVICKW7" duration="00:00:00.6097540" startTime="2010-03-19T22:32:46.9248962-04:00" endTime="2010-03-19T22:32:47.5549323-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9388df86-8cfe-427b-a384-84c8cb676950">
+    </UnitTestResult>
+    <UnitTestResult executionId="4ca4772e-ed32-4dd6-acac-dea2c83f6b96" testId="8adbc453-a093-0889-b145-79d2f69be902" testName="DeleteMissingKeys" computerName="HORVICKW7" duration="00:00:01.8913779" startTime="2010-03-19T22:32:47.5779336-04:00" endTime="2010-03-19T22:32:49.4870428-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4ca4772e-ed32-4dd6-acac-dea2c83f6b96">
+    </UnitTestResult>
+    <UnitTestResult executionId="828f4c87-37f0-49c4-acd3-9bfcaa41e84d" testId="06a22416-08af-c0dc-b70f-5cec4761aa09" testName="ConflictOnNonMultiBucket" computerName="HORVICKW7" duration="00:00:00.3980592" startTime="2010-03-19T22:32:49.5060438-04:00" endTime="2010-03-19T22:32:49.9230677-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="828f4c87-37f0-49c4-acd3-9bfcaa41e84d">
+    </UnitTestResult>
+    <UnitTestResult executionId="4100d891-c71d-4352-bbeb-7d227fcc743b" testId="33d4d279-34bd-6d5a-280e-4b82973def51" testName="SettingAllowMultiPersistsCorrectly" computerName="HORVICKW7" duration="00:00:00.8428628" startTime="2010-03-19T22:32:49.9560696-04:00" endTime="2010-03-19T22:32:50.8221191-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4100d891-c71d-4352-bbeb-7d227fcc743b">
+    </UnitTestResult>
+    <UnitTestResult executionId="12ea90a6-2aa0-4d2b-b883-321ff9cb5199" testId="beae7429-a6a2-4b8b-91b8-2242ec45c77a" testName="ConflictOnAllowMultiBucket" computerName="HORVICKW7" duration="00:00:00.5516862" startTime="2010-03-19T22:32:50.8911231-04:00" endTime="2010-03-19T22:32:51.4681561-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="12ea90a6-2aa0-4d2b-b883-321ff9cb5199">
+    </UnitTestResult>
+    <UnitTestResult executionId="0defed8c-0e24-403f-b8b6-87dc97c5d969" testId="7a71b779-6444-5633-f109-dc2d069ca31b" testName="GetAllSiblingsOnConflict" computerName="HORVICKW7" duration="00:00:00.4570847" startTime="2010-03-19T22:32:51.5181589-04:00" endTime="2010-03-19T22:32:52.0081870-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0defed8c-0e24-403f-b8b6-87dc97c5d969">
+    </UnitTestResult>
+    <UnitTestResult executionId="5a8586fa-fe34-4e77-98e1-1b0549baad49" testId="30d12b1b-aa49-8c08-bd4a-866243aceb48" testName="LinkWithRelationalUri" computerName="HORVICKW7" duration="00:00:12.7341650" startTime="2010-03-19T22:32:52.1101928-04:00" endTime="2010-03-19T22:33:05.0309318-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5a8586fa-fe34-4e77-98e1-1b0549baad49">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.AreEqual failed. Expected:&lt;&lt;/raw/hb/fourth&gt;; riaktag="foo"&gt;. Actual:&lt;&lt;/raw/hb/fourth&gt;; riakTag="foo"&gt;. </Message>
+          <StackTrace>   at Riak.Tests.LinkTests.LinkWithRelationalUri() in c:\projects\Riak.Client\Riak.Tests\LinkTests.cs:line 23
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="89ea6f2f-75a6-4fb4-bddb-9aa0df623d8c" testId="d79ef6f9-4e22-e7f6-a37e-b0e7a8cab61d" testName="LinkWithMultipleParameters" computerName="HORVICKW7" duration="00:00:00.0461775" startTime="2010-03-19T22:33:05.0679339-04:00" endTime="2010-03-19T22:33:05.1339377-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="89ea6f2f-75a6-4fb4-bddb-9aa0df623d8c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.AreEqual failed. Expected:&lt;&lt;/raw/hb&gt;; rel="up"; riaktag="foo"&gt;. Actual:&lt;&lt;/raw/hb&gt;; rel="up"; riakTag="foo"&gt;. </Message>
+          <StackTrace>   at Riak.Tests.LinkTests.LinkWithMultipleParameters() in c:\projects\Riak.Client\Riak.Tests\LinkTests.cs:line 40
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="96269bdd-1a84-4a61-97ca-96e5f3cbb977" testId="cb4b29f5-c7d3-2010-bb43-cecc9f41c474" testName="LinkOnNewKeyExistsAndParses" computerName="HORVICKW7" duration="00:00:00.3733193" startTime="2010-03-19T22:33:05.1809404-04:00" endTime="2010-03-19T22:33:05.5909639-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="96269bdd-1a84-4a61-97ca-96e5f3cbb977">
+    </UnitTestResult>
+    <UnitTestResult executionId="beae5430-a16d-4a37-b98e-bf78ad92179e" testId="86d01318-0230-9e62-826b-6c3385d23407" testName="LinkOddlyFormedIsParsedAndNormalized" computerName="HORVICKW7" duration="00:00:00.0533678" startTime="2010-03-19T22:33:05.6609679-04:00" endTime="2010-03-19T22:33:05.7409724-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="beae5430-a16d-4a37-b98e-bf78ad92179e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.AreEqual failed. Expected:&lt;&lt;/raw/hb&gt;; rel="up"; riaktag="foo"&gt;. Actual:&lt;&lt;/raw/hb&gt;; rel="up"; riakTag="foo"&gt;. </Message>
+          <StackTrace>   at Riak.Tests.LinkTests.LinkOddlyFormedIsParsedAndNormalized() in c:\projects\Riak.Client\Riak.Tests\LinkTests.cs:line 72
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8f91848b-fd2d-4c9e-9402-de9a3787d799" testId="80c6668e-527f-7ce0-c7fa-d368165124a1" testName="LinkCollectionOperationalTests" computerName="HORVICKW7" duration="00:00:00.0042463" startTime="2010-03-19T22:33:05.7819748-04:00" endTime="2010-03-19T22:33:05.8119765-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8f91848b-fd2d-4c9e-9402-de9a3787d799">
+    </UnitTestResult>
+    <UnitTestResult executionId="0ba84018-4434-4a83-992a-6f928d6e28b2" testId="d9c44692-30b5-c679-747b-7d385a54ef67" testName="LinkWithUnknownParameters" computerName="HORVICKW7" duration="00:00:00.0754534" startTime="2010-03-19T22:33:05.8339778-04:00" endTime="2010-03-19T22:33:05.9459842-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0ba84018-4434-4a83-992a-6f928d6e28b2">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.AreEqual failed. Expected:&lt;&lt;/raw/hb&gt;; rel="up"; riaktag="foo"&gt;. Actual:&lt;&lt;/raw/hb&gt;; unk="value"; rel="up"; riakTag="foo"&gt;. </Message>
+          <StackTrace>   at Riak.Tests.LinkTests.LinkWithUnknownParameters() in c:\projects\Riak.Client\Riak.Tests\LinkTests.cs:line 56
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

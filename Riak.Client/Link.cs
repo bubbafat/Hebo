@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Specialized;
 using System.Text;
 
 namespace Riak.Client
@@ -7,28 +7,46 @@ namespace Riak.Client
     {
         public Link()
         {
-            Parameters = new List<string>();
+            UnknownParameters = new NameValueCollection();
         }
 
         public string UriResource
         {
-            get;
-            set;
+            get; set;
         }
 
-        public List<string> Parameters
+        public string Rel
         {
-            get;
-            private set;
+            get; set;
+        }
+
+        public string RiakTag
+        {
+            get; set;
+        }
+
+        public NameValueCollection UnknownParameters
+        {
+            get; private set;
         }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("<{0}>", UriResource);
-            foreach(string p in Parameters)
+            foreach(string key in UnknownParameters.Keys)
             {
-                sb.AppendFormat("; {0}", p);
+                sb.AppendFormat("; {0}=\"{1}\"", key, UnknownParameters[key]);
+            }
+
+            if(!string.IsNullOrEmpty(Rel))
+            {
+                sb.AppendFormat("; rel=\"{0}\"", Rel);
+            }
+
+            if (!string.IsNullOrEmpty(RiakTag))
+            {
+                sb.AppendFormat("; riaktag=\"{0}\"", RiakTag);
             }
 
             return sb.ToString();

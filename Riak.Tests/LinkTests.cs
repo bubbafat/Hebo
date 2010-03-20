@@ -15,13 +15,11 @@ namespace Riak.Tests
 
             Assert.AreEqual(2, links.Count);
             Assert.AreEqual("/raw/hb", links[0].UriResource);
-            Assert.AreEqual(1, links[0].Parameters.Count);
-            Assert.AreEqual("rel=\"up\"", links[0].Parameters[0]);
+            Assert.AreEqual("up", links[0].Rel);
             Assert.AreEqual("</raw/hb>; rel=\"up\"", links[0].ToString());
 
             Assert.AreEqual("/raw/hb/fourth", links[1].UriResource);
-            Assert.AreEqual(1, links[0].Parameters.Count);
-            Assert.AreEqual("riaktag=\"foo\"", links[1].Parameters[0]);
+            Assert.AreEqual("foo", links[1].RiakTag);
             Assert.AreEqual("</raw/hb/fourth>; riaktag=\"foo\"", links[1].ToString());
 
             Assert.AreEqual("</raw/hb>; rel=\"up\", </raw/hb/fourth>; riaktag=\"foo\"",
@@ -36,12 +34,47 @@ namespace Riak.Tests
 
             Assert.AreEqual(1, links.Count);
             Assert.AreEqual("/raw/hb", links[0].UriResource);
-            Assert.AreEqual(2, links[0].Parameters.Count);
-            Assert.AreEqual("rel=\"up\"", links[0].Parameters[0]);
-            Assert.AreEqual("riaktag=\"foo\"", links[0].Parameters[1]);
+            Assert.AreEqual("up", links[0].Rel);
+            Assert.AreEqual("foo", links[0].RiakTag);
 
             Assert.AreEqual("</raw/hb>; rel=\"up\"; riaktag=\"foo\"",
                 links.ToString());
+        }
+
+        [TestMethod]
+        public void LinkWithUnknownParameters()
+        {
+            LinkParser parser = new LinkParser();
+            LinkCollection links = parser.Parse("</raw/hb>; rel=\"up\"; riaktag=\"foo\"; unk=\"value\"");
+
+            Assert.AreEqual(1, links.Count);
+            Assert.AreEqual("/raw/hb", links[0].UriResource);
+            Assert.AreEqual("up", links[0].Rel);
+            Assert.AreEqual("foo", links[0].RiakTag);
+            Assert.AreEqual("value", links[0].UnknownParameters["unk"]);
+
+            // normalizes as unknown -> rel -> riaktag
+            Assert.AreEqual("</raw/hb>; unk=\"value\"; rel=\"up\"; riaktag=\"foo\"",
+                links.ToString());
+        }
+
+        [TestMethod]
+        public void LinkRoundTripping()
+        {
+            LinkParser parser = new LinkParser();
+            LinkCollection links = parser.Parse("</raw/hb>; rel=\"up\"; riaktag=\"foo\"; unk=\"value\"");
+
+            LinkCollection linksNew = parser.Parse(links.ToString());
+
+            Assert.AreEqual(1, linksNew.Count);
+            Assert.AreEqual("/raw/hb", linksNew[0].UriResource);
+            Assert.AreEqual("up", linksNew[0].Rel);
+            Assert.AreEqual("foo", linksNew[0].RiakTag);
+            Assert.AreEqual("value", linksNew[0].UnknownParameters["unk"]);
+
+            // normalizes as unknown -> rel -> riaktag
+            Assert.AreEqual("</raw/hb>; unk=\"value\"; rel=\"up\"; riaktag=\"foo\"",
+                linksNew.ToString());
         }
 
         [TestMethod]
@@ -52,9 +85,8 @@ namespace Riak.Tests
 
             Assert.AreEqual(1, links.Count);
             Assert.AreEqual("/raw/hb", links[0].UriResource);
-            Assert.AreEqual(2, links[0].Parameters.Count);
-            Assert.AreEqual("rel=\"up\"", links[0].Parameters[0]);
-            Assert.AreEqual("riaktag=\"foo\"", links[0].Parameters[1]);
+            Assert.AreEqual("up", links[0].Rel);
+            Assert.AreEqual("foo", links[0].RiakTag);
 
             Assert.AreEqual("</raw/hb>; rel=\"up\"; riaktag=\"foo\"",
                 links.ToString());
@@ -79,7 +111,8 @@ namespace Riak.Tests
             // the key should have one link back to the bucket.
             o1.Refresh();
             Assert.AreEqual(1, o1.Links.Count);
-            Assert.AreEqual(1, o1.Links[0].Parameters.Count);
+            Assert.IsNotNull(o1.Links[0].Rel);
+            Assert.AreEqual("up", o1.Links[0].Rel);
         }
 
         [TestMethod]

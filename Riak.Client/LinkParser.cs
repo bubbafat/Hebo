@@ -29,13 +29,14 @@ namespace Riak.Client
                     DemandRelationalUri(link);
                     SkipWhiteSpaceAndAnother(';');
 
-                    while (RequestParameter(link))
-                    {
-                        SkipWhiteSpaceAndAnother(';');
-                        if (AtLinkEdge())
+                    while (!AtLinkEdge())
+                    {                        
+                        if (!RequestParameter(link))
                         {
                             break;
                         }
+
+                        SkipWhiteSpaceAndAnother(';');
                     }
 
                     links.Add(link);
@@ -79,11 +80,28 @@ namespace Riak.Client
             if (!Eof())
             {
                 StringBuilder parameter = new StringBuilder();
-                parameter.Append(ReadUntil('='));
-                parameter.Append(ReadChar()); // add the '='
-                parameter.Append(Trim(ReadUntil(',', ';')));
 
-                link.Parameters.Add(parameter.ToString());
+                // if we ever need to support non-quoted attributes (e.g. title*) fix this method.
+
+                string key = ReadUntil('=');
+                Skip(); // skip the '='
+                SkipWhiteSpaceAndAnother('"'); // read past the opening "
+                string value = ReadUntil('"'); // read the value;
+                Skip(); // skip the '"'
+                SkipWhiteSpaceAndAnother(';');
+
+                switch(key)
+                {
+                    case "rel":
+                        link.Rel = value;
+                        break;
+                    case "riaktag":
+                        link.RiakTag = value;
+                        break;
+                    default:
+                        link.UnknownParameters.Add(key, value);
+                        break;
+                }
 
                 return true;
             }
