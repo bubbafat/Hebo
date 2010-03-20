@@ -4,7 +4,7 @@ using System.Net;
 
 namespace Riak.Client
 {
-    class RiakHttpResponse : RiakResponse
+    public class RiakHttpResponse : IDisposable
     {
         private readonly HttpWebResponse _webResponse;
 
@@ -14,39 +14,49 @@ namespace Riak.Client
             Headers = _webResponse.Headers;
         }
 
-        public override string ContentType
+        public WebHeaderCollection Headers
+        {
+            get;
+            protected set;
+        }
+
+        public string ContentType
         {
             get { return _webResponse.ContentType; }
         }
 
-        public override long ContentLength
+        public long ContentLength
         {
             get { return _webResponse.ContentLength; }
         }
 
-        public override DateTime LastModified
+        public DateTime LastModified
         {
             get { return _webResponse.LastModified; }
         }
 
-        public override HttpStatusCode StatusCode
+        public HttpStatusCode StatusCode
         {
             get { return _webResponse.StatusCode; }
         }
 
-        public override Stream GetResponseStream()
+        public Stream GetResponseStream()
         {
             return _webResponse.GetResponseStream();
         }
 
-        protected override void Dispose(bool disposing)
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
         {
             if(disposing)
             {
                 _webResponse.Close();
+                GC.SuppressFinalize(this);
             }
-
-            base.Dispose(disposing);
         }
     }
 }

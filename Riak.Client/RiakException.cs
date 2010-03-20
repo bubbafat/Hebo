@@ -122,13 +122,13 @@ namespace Riak.Client
         {
         }
 
-        public RiakServerException(RiakResponse response, String message)
+        public RiakServerException(RiakHttpResponse response, String message)
             : base(message)
         {
             _statusCode = response.StatusCode;
         }
 
-        public RiakServerException(RiakResponse response, String messageFormat, params object[] args)
+        public RiakServerException(RiakHttpResponse response, String messageFormat, params object[] args)
             : base(string.Format(messageFormat, args))
         {
             _statusCode = response.StatusCode;

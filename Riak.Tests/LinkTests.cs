@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Riak.Client;
 
@@ -120,7 +121,7 @@ namespace Riak.Tests
         {
             LinkCollection c = new LinkCollection();
             Link link1 = new Link();
-            
+
             c.Add(new Link());
             c.Add(link1);
             c.Add(new Link());
@@ -144,7 +145,7 @@ namespace Riak.Tests
 
             Assert.IsFalse(c.IsReadOnly);
 
-            foreach(Link link in c)
+            foreach (Link link in c)
             {
                 Assert.IsNotNull(link);
             }
@@ -152,6 +153,71 @@ namespace Riak.Tests
             c[0] = link1;
 
             Assert.AreSame(link1, c[0]);
+        }
+
+        [TestMethod]
+        public void LinkFollowing()
+        {
+            RiakClient client = new RiakClient(Settings.RiakServerUri);
+            Bucket artist = client.Bucket("Artist");
+            DeleteAllKeys(artist);
+
+            RiakObject miles = CreateTextObject(artist, "Miles Davis");
+            
+            Bucket album = client.Bucket("Album");
+            DeleteAllKeys(album);
+
+            RiakObject kindofblue = CreateTextObject(album, "Kind of Blue");
+            RiakObject conception = CreateTextObject(album, "Conception");
+            RiakObject blue = CreateTextObject(album, "Blue");
+            RiakObject dig = CreateTextObject(album, "Dig");
+
+            miles.AddLink(kindofblue, "album");
+            miles.AddLink(conception, "album");
+            miles.AddLink(blue, "album");
+            miles.AddLink(dig, "album");
+            miles.Store();
+
+            kindofblue.AddLink(miles, "artist");
+            kindofblue.Store();
+            
+            conception.AddLink(miles, "artist");
+            conception.Store();
+            
+            blue.AddLink(miles, "artist");
+            blue.Store();
+
+            dig.AddLink(miles, "artist");
+            dig.Store();
+
+            RiakObject loadedMiles = artist.Get("Miles Davis");
+             
+            Assert.AreEqual("Miles Davis", loadedMiles.Name);
+
+            // the 4 we added plus the rel="up" for the key
+            Assert.AreEqual(5, loadedMiles.Links.Count);
+
+            Assert.AreEqual(4, loadedMiles.Links.Count(l => l.RiakTag != null));
+            Assert.AreEqual(0, loadedMiles.Links.Count(l => l.RiakTag != null && l.RiakTag != "album"));
+        }
+
+        private static void DeleteAllKeys(Bucket bucket)
+        {
+            foreach(string key in bucket.Keys)
+            {
+                RiakObject o = bucket.Get(key);
+                o.Delete();
+            }
+        }
+
+        private static RiakObject CreateTextObject(Bucket bucket, string name)
+        {
+            RiakObject o = bucket.Get(name);
+            o.ContentType = "text/plain";
+            o.Store(name);
+            o.Refresh();
+
+            return o;
         }
     }
 }

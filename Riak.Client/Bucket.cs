@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace Riak.Client
         {
             _keys.Clear();
 
-            using (RiakResponse response = Client.Http.Get(
+            using (RiakHttpResponse response = Client.Http.Get(
                         Client.Http.BuildUri(Name, null, null), 
                         "application/json"))
             {
@@ -44,7 +45,7 @@ namespace Riak.Client
             }
         }
 
-        private void LoadFromJson(RiakResponse response)
+        private void LoadFromJson(RiakHttpResponse response)
         {
             using (StreamReader sr = new StreamReader(response.GetResponseStream()))
             {
@@ -53,11 +54,11 @@ namespace Riak.Client
                 JsonArray keys = (JsonArray) bucket["keys"];
                 foreach(string key in keys)
                 {
-                    Keys.Add(key);
+                    Keys.Add(Uri.UnescapeDataString(key));
                 }
 
                 JsonObject properties = (JsonObject)bucket["props"];
-                Name = (string)properties["name"];
+                Name = Uri.UnescapeDataString((string)properties["name"]);
                 _allowMulti = (bool)properties["allow_mult"];
             }
         }
@@ -88,7 +89,7 @@ namespace Riak.Client
 
         public ICollection<RiakObject> GetAll(string keyName)
         {
-            using(RiakResponse response = Client.Http.Get(
+            using(RiakHttpResponse response = Client.Http.Get(
                     Client.Http.BuildUri(Name, keyName, null),
                     HttpHandler.BuildListOf(HttpStatusCode.OK, HttpStatusCode.Ambiguous, HttpStatusCode.NotFound)))
             {
@@ -106,7 +107,7 @@ namespace Riak.Client
             }
         }
 
-        private ICollection<RiakObject> LoadSiblingObjects(RiakResponse response, string keyName)
+        private ICollection<RiakObject> LoadSiblingObjects(RiakHttpResponse response, string keyName)
         {
             Debug.Assert(response.ContentType == "text/plain",
                 string.Format("ContentType was {0} but expected text/plain", response.ContentType));

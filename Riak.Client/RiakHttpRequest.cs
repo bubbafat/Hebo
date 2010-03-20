@@ -27,7 +27,7 @@ namespace Riak.Client
 
     public delegate void SetHeaderValue(string name, string value);
 
-    class RiakHttpRequest : RiakRequest
+    class RiakHttpRequest
     {
         private readonly HttpWebRequest _webRequest;
         private readonly Dictionary<string, SetHeaderValue> _headerMap;
@@ -74,7 +74,7 @@ namespace Riak.Client
             _webRequest.SendChunked = value.Length > 0;
         }
         
-        public override void AddHeader(string name, string value)
+        public void AddHeader(string name, string value)
         {
             SetHeaderValue setter;
             if(_headerMap.TryGetValue(name, out setter))
@@ -87,7 +87,7 @@ namespace Riak.Client
             }
         }
 
-        public override RiakResponse GetResponse()
+        public RiakHttpResponse GetResponse()
         {
             try
             {
@@ -105,7 +105,12 @@ namespace Riak.Client
             }
         }
 
-        public override Stream GetRequestStream()
+        public static RiakHttpRequest Create(WebRequestVerb verb, Uri riakUri)
+        {
+            return new RiakHttpRequest(verb, riakUri);
+        }
+
+        public Stream GetRequestStream()
         {
             return _webRequest.GetRequestStream();
         }

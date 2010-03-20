@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -52,7 +53,7 @@ namespace Riak.Client
             Refresh();
         }
 
-        public RiakObject(Bucket bucket, RiakResponse response)
+        public RiakObject(Bucket bucket, RiakHttpResponse response)
         {
             Bucket = bucket;
             LoadHeaders(response);
@@ -78,7 +79,7 @@ namespace Riak.Client
 
         public void Refresh()
         {
-            using (RiakResponse response = Bucket.Client.Http.Head(CreateUri(),
+            using (RiakHttpResponse response = Bucket.Client.Http.Head(CreateUri(),
                                                 HttpHandler.BuildListOf(
                                                     HttpStatusCode.OK, 
                                                     HttpStatusCode.Ambiguous, 
@@ -100,7 +101,7 @@ namespace Riak.Client
             return Bucket.Client.Http.BuildUri(Bucket.Name, Name, parameters);
         }
 
-        private Dictionary<string,string> GetHeaders()
+        private Dictionary<string,string> GetHeaders(WebRequestVerb verb)
         {
             Dictionary<string, string> headers = new Dictionary<string, string>();
 
@@ -109,11 +110,20 @@ namespace Riak.Client
                 headers[HttpWellKnownHeader.RiakVClock] = VClock;
             }
 
-            if(Links.Count > 0)
+            if (verb == WebRequestVerb.POST || verb == WebRequestVerb.PUT)
             {
-                headers[HttpWellKnownHeader.Link] = Links.ToString();
+                if (Links.Count > 0)
+                {
+                    headers[HttpWellKnownHeader.Link] = Links.ToString();
+                }
             }
 
+#if TRACE
+            foreach(string h in headers.Keys)
+            {
+                Trace.WriteLine(string.Format("{0}: {1}", h, headers[h]));
+            }
+#endif
             return headers;
         }
 
@@ -121,7 +131,7 @@ namespace Riak.Client
         {
             using (Bucket.Client.Http.Delete(
                 CreateUri(), 
-                GetHeaders(),
+                GetHeaders(WebRequestVerb.DELETE),
                 HttpHandler.BuildListOf(HttpStatusCode.NoContent, HttpStatusCode.NotFound)))
             {
             }
@@ -140,7 +150,7 @@ namespace Riak.Client
             using(Bucket.Client.Http.Put(
                 CreateUri(),
                 ContentType,
-                GetHeaders(),
+                GetHeaders(WebRequestVerb.PUT),
                 HttpHandler.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent),
                 data))
             {
@@ -172,7 +182,7 @@ namespace Riak.Client
                 throw new RiakUnresolvedConflictException("Error: key has conflicts that must be resolved.");
             }
 
-            using (RiakResponse response = Bucket.Client.Http.Get(
+            using (RiakHttpResponse response = Bucket.Client.Http.Get(
                 CreateUri()))
             {
                 LoadHeaders(response);
@@ -185,7 +195,7 @@ namespace Riak.Client
             get; private set;
         }
 
-        private void LoadHeaders(RiakResponse response)
+        private void LoadHeaders(RiakHttpResponse response)
         {
             HasSiblings = response.StatusCode == HttpStatusCode.Ambiguous;
 
@@ -195,6 +205,33 @@ namespace Riak.Client
             LastModified = response.LastModified;
             ContentLength = response.ContentLength;
             Links = LinkCollection.Create(response.Headers[HttpWellKnownHeader.Link]);
+        }
+
+        public void AddLink(RiakObject remoteObject, string riakTag)
+        {
+            Link newLink = new Link
+                           {
+                               UriResource = remoteObject.LinkPath, 
+                               RiakTag = riakTag
+                           };
+
+            Links.Add(newLink);
+        }
+
+        public string LinkPath
+        {
+            get
+            {
+                return string.Format("{0}/{1}/{2}",
+                              Bucket.Client.Http.Uri.AbsolutePath,
+                              Uri.EscapeDataString(Bucket.Name),
+                              Uri.EscapeDataString(Name));
+            }
+        }
+
+        public void Store()
+        {
+            Store(string.Empty);
         }
     }
 }
