@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HttpHandler.cs" />
+    <Compile Include="Link.cs" />
+    <Compile Include="LinkCollection.cs" />
+    <Compile Include="LinkParser.cs" />
     <Compile Include="RiakClient.cs" />
     <Compile Include="RiakException.cs" />
     <Compile Include="RiakHttpRequest.cs" />

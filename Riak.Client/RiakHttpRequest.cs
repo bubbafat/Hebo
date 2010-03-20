@@ -22,6 +22,7 @@ namespace Riak.Client
         public const string RiakClientId = "X-Riak-ClientId";
         public const string RiakVClock = "X-Riak-Vclock";
         public const string ETag = "ETag";
+        public const string Link = "Link";
     }
 
     public delegate void SetHeaderValue(string name, string value);

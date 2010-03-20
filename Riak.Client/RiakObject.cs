@@ -40,6 +40,11 @@ namespace Riak.Client
             get; set;
         }
 
+        public LinkCollection Links
+        {
+            get; private set;
+        }
+
         internal RiakObject(Bucket bucket, string name)
         {
             Bucket = bucket;
@@ -102,6 +107,11 @@ namespace Riak.Client
             if(!string.IsNullOrEmpty(VClock))
             {
                 headers[HttpWellKnownHeader.RiakVClock] = VClock;
+            }
+
+            if(Links.Count > 0)
+            {
+                headers[HttpWellKnownHeader.Link] = Links.ToString();
             }
 
             return headers;
@@ -184,6 +194,7 @@ namespace Riak.Client
             ETag = response.Headers[HttpWellKnownHeader.ETag];
             LastModified = response.LastModified;
             ContentLength = response.ContentLength;
+            Links = LinkCollection.Create(response.Headers[HttpWellKnownHeader.Link]);
         }
     }
 }

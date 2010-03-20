@@ -18,9 +18,15 @@ namespace Riak.Client
             Client = client;
             Name = bucketName;
             _keys = new List<string>();
+            Links = new LinkCollection();
         }
 
         public RiakClient Client
+        {
+            get; private set;
+        }
+
+        public LinkCollection Links
         {
             get; private set;
         }
@@ -33,13 +39,14 @@ namespace Riak.Client
                         Client.Http.BuildUri(Name, null, null), 
                         "application/json"))
             {
-                LoadFromJson(response.GetResponseStream());
+                Links = LinkCollection.Create(response.Headers[HttpWellKnownHeader.Link]);
+                LoadFromJson(response);
             }
         }
 
-        private void LoadFromJson(Stream stream)
+        private void LoadFromJson(RiakResponse response)
         {
-            using (StreamReader sr = new StreamReader(stream))
+            using (StreamReader sr = new StreamReader(response.GetResponseStream()))
             {
                 JsonObject bucket = (JsonObject)JsonConvert.Import(sr);
 
