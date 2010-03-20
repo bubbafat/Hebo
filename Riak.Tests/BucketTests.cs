@@ -129,6 +129,7 @@ namespace Riak.Tests
             conflict1.Store("Conflict1");
             conflict2.Store("Conflict2");
 
+            keyToConflictOn.Refresh();
             Assert.AreEqual(Util.ReadString(keyToConflictOn.Data()), "Conflict2");
         }
 

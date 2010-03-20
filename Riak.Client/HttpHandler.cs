@@ -109,6 +109,14 @@ namespace Riak.Client
                 data);
         }
 
+        public RiakHttpResponse Put(Uri uri, string contentType, Dictionary<string, string> headers, ICollection<HttpStatusCode> allowedCodes, byte[] data)
+        {
+            using(MemoryStream byteStream = new MemoryStream(data))
+            {
+                return Put(uri, contentType, headers, allowedCodes, byteStream);
+            }
+        }
+
         public RiakHttpResponse Put(Uri uri, string contentType, Dictionary<string, string> headers, ICollection<HttpStatusCode> allowedCodes, Stream data)
         {
             headers[HttpWellKnownHeader.ContentType] = contentType;

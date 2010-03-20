@@ -25,12 +25,17 @@ namespace Riak.Client
                 using (RiakHttpResponse response = Bucket.Client.Http.Get(
                     CreateUri()))
                 {
-                    _cachedData = new byte[response.ContentLength];
-                    Util.CopyStream(response.GetResponseStream(), _cachedData);
+                    loadCachedData(response);
                 }
             }
 
             return _cachedData;
+        }
+
+        private void loadCachedData(RiakHttpResponse response)
+        {
+            _cachedData = new byte[response.ContentLength];
+            Util.CopyStream(response.GetResponseStream(), _cachedData);
         }
 
         public string DataString()
@@ -106,7 +111,7 @@ namespace Riak.Client
 
         public void Refresh()
         {
-            using (RiakHttpResponse response = Bucket.Client.Http.Head(CreateUri(),
+            using (RiakHttpResponse response = Bucket.Client.Http.Get(CreateUri(),
                                                 Util.BuildListOf(
                                                     HttpStatusCode.OK, 
                                                     HttpStatusCode.Ambiguous, 
@@ -114,6 +119,10 @@ namespace Riak.Client
                                                     HttpStatusCode.NotFound)))
             {
                 LoadHeaders(response);
+                if(!HasSiblings)
+                {
+                    loadCachedData(response);
+                }
             }
         }
 
@@ -182,6 +191,21 @@ namespace Riak.Client
                 data))
             {
             }
+
+            // TODO: just request the body be returned and
+            Refresh();
+        }
+
+        public virtual void Store()
+        {
+            using (Bucket.Client.Http.Put(
+                CreateUri(),
+                ContentType,
+                GetHeaders(WebRequestVerb.PUT),
+                Util.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent),
+                Data()))
+            {
+            }            
         }
 
         public bool HasSiblings
@@ -221,11 +245,6 @@ namespace Riak.Client
                               Uri.EscapeDataString(Bucket.Name),
                               Uri.EscapeDataString(Name));
             }
-        }
-
-        public void Store()
-        {
-            Store(string.Empty);
         }
     }
 }
