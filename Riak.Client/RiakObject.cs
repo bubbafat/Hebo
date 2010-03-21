@@ -8,7 +8,7 @@ using System.Text;
 namespace Riak.Client
 {
     public delegate T StreamDownloadedCallback<out T>(WebHeaderCollection headers, Stream content);
-    
+
     public class RiakObject
     {
         private byte[] _cachedData;
@@ -45,37 +45,44 @@ namespace Riak.Client
 
         public long ContentLength
         {
-            get; private set;
+            get;
+            private set;
         }
 
         public string SiblingId
         {
-            get; private set;
+            get;
+            private set;
         }
 
         public string ContentType
         {
-            get; set;
+            get;
+            set;
         }
 
         public string VClock
         {
-            get; set;
+            get;
+            set;
         }
 
         public DateTime LastModified
         {
-            get; private set;
+            get;
+            private set;
         }
 
         public string ETag
         {
-            get; set;
+            get;
+            set;
         }
 
         public LinkCollection Links
         {
-            get; private set;
+            get;
+            private set;
         }
 
         internal RiakObject(Bucket bucket, string name)
@@ -88,7 +95,7 @@ namespace Riak.Client
         public RiakObject(Bucket bucket, RiakHttpResponse response)
         {
             Bucket = bucket;
-            LoadHeaders(response);
+            LoadFromResponse(response);
         }
 
         public RiakObject(Bucket bucket, string keyName, string siblingId)
@@ -101,35 +108,70 @@ namespace Riak.Client
 
         public Bucket Bucket
         {
-            get; private set;
+            get;
+            private set;
         }
 
         public string Name
         {
-            get; private set;
+            get;
+            private set;
+        }
+
+        public bool Exists
+        {
+            get;
+            private set;
         }
 
         public void Refresh()
         {
             using (RiakHttpResponse response = Bucket.Client.Http.Get(CreateUri(),
-                                                Util.BuildListOf(
-                                                    HttpStatusCode.OK, 
-                                                    HttpStatusCode.Ambiguous, 
-                                                    HttpStatusCode.NotModified, 
-                                                    HttpStatusCode.NotFound)))
+                                                                      Util.BuildListOf(
+                                                                          HttpStatusCode.OK,
+                                                                          HttpStatusCode.Ambiguous,
+                                                                          HttpStatusCode.NotModified,
+                                                                          HttpStatusCode.NotFound)))
+            {
+                LoadFromResponse(response);
+            }
+        }
+
+        private void LoadFromResponse(RiakHttpResponse response)
+        {
+            Exists = response.StatusCode != HttpStatusCode.NotFound;
+
+            if (Exists)
             {
                 LoadHeaders(response);
-                if(!HasSiblings)
+                if (!HasSiblings)
                 {
                     loadCachedData(response);
                 }
             }
+            else
+            {
+                InitializeNew();
+            }
+        }
+
+        private void InitializeNew()
+        {
+            HasSiblings = false;
+            Links = new LinkCollection();
+            Exists = false;
+            ETag = null;
+            LastModified = default(DateTime);
+            VClock = null;
+            ContentType = null;
+            ContentLength = 0;
+            _cachedData = null;
         }
 
         private Uri CreateUri()
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            if(!string.IsNullOrEmpty(SiblingId))
+            if (!string.IsNullOrEmpty(SiblingId))
             {
                 parameters["vtag"] = SiblingId;
             }
@@ -137,11 +179,11 @@ namespace Riak.Client
             return Bucket.Client.Http.BuildUri(Bucket.Name, Name, parameters);
         }
 
-        private Dictionary<string,string> GetHeaders(WebRequestVerb verb)
+        private Dictionary<string, string> GetHeaders(WebRequestVerb verb)
         {
             Dictionary<string, string> headers = new Dictionary<string, string>();
 
-            if(!string.IsNullOrEmpty(VClock))
+            if (!string.IsNullOrEmpty(VClock))
             {
                 headers[HttpWellKnownHeader.RiakVClock] = VClock;
             }
@@ -155,7 +197,7 @@ namespace Riak.Client
             }
 
 #if TRACE
-            foreach(string h in headers.Keys)
+            foreach (string h in headers.Keys)
             {
                 Trace.WriteLine(string.Format("{0}: {1}", h, headers[h]));
             }
@@ -166,7 +208,7 @@ namespace Riak.Client
         public virtual void Delete()
         {
             using (Bucket.Client.Http.Delete(
-                CreateUri(), 
+                CreateUri(),
                 GetHeaders(WebRequestVerb.DELETE),
                 Util.BuildListOf(HttpStatusCode.NoContent, HttpStatusCode.NotFound)))
             {
@@ -183,7 +225,12 @@ namespace Riak.Client
 
         public virtual void Store(Stream data)
         {
-            using(Bucket.Client.Http.Put(
+            if (string.IsNullOrEmpty(ContentType))
+            {
+                throw new InvalidOperationException("ContentType must not be null when performing a RiakObject PUT operation");
+            }
+
+            using (Bucket.Client.Http.Put(
                 CreateUri(),
                 ContentType,
                 GetHeaders(WebRequestVerb.PUT),
@@ -205,12 +252,13 @@ namespace Riak.Client
                 Util.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent),
                 Data()))
             {
-            }            
+            }
         }
 
         public bool HasSiblings
         {
-            get; private set;
+            get;
+            private set;
         }
 
         private void LoadHeaders(RiakHttpResponse response)
@@ -229,7 +277,7 @@ namespace Riak.Client
         {
             Link newLink = new Link
                            {
-                               UriResource = remoteObject.LinkPath, 
+                               UriResource = remoteObject.LinkPath,
                                RiakTag = riakTag
                            };
 

@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="ae12469d-e95f-412d-b740-6a9557b746f4" name="Robert@HORVICKW7 2010-03-21 09:50:09" runUser="HORVICKW7\Robert" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="cccf0ead-bb7b-4fa6-80c8-b697078887da">
+    <Description>These are default test settings for a local test run.</Description>
+    <Execution>
+      <TestTypeSpecific>
+        <UnitTestRunConfig testTypeId="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b">
+          <AssemblyResolution>
+            <TestDirectory useLoadContext="true" />
+          </AssemblyResolution>
+        </UnitTestRunConfig>
+        <WebTestRunConfiguration testTypeId="4e7599fa-5ecb-43e9-a887-cd63cf72d207">
+          <Browser name="Internet Explorer 7.0">
+            <Headers>
+              <Header name="User-Agent" value="Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)" />
+              <Header name="Accept" value="*/*" />
+              <Header name="Accept-Language" value="{{$IEAcceptLanguage}}" />
+              <Header name="Accept-Encoding" value="GZIP" />
+            </Headers>
+          </Browser>
+        </WebTestRunConfiguration>
+      </TestTypeSpecific>
+      <AgentRule name="LocalMachineDefaultRole">
+        <DataCollectors>
+          <DataCollector uri="datacollector://microsoft/CodeCoverage/1.0" assemblyQualifiedName="Microsoft.VisualStudio.TestTools.CodeCoverage.CoveragePlugIn, Microsoft.VisualStudio.QualityTools.Plugins.CodeCoverage, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" friendlyName="Code Coverage" enabled="false">
+            <Configuration>
+              <CodeCoverage xmlns="">
+                <Regular>
+                  <CodeCoverageItem binaryFile="Riak.Client\bin\Debug\Riak.Client.dll" pdbFile="Riak.Client\bin\Debug\Riak.Client.pdb" instrumentInPlace="true" />
+                </Regular>
+              </CodeCoverage>
+            </Configuration>
+          </DataCollector>
+        </DataCollectors>
+      </AgentRule>
+    </Execution>
+    <Deployment runDeploymentRoot="Robert_HORVICKW7 2010-03-21 09_50_09" />
+  </TestSettings>
+  <Times creation="2010-03-21T09:50:09.1602964-04:00" queuing="2010-03-21T09:50:14.3365925-04:00" start="2010-03-21T09:50:14.8026192-04:00" finish="2010-03-21T09:50:24.6171805-04:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="17" executed="17" passed="9" error="0" failed="8" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="LinkWithMultipleParameters" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="d79ef6f9-4e22-e7f6-a37e-b0e7a8cab61d">
+      <Execution id="40ca4706-41e0-41ae-a686-d0a544f330cb" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkWithMultipleParameters" />
+    </UnitTest>
+    <UnitTest name="SettingAllowMultiPersistsCorrectly" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="33d4d279-34bd-6d5a-280e-4b82973def51">
+      <Execution id="2cc6ac24-bbc6-4c60-b310-af005d1edb0b" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="SettingAllowMultiPersistsCorrectly" />
+    </UnitTest>
+    <UnitTest name="LinkCollectionOperationalTests" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="80c6668e-527f-7ce0-c7fa-d368165124a1">
+      <Execution id="9cd82ec7-ad04-4189-bc8b-be0b12142634" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkCollectionOperationalTests" />
+    </UnitTest>
+    <UnitTest name="GetAllSiblingsOnConflict" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="7a71b779-6444-5633-f109-dc2d069ca31b">
+      <Execution id="a4468b47-0e56-4500-9ffb-d51aa570f39e" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetAllSiblingsOnConflict" />
+    </UnitTest>
+    <UnitTest name="SaveAStringKeyValue" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="58939138-4342-8e72-2f65-c6ec6d5362d3">
+      <Execution id="d04c6ba1-6f14-4c8b-ab29-e3375f67c063" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="SaveAStringKeyValue" />
+    </UnitTest>
+    <UnitTest name="LinkOddlyFormedIsParsedAndNormalized" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="86d01318-0230-9e62-826b-6c3385d23407">
+      <Execution id="9125e3f9-e0b5-4c36-9426-914ffd52a458" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkOddlyFormedIsParsedAndNormalized" />
+    </UnitTest>
+    <UnitTest name="SaveABinaryKeyValue" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="4ad0d6cc-b6bb-6b71-fab7-7bd0c1927a9f">
+      <Execution id="74af8482-05a5-493b-b688-b1ab19ae311b" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="SaveABinaryKeyValue" />
+    </UnitTest>
+    <UnitTest name="LinkWithRelationalUri" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="30d12b1b-aa49-8c08-bd4a-866243aceb48">
+      <Execution id="08b1212d-db0e-4b98-b57c-4338a111a871" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkWithRelationalUri" />
+    </UnitTest>
+    <UnitTest name="ConflictOnAllowMultiBucket" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="beae7429-a6a2-4b8b-91b8-2242ec45c77a">
+      <Execution id="a8120913-1111-4921-b920-74bcebc8eda9" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ConflictOnAllowMultiBucket" />
+    </UnitTest>
+    <UnitTest name="LinkRoundTripping" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="8bc468f8-eee0-673a-92b7-930506440e84">
+      <Execution id="ee1e2ff5-751e-48d1-b41d-e6b0b3d8f209" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkRoundTripping" />
+    </UnitTest>
+    <UnitTest name="LinkWithUnknownParameters" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="d9c44692-30b5-c679-747b-7d385a54ef67">
+      <Execution id="e91d305a-f88b-48ce-b91d-413befb85522" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkWithUnknownParameters" />
+    </UnitTest>
+    <UnitTest name="LinkFollowing" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="e59f5b3d-3a7c-4505-e293-67664a703224">
+      <Execution id="f8c157be-7138-456c-ac3c-5842ec31b92b" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkFollowing" />
+    </UnitTest>
+    <UnitTest name="DeleteMissingKeys" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="8adbc453-a093-0889-b145-79d2f69be902">
+      <Execution id="4c0e68da-97a7-4f28-9c06-010f3b7b3e7d" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="DeleteMissingKeys" />
+    </UnitTest>
+    <UnitTest name="DeleteExistingKeys" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="ecb7a2ec-95c2-bcd4-9208-598a9a8227f1">
+      <Execution id="961448f5-a9c6-41af-92d5-34b092d3e8b8" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="DeleteExistingKeys" />
+    </UnitTest>
+    <UnitTest name="ConflictOnNonMultiBucket" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="06a22416-08af-c0dc-b70f-5cec4761aa09">
+      <Execution id="9a3eb42a-1551-4d93-90b0-caf422bc3cfa" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.BucketTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ConflictOnNonMultiBucket" />
+    </UnitTest>
+    <UnitTest name="GetAllTextData" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="4312a9d7-4905-c365-94ac-da54845d713f">
+      <Execution id="4ccfeb39-422e-442f-b350-ef60e9fe1bec" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.MultiPartResponseTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetAllTextData" />
+    </UnitTest>
+    <UnitTest name="LinkOnNewKeyExistsAndParses" storage="c:\projects\riak.client\riak.tests\bin\debug\riak.tests.dll" id="cb4b29f5-c7d3-2010-bb43-cecc9f41c474">
+      <Execution id="0cf2644d-0f22-4c02-bda8-afd2c3c5bbd0" />
+      <TestMethod codeBase="c:/projects/Riak.Client/Riak.Tests/bin/Debug/Riak.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Riak.Tests.LinkTests, Riak.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LinkOnNewKeyExistsAndParses" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="58939138-4342-8e72-2f65-c6ec6d5362d3" executionId="d04c6ba1-6f14-4c8b-ab29-e3375f67c063" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4ad0d6cc-b6bb-6b71-fab7-7bd0c1927a9f" executionId="74af8482-05a5-493b-b688-b1ab19ae311b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ecb7a2ec-95c2-bcd4-9208-598a9a8227f1" executionId="961448f5-a9c6-41af-92d5-34b092d3e8b8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8adbc453-a093-0889-b145-79d2f69be902" executionId="4c0e68da-97a7-4f28-9c06-010f3b7b3e7d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="06a22416-08af-c0dc-b70f-5cec4761aa09" executionId="9a3eb42a-1551-4d93-90b0-caf422bc3cfa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="33d4d279-34bd-6d5a-280e-4b82973def51" executionId="2cc6ac24-bbc6-4c60-b310-af005d1edb0b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="beae7429-a6a2-4b8b-91b8-2242ec45c77a" executionId="a8120913-1111-4921-b920-74bcebc8eda9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7a71b779-6444-5633-f109-dc2d069ca31b" executionId="a4468b47-0e56-4500-9ffb-d51aa570f39e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="30d12b1b-aa49-8c08-bd4a-866243aceb48" executionId="08b1212d-db0e-4b98-b57c-4338a111a871" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d79ef6f9-4e22-e7f6-a37e-b0e7a8cab61d" executionId="40ca4706-41e0-41ae-a686-d0a544f330cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d9c44692-30b5-c679-747b-7d385a54ef67" executionId="e91d305a-f88b-48ce-b91d-413befb85522" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8bc468f8-eee0-673a-92b7-930506440e84" executionId="ee1e2ff5-751e-48d1-b41d-e6b0b3d8f209" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="86d01318-0230-9e62-826b-6c3385d23407" executionId="9125e3f9-e0b5-4c36-9426-914ffd52a458" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb4b29f5-c7d3-2010-bb43-cecc9f41c474" executionId="0cf2644d-0f22-4c02-bda8-afd2c3c5bbd0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="80c6668e-527f-7ce0-c7fa-d368165124a1" executionId="9cd82ec7-ad04-4189-bc8b-be0b12142634" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e59f5b3d-3a7c-4505-e293-67664a703224" executionId="f8c157be-7138-456c-ac3c-5842ec31b92b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4312a9d7-4905-c365-94ac-da54845d713f" executionId="4ccfeb39-422e-442f-b350-ef60e9fe1bec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="d04c6ba1-6f14-4c8b-ab29-e3375f67c063" testId="58939138-4342-8e72-2f65-c6ec6d5362d3" testName="SaveAStringKeyValue" computerName="HORVICKW7" duration="00:00:01.1191377" startTime="2010-03-21T09:50:15.0866354-04:00" endTime="2010-03-21T09:50:18.0058024-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d04c6ba1-6f14-4c8b-ab29-e3375f67c063">
+      <Output>
+        <DebugTrace>GET: http://192.168.137.50:8098/riak/BucketTest
+GET: http://192.168.137.50:8098/riak/BucketTest/StringKey
+X-Riak-Vclock: a85hYGBgzGDKBVIsLIIXpTKYEhnzWBk6T0se5csCAA==
+Link: 
+PUT: http://192.168.137.50:8098/riak/BucketTest/StringKey
+GET: http://192.168.137.50:8098/riak/BucketTest/StringKey
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="74af8482-05a5-493b-b688-b1ab19ae311b" testId="4ad0d6cc-b6bb-6b71-fab7-7bd0c1927a9f" testName="SaveABinaryKeyValue" computerName="HORVICKW7" duration="00:00:00.6102805" startTime="2010-03-21T09:50:18.0598055-04:00" endTime="2010-03-21T09:50:18.6968419-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="74af8482-05a5-493b-b688-b1ab19ae311b">
+      <Output>
+        <DebugTrace>GET: http://192.168.137.50:8098/riak/BucketTest
+GET: http://192.168.137.50:8098/riak/BucketTest/BinaryKey
+</DebugTrace>
+        <ErrorInfo>
+          <Message>Test method Riak.Tests.BucketTests.SaveABinaryKeyValue threw exception: 
+System.NullReferenceException: Object reference not set to an instance of an object.</Message>
+          <StackTrace>    at Riak.Client.RiakObject.GetHeaders(WebRequestVerb verb) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 161
+   at Riak.Client.RiakObject.Store(Stream data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 201
+   at Riak.Tests.BucketTests.SaveABinaryKeyValue() in c:\projects\Riak.Client\Riak.Tests\BucketTests.cs:line 42
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="961448f5-a9c6-41af-92d5-34b092d3e8b8" testId="ecb7a2ec-95c2-bcd4-9208-598a9a8227f1" testName="DeleteExistingKeys" computerName="HORVICKW7" duration="00:00:00.7270641" startTime="2010-03-21T09:50:18.7368442-04:00" endTime="2010-03-21T09:50:19.4958876-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="961448f5-a9c6-41af-92d5-34b092d3e8b8">
+      <Output>
+        <DebugTrace>GET: http://192.168.137.50:8098/riak/BucketTest
+GET: http://192.168.137.50:8098/riak/BucketTest
+GET: http://192.168.137.50:8098/riak/BucketTest/StringKey
+X-Riak-Vclock: a85hYGBgymDKBVIsLIIXpTKYEhnzWBk6T0se5YMKM/3cawEVllwgdZQvCwA=
+DELETE: http://192.168.137.50:8098/riak/BucketTest/StringKey
+GET: http://192.168.137.50:8098/riak/BucketTest
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4c0e68da-97a7-4f28-9c06-010f3b7b3e7d" testId="8adbc453-a093-0889-b145-79d2f69be902" testName="DeleteMissingKeys" computerName="HORVICKW7" duration="00:00:00.3079113" startTime="2010-03-21T09:50:19.5608913-04:00" endTime="2010-03-21T09:50:19.8859099-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c0e68da-97a7-4f28-9c06-010f3b7b3e7d">
+      <Output>
+        <DebugTrace>GET: http://192.168.137.50:8098/riak/BucketTest
+GET: http://192.168.137.50:8098/riak/BucketTest/0
+</DebugTrace>
+        <ErrorInfo>
+          <Message>Test method Riak.Tests.BucketTests.DeleteMissingKeys threw exception: 
+System.NullReferenceException: Object reference not set to an instance of an object.</Message>
+          <StackTrace>    at Riak.Client.RiakObject.GetHeaders(WebRequestVerb verb) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 161
+   at Riak.Client.RiakObject.Store(Stream data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 201
+   at Riak.Client.RiakObject.Store(String data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 190
+   at Riak.Tests.BucketTests.DeleteMissingKeys() in c:\projects\Riak.Client\Riak.Tests\BucketTests.cs:line 89
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9a3eb42a-1551-4d93-90b0-caf422bc3cfa" testId="06a22416-08af-c0dc-b70f-5cec4761aa09" testName="ConflictOnNonMultiBucket" computerName="HORVICKW7" duration="00:00:00.4754848" startTime="2010-03-21T09:50:19.9109113-04:00" endTime="2010-03-21T09:50:20.4069397-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9a3eb42a-1551-4d93-90b0-caf422bc3cfa">
+      <Output>
+        <DebugTrace>GET: http://192.168.137.50:8098/riak/NonMultiBucket
+GET: http://192.168.137.50:8098/riak/NonMultiBucket/9d606632-061d-4333-aa80-378fa0ff7eef
+</DebugTrace>
+        <ErrorInfo>
+          <Message>Test method Riak.Tests.BucketTests.ConflictOnNonMultiBucket threw exception: 
+System.NullReferenceException: Object reference not set to an instance of an object.</Message>
+          <StackTrace>    at Riak.Client.RiakObject.GetHeaders(WebRequestVerb verb) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 161
+   at Riak.Client.RiakObject.Store(Stream data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 201
+   at Riak.Client.RiakObject.Store(String data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 190
+   at Riak.Tests.BucketTests.ConflictOnNonMultiBucket() in c:\projects\Riak.Client\Riak.Tests\BucketTests.cs:line 118
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2cc6ac24-bbc6-4c60-b310-af005d1edb0b" testId="33d4d279-34bd-6d5a-280e-4b82973def51" testName="SettingAllowMultiPersistsCorrectly" computerName="HORVICKW7" duration="00:00:00.9405712" startTime="2010-03-21T09:50:20.4309411-04:00" endTime="2010-03-21T09:50:21.3909960-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2cc6ac24-bbc6-4c60-b310-af005d1edb0b">
+      <Output>
+        <DebugTrace>GET: http://192.168.137.50:8098/riak/SettingAllowMultiPersistsCorrectly
+PUT: http://192.168.137.50:8098/riak/SettingAllowMultiPersistsCorrectly
+GET: http://192.168.137.50:8098/riak/SettingAllowMultiPersistsCorrectly
+PUT: http://192.168.137.50:8098/riak/SettingAllowMultiPersistsCorrectly
+GET: http://192.168.137.50:8098/riak/SettingAllowMultiPersistsCorrectly
+PUT: http://192.168.137.50:8098/riak/SettingAllowMultiPersistsCorrectly
+GET: http://192.168.137.50:8098/riak/SettingAllowMultiPersistsCorrectly
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a8120913-1111-4921-b920-74bcebc8eda9" testId="beae7429-a6a2-4b8b-91b8-2242ec45c77a" testName="ConflictOnAllowMultiBucket" computerName="HORVICKW7" duration="00:00:00.4635690" startTime="2010-03-21T09:50:21.4599999-04:00" endTime="2010-03-21T09:50:21.9550283-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8120913-1111-4921-b920-74bcebc8eda9">
+      <Output>
+        <DebugTrace>GET: http://192.168.137.50:8098/riak/ConflictOnAllowMultiBucket
+PUT: http://192.168.137.50:8098/riak/ConflictOnAllowMultiBucket
+GET: http://192.168.137.50:8098/riak/ConflictOnAllowMultiBucket/841a4b03-c108-43f5-a0c8-8a70f4e16d26
+</DebugTrace>
+        <ErrorInfo>
+          <Message>Test method Riak.Tests.BucketTests.ConflictOnAllowMultiBucket threw exception System.NullReferenceException, but exception Riak.Client.RiakUnresolvedConflictException was expected. Exception message: System.NullReferenceException: Object reference not set to an instance of an object.</Message>
+          <StackTrace>    at Riak.Client.RiakObject.GetHeaders(WebRequestVerb verb) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 161
+   at Riak.Client.RiakObject.Store(Stream data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 201
+   at Riak.Client.RiakObject.Store(String data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 190
+   at Riak.Tests.BucketTests.ConflictOnAllowMultiBucket() in c:\projects\Riak.Client\Riak.Tests\BucketTests.cs:line 169
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a4468b47-0e56-4500-9ffb-d51aa570f39e" testId="7a71b779-6444-5633-f109-dc2d069ca31b" testName="GetAllSiblingsOnConflict" computerName="HORVICKW7" duration="00:00:00.3772162" startTime="2010-03-21T09:50:21.9890302-04:00" endTime="2010-03-21T09:50:22.3930533-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a4468b47-0e56-4500-9ffb-d51aa570f39e">
+      <Output>
+        <DebugTrace>GET: http://192.168.137.50:8098/riak/ConflictOnAllowMultiBucket
+PUT: http://192.168.137.50:8098/riak/ConflictOnAllowMultiBucket
+GET: http://192.168.137.50:8098/riak/ConflictOnAllowMultiBucket/c4df3c51-fbf1-455e-b89a-9b4645b4d468
+</DebugTrace>
+        <ErrorInfo>
+          <Message>Test method Riak.Tests.BucketTests.GetAllSiblingsOnConflict threw exception: 
+System.NullReferenceException: Object reference not set to an instance of an object.</Message>
+          <StackTrace>    at Riak.Client.RiakObject.GetHeaders(WebRequestVerb verb) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 161
+   at Riak.Client.RiakObject.Store(Stream data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 201
+   at Riak.Client.RiakObject.Store(String data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 190
+   at Riak.Tests.BucketTests.GetAllSiblingsOnConflict() in c:\projects\Riak.Client\Riak.Tests\BucketTests.cs:line 204
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="08b1212d-db0e-4b98-b57c-4338a111a871" testId="30d12b1b-aa49-8c08-bd4a-866243aceb48" testName="LinkWithRelationalUri" computerName="HORVICKW7" duration="00:00:00.0023985" startTime="2010-03-21T09:50:22.4160546-04:00" endTime="2010-03-21T09:50:22.4390559-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="08b1212d-db0e-4b98-b57c-4338a111a871">
+    </UnitTestResult>
+    <UnitTestResult executionId="40ca4706-41e0-41ae-a686-d0a544f330cb" testId="d79ef6f9-4e22-e7f6-a37e-b0e7a8cab61d" testName="LinkWithMultipleParameters" computerName="HORVICKW7" duration="00:00:00.0008534" startTime="2010-03-21T09:50:22.5340614-04:00" endTime="2010-03-21T09:50:22.5720636-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="40ca4706-41e0-41ae-a686-d0a544f330cb">
+    </UnitTestResult>
+    <UnitTestResult executionId="e91d305a-f88b-48ce-b91d-413befb85522" testId="d9c44692-30b5-c679-747b-7d385a54ef67" testName="LinkWithUnknownParameters" computerName="HORVICKW7" duration="00:00:00.0012359" startTime="2010-03-21T09:50:22.6380673-04:00" endTime="2010-03-21T09:50:22.6630688-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e91d305a-f88b-48ce-b91d-413befb85522">
+    </UnitTestResult>
+    <UnitTestResult executionId="ee1e2ff5-751e-48d1-b41d-e6b0b3d8f209" testId="8bc468f8-eee0-673a-92b7-930506440e84" testName="LinkRoundTripping" computerName="HORVICKW7" duration="00:00:00.0013609" startTime="2010-03-21T09:50:22.6820698-04:00" endTime="2010-03-21T09:50:22.7060712-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ee1e2ff5-751e-48d1-b41d-e6b0b3d8f209">
+    </UnitTestResult>
+    <UnitTestResult executionId="9125e3f9-e0b5-4c36-9426-914ffd52a458" testId="86d01318-0230-9e62-826b-6c3385d23407" testName="LinkOddlyFormedIsParsedAndNormalized" computerName="HORVICKW7" duration="00:00:00.0008113" startTime="2010-03-21T09:50:22.7220721-04:00" endTime="2010-03-21T09:50:22.7450734-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9125e3f9-e0b5-4c36-9426-914ffd52a458">
+    </UnitTestResult>
+    <UnitTestResult executionId="0cf2644d-0f22-4c02-bda8-afd2c3c5bbd0" testId="cb4b29f5-c7d3-2010-bb43-cecc9f41c474" testName="LinkOnNewKeyExistsAndParses" computerName="HORVICKW7" duration="00:00:00.2935870" startTime="2010-03-21T09:50:22.7640745-04:00" endTime="2010-03-21T09:50:23.0830928-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0cf2644d-0f22-4c02-bda8-afd2c3c5bbd0">
+      <Output>
+        <DebugTrace>GET: http://192.168.137.50:8098/riak/BucketTest
+GET: http://192.168.137.50:8098/riak/BucketTest/StringKey
+</DebugTrace>
+        <ErrorInfo>
+          <Message>Test method Riak.Tests.LinkTests.LinkOnNewKeyExistsAndParses threw exception: 
+System.NullReferenceException: Object reference not set to an instance of an object.</Message>
+          <StackTrace>    at Riak.Client.RiakObject.GetHeaders(WebRequestVerb verb) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 161
+   at Riak.Client.RiakObject.Store(Stream data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 201
+   at Riak.Client.RiakObject.Store(String data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 190
+   at Riak.Tests.LinkTests.LinkOnNewKeyExistsAndParses() in c:\projects\Riak.Client\Riak.Tests\LinkTests.cs:line 111
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9cd82ec7-ad04-4189-bc8b-be0b12142634" testId="80c6668e-527f-7ce0-c7fa-d368165124a1" testName="LinkCollectionOperationalTests" computerName="HORVICKW7" duration="00:00:00.0036475" startTime="2010-03-21T09:50:23.1040940-04:00" endTime="2010-03-21T09:50:23.1430962-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9cd82ec7-ad04-4189-bc8b-be0b12142634">
+    </UnitTestResult>
+    <UnitTestResult executionId="f8c157be-7138-456c-ac3c-5842ec31b92b" testId="e59f5b3d-3a7c-4505-e293-67664a703224" testName="LinkFollowing" computerName="HORVICKW7" duration="00:00:00.3741739" startTime="2010-03-21T09:50:23.2131002-04:00" endTime="2010-03-21T09:50:23.6311241-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f8c157be-7138-456c-ac3c-5842ec31b92b">
+      <Output>
+        <DebugTrace>GET: http://192.168.137.50:8098/riak/Artist
+GET: http://192.168.137.50:8098/riak/Artist/Miles%20Davis
+X-Riak-Vclock: a85hYGBgzGDKBVIs7LH7ejOYEhnzWBmS50kd5csCAA==
+DELETE: http://192.168.137.50:8098/riak/Artist/Miles%20Davis
+GET: http://192.168.137.50:8098/riak/Artist/Miles%20Davis
+</DebugTrace>
+        <ErrorInfo>
+          <Message>Test method Riak.Tests.LinkTests.LinkFollowing threw exception: 
+System.NullReferenceException: Object reference not set to an instance of an object.</Message>
+          <StackTrace>    at Riak.Client.RiakObject.GetHeaders(WebRequestVerb verb) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 161
+   at Riak.Client.RiakObject.Store(Stream data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 201
+   at Riak.Client.RiakObject.Store(String data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 190
+   at Riak.Tests.LinkTests.CreateTextObject(Bucket bucket, String name) in c:\projects\Riak.Client\Riak.Tests\LinkTests.cs:line 210
+   at Riak.Tests.LinkTests.LinkFollowing() in c:\projects\Riak.Client\Riak.Tests\LinkTests.cs:line 167
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4ccfeb39-422e-442f-b350-ef60e9fe1bec" testId="4312a9d7-4905-c365-94ac-da54845d713f" testName="GetAllTextData" computerName="HORVICKW7" duration="00:00:00.4607915" startTime="2010-03-21T09:50:23.6571256-04:00" endTime="2010-03-21T09:50:24.1641546-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4ccfeb39-422e-442f-b350-ef60e9fe1bec">
+      <Output>
+        <DebugTrace>GET: http://192.168.137.50:8098/riak/e784f839-cb09-402d-a296-066564c5846e
+PUT: http://192.168.137.50:8098/riak/e784f839-cb09-402d-a296-066564c5846e
+GET: http://192.168.137.50:8098/riak/e784f839-cb09-402d-a296-066564c5846e/AllTextKey
+GET: http://192.168.137.50:8098/riak/e784f839-cb09-402d-a296-066564c5846e/AllTextKey
+GET: http://192.168.137.50:8098/riak/e784f839-cb09-402d-a296-066564c5846e/AllTextKey
+GET: http://192.168.137.50:8098/riak/e784f839-cb09-402d-a296-066564c5846e/AllTextKey
+</DebugTrace>
+        <ErrorInfo>
+          <Message>Initialization method Riak.Tests.MultiPartResponseTests.AddInitialData threw exception. System.NullReferenceException: System.NullReferenceException: Object reference not set to an instance of an object..</Message>
+          <StackTrace>    at Riak.Client.RiakObject.GetHeaders(WebRequestVerb verb) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 161
+   at Riak.Client.RiakObject.Store(Stream data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 201
+   at Riak.Client.RiakObject.Store(String data) in c:\projects\Riak.Client\Riak.Client\RiakObject.cs:line 190
+   at Riak.Tests.MultiPartResponseTests.SetAndStoreTextKey(RiakObject textKey) in c:\projects\Riak.Client\Riak.Tests\MultiPartResponseTests.cs:line 45
+   at Riak.Tests.MultiPartResponseTests.AddInitialData() in c:\projects\Riak.Client\Riak.Tests\MultiPartResponseTests.cs:line 35
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

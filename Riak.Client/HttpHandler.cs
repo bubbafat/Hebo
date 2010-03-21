@@ -210,16 +210,21 @@ namespace Riak.Client
                                                         verb,
                                                         uri.AbsoluteUri);
 
-                if(response.ContentLength > 0)
-                {
                     using(StreamReader sr = new StreamReader(response.GetResponseStream()))
                     {
                         Trace.TraceError("HTTP error {0} performing {1} request at {2}", 
                             response.StatusCode, verb, uri.AbsoluteUri);
 
-                        Trace.TraceError(sr.ReadToEnd());
+                        foreach(string key in response.Headers.Keys)
+                        {
+                            Trace.TraceError("{0}: {1}", key, response.Headers[key]);
+                        }
+
+                        if (response.ContentLength > 0)
+                        {
+                            Trace.TraceError(sr.ReadToEnd());
+                        }
                     }
-                }
 
                 response.Dispose();
                 throw exception;
