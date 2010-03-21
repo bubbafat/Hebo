@@ -1,2 +1,8 @@
 TestResults
 Riak.Client.suo
+Riak.Client.5.0.ReSharper.user
+Riak.Client/bin
+Riak.Client/obj
+Riak.Tests/bin
+Riak.Tests/obj
+_ReSharper.Riak.Client

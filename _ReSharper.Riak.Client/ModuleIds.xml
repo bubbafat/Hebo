@@ -1,6 +1,0 @@
-<Modules>
-  <Module PersistentId="8FDCB48F-EDCD-4F6E-BD91-5472D319FF4D" ModuleId="Riak.Client" />
-  <Module PersistentId="63C08E06-DD04-4CA2-921C-87890DB829AB" ModuleId="Riak.Tests" />
-  <Module PersistentId="d:Miscellaneous Files" ModuleId="mscorlib" />
-  <Module PersistentId="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ModuleId="System" />
-</Modules>
