@@ -1,9 +1,0 @@
-C:\projects\Riak.Client\Riak.Tests\bin\Debug\Riak.Tests.dll
-C:\projects\Riak.Client\Riak.Tests\bin\Debug\Riak.Tests.pdb
-C:\projects\Riak.Client\Riak.Tests\bin\Debug\Riak.Client.dll
-C:\projects\Riak.Client\Riak.Tests\bin\Debug\Riak.Client.pdb
-C:\projects\Riak.Client\Riak.Tests\obj\Debug\ResolveAssemblyReference.cache
-C:\projects\Riak.Client\Riak.Tests\obj\Debug\Riak.Tests.dll
-C:\projects\Riak.Client\Riak.Tests\obj\Debug\Riak.Tests.pdb
-C:\projects\Riak.Client\Riak.Tests\bin\Debug\Jayrock.Json.dll
-C:\projects\Riak.Client\Riak.Tests\bin\Debug\Jayrock.Json.pdb
