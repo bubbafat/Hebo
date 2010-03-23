@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Riak.Client;
@@ -65,6 +67,30 @@ namespace Riak.Tests
             }
         }
 
+        [TestMethod]
+        public void LoadSimpleMultiPartDocument()
+        {
+            // this file is saved in CodePage 28591 (iso-8859-1 Western European (ISO))
+            // this file uses unix style line endings (like riak would return)
+            using (Stream response = LoadDocumentStream("Riak.Tests.SimpleMultiPartDocument.dat"))
+            {
+                Document d = Document.Load(response);
+                Assert.IsNotNull(d);
+                Assert.IsNotNull(d.Headers);
+                Assert.IsNotNull(d.Content);
+
+                MultiPartDocument mpd = d as MultiPartDocument;
+                Assert.IsNotNull(mpd);
+                Assert.IsNotNull(mpd.Parts);
+                Assert.AreEqual(4, mpd.Parts.Count);
+            }
+        }
+
+        private Stream LoadDocumentStream(string streamName)
+        {
+            return Assembly.GetCallingAssembly().GetManifestResourceStream(streamName);
+        }
+
         private string GetRandomTextData()
         {
             int length = _rng.Next() % (1024 * 10) + 1;
@@ -82,6 +108,5 @@ namespace Riak.Tests
             const string set = "abcdefghijklmnopqrstuvwxyz";
             return set[_rng.Next() % set.Length];
         }
-
     }
 }

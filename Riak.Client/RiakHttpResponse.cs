@@ -65,7 +65,7 @@ namespace Riak.Client
             {
                 // TODO: this feels really hokey.
                 string contentType = _webResponse.ContentType;
-                return contentType.StartsWith("multipart/mixed;");
+                return Util.IsMultiPart(contentType);
             }
         }
     }

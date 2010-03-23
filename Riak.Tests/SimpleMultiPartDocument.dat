@@ -1,0 +1,37 @@
+X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE3pt5HlsgCAA==
+Vary: Accept, Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.6 (eat around the stinger)
+Date: Wed, 10 Mar 2010 18:13:06 GMT
+Content-Type: multipart/mixed; boundary=YinLMzyUR9feB17okMytgKsylvh
+Content-Length: 766
+
+
+--YinLMzyUR9feB17okMytgKsylvh
+Content-Type: application/x-www-form-urlencoded
+Link: </riak/test>; rel="up"
+Etag: 16vic4eU9ny46o4KPiDz1f
+Last-Modified: Wed, 10 Mar 2010 18:01:06 GMT
+
+{"bar":"baz"}
+--YinLMzyUR9feB17okMytgKsylvh
+Content-Type: application/json
+Link: </riak/test>; rel="up"
+Etag: 4v5xOg4bVwUYZdMkqf0d6I
+Last-Modified: Wed, 10 Mar 2010 18:00:04 GMT
+
+{"bar":"baz"}
+--YinLMzyUR9feB17okMytgKsylvh
+Content-Type: application/json
+Link: </riak/test>; rel="up"
+Etag: 6nr5tDTmhxnwuAFJDd2s6G
+Last-Modified: Wed, 10 Mar 2010 17:58:08 GMT
+
+{"bar":"baz"}
+--YinLMzyUR9feB17okMytgKsylvh
+Content-Type: application/json
+Link: </riak/test>; rel="up"
+Etag: 6zRSZFUJlHXZ15o9CG0BYl
+Last-Modified: Wed, 10 Mar 2010 17:55:03 GMT
+
+{"foo":"bar"}
+--YinLMzyUR9feB17okMytgKsylvh--

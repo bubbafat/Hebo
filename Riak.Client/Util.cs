@@ -54,5 +54,10 @@ namespace Riak.Client
         {
             return codes;
         }
+
+        public static bool IsMultiPart(string headerValue)
+        {
+            return headerValue.Trim().StartsWith("multipart/");
+        }
     }
 }

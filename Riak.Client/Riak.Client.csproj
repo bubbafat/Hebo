@@ -50,6 +50,7 @@
     <Compile Include="Link.cs" />
     <Compile Include="LinkCollection.cs" />
     <Compile Include="LinkParser.cs" />
+    <Compile Include="MultiPartDocument.cs" />
     <Compile Include="RiakClient.cs" />
     <Compile Include="RiakException.cs" />
     <Compile Include="RiakHttpRequest.cs" />
