@@ -11,17 +11,12 @@ namespace Riak.Tests
     [TestClass]
     public class MultiPartResponseTests
     {
-        private readonly string _multiPartBucket = Guid.NewGuid().ToString();
-
-        private const string AllTextKeyName = "AllTextKey";
-        private const string AllBinaryKeyName = "AllBinaryKey";
-        private const string MixedTypeKeyName = "MixedTypeKey";
-        private readonly Random _rng = new Random();
-
-        private List<string> _randomTextData;
-
-        public void AddInitialData()
+        [TestMethod]
+        public void GetAllTextData()
         {
+            string _multiPartBucket = Guid.NewGuid().ToString();
+            const string AllTextKeyName = "AllTextKey";
+
             _randomTextData = new List<string>();
             RiakClient client = new RiakClient(Settings.RiakServerUri);
             Bucket bucket = client.Bucket(_multiPartBucket);
@@ -37,26 +32,16 @@ namespace Riak.Tests
             SetAndStoreTextKey(key2);
             SetAndStoreTextKey(key3);
             SetAndStoreTextKey(key4);
-        }
 
-        private void SetAndStoreTextKey(RiakObject textKey)
-        {
-            textKey.ContentType = "text/plain";
-            string data = GetRandomTextData();
-            textKey.Store(data);
-            _randomTextData.Add(data);
-        }
-
-        [TestMethod]
-        public void GetAllTextData()
-        {
-            AddInitialData();
-
-            RiakClient client = new RiakClient(Settings.RiakServerUri);
-            Bucket bucket = client.Bucket(_multiPartBucket);
+            client = new RiakClient(Settings.RiakServerUri);
+            bucket = client.Bucket(_multiPartBucket);
 
             ICollection<RiakObject> conflicts = bucket.GetAll(AllTextKeyName, false);
-            Assert.AreEqual(4, conflicts.Count);
+
+            // whoa!  Why 2?  Because we're using the same client ID for all
+            // of these objects so the Riak server is going to throw away all
+            // but the last two conflicts.
+            Assert.AreEqual(2, conflicts.Count);
 
             foreach(RiakObject ro in conflicts)
             {
@@ -66,6 +51,55 @@ namespace Riak.Tests
                 Assert.IsTrue(_randomTextData.Contains(content));
                 Assert.AreEqual(ro.ContentLength, content.Length);
             }
+        }
+
+        [TestMethod]
+        public void ConflictsFromUniqueClientsWithVClock()
+        {
+            string BucketName = Guid.NewGuid().ToString();
+            string KeyName = Guid.NewGuid().ToString();
+
+            RiakClient startClient = new RiakClient(Settings.RiakServerUri);
+            Bucket startBucket = startClient.Bucket(BucketName);
+            startBucket.SetAllowMulti(true);
+            RiakObject startKey = startBucket.Get(KeyName);
+            startKey.ContentType = "text/plain";
+            startKey.Store(Guid.NewGuid().ToString());
+
+            List<RiakClient> clients = new List<RiakClient>();
+            clients.Add(new RiakClient(Settings.RiakServerUri));
+            clients.Add(new RiakClient(Settings.RiakServerUri));
+            clients.Add(new RiakClient(Settings.RiakServerUri));
+            clients.Add(new RiakClient(Settings.RiakServerUri));
+
+            List<RiakObject> conflicts = new List<RiakObject>();
+            foreach(RiakClient client in clients)
+            {
+                Bucket b = client.Bucket(BucketName);
+                Assert.IsTrue(b.AllowMulti);
+                conflicts.Add(b.Get(KeyName));
+            }
+
+            foreach(RiakObject key in conflicts)
+            {
+                Assert.IsNotNull(key.VClock);
+                key.Store(Guid.NewGuid().ToString());
+            }
+
+            RiakClient verifyClient = new RiakClient(Settings.RiakServerUri);
+            Bucket bucket = verifyClient.Bucket(BucketName);
+
+            ICollection<RiakObject> verifyConflicts = bucket.GetAll(KeyName, false);
+            Assert.AreEqual(4, verifyConflicts.Count);
+
+            foreach(RiakObject ro in verifyConflicts)
+            {
+                Assert.AreEqual("text/plain", ro.ContentType);
+                string content = ro.DataString();
+                Assert.IsNotNull(content);
+                Assert.AreEqual(ro.ContentLength, content.Length);
+            }
+
         }
 
         [TestMethod]
@@ -110,7 +144,7 @@ namespace Riak.Tests
 
         private string GetRandomTextData()
         {
-            int length = _rng.Next() % (1024 * 10) + 1;
+            int length = _rng.Next() % (20) + 1;
             StringBuilder b = new StringBuilder(length);
             for (int i = 0; i < length; i++)
             {
@@ -125,5 +159,16 @@ namespace Riak.Tests
             const string set = "abcdefghijklmnopqrstuvwxyz";
             return set[_rng.Next() % set.Length];
         }
+
+        private void SetAndStoreTextKey(RiakObject textKey)
+        {
+            textKey.ContentType = "text/plain";
+            string data = GetRandomTextData();
+            textKey.Store(data);
+            _randomTextData.Add(data);
+        }
+
+        private readonly Random _rng = new Random();
+        private List<string> _randomTextData;
     }
 }
