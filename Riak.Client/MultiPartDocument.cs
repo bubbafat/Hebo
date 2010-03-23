@@ -166,8 +166,7 @@ namespace Riak.Client
 
     public class MultiPartDocument : Document
     {
-        private const string BoundaryPrefix = "--";
-        private const char BoundaryPostfix = '\n';
+        private const string BoundaryPrefix = "\n--";
         private string _boundary;
         private byte[] _content;
         private byte[] _boundaryBytes;
@@ -262,9 +261,10 @@ namespace Riak.Client
                     }
                     else
                     {
+                        _currentIndex = immediateIndex + 1; // skip past the one we just read.  
+
                         Debug.Fail(
-                            "The boundary marker was found but did not terminate with a newline or -- : this is malformed, but we'll try to work with it.");
-                        _currentIndex = immediateIndex + 1; // skip past the one we just read.                        
+                            "The boundary marker was found but did not terminate with a newline or -- : this is malformed, but we'll try to work with it.");                      
                     }
 
                     return part;

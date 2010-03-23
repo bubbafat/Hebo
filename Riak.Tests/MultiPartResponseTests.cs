@@ -20,7 +20,6 @@ namespace Riak.Tests
 
         private List<string> _randomTextData;
 
-        [TestInitialize]
         public void AddInitialData()
         {
             _randomTextData = new List<string>();
@@ -51,6 +50,8 @@ namespace Riak.Tests
         [TestMethod]
         public void GetAllTextData()
         {
+            AddInitialData();
+
             RiakClient client = new RiakClient(Settings.RiakServerUri);
             Bucket bucket = client.Bucket(_multiPartBucket);
 
@@ -83,6 +84,22 @@ namespace Riak.Tests
                 Assert.IsNotNull(mpd);
                 Assert.IsNotNull(mpd.Parts);
                 Assert.AreEqual(4, mpd.Parts.Count);
+
+                CheckData(mpd.Parts[0], "{\"bar\":\"baz\"}");
+                CheckData(mpd.Parts[1], "{\"baz\":\"bar\"}");
+                CheckData(mpd.Parts[2], "{\"bap\":\"boz\"}");
+                CheckData(mpd.Parts[3], "{\"foo\":\"boo\"}");
+            }
+        }
+
+        private static void CheckData(Document document, string expectedString)
+        {
+            byte[] expected = Encoding.GetEncoding(28591).GetBytes(expectedString);
+            Assert.AreEqual(expected.Length, document.Content.Length);
+
+            for(int i = 0; i < expected.Length; i++)
+            {
+                Assert.AreEqual(expected[i], document.Content[i]);
             }
         }
 

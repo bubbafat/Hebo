@@ -19,19 +19,19 @@ Link: </riak/test>; rel="up"
 Etag: 4v5xOg4bVwUYZdMkqf0d6I
 Last-Modified: Wed, 10 Mar 2010 18:00:04 GMT
 
-{"bar":"baz"}
+{"baz":"bar"}
 --YinLMzyUR9feB17okMytgKsylvh
 Content-Type: application/json
 Link: </riak/test>; rel="up"
 Etag: 6nr5tDTmhxnwuAFJDd2s6G
 Last-Modified: Wed, 10 Mar 2010 17:58:08 GMT
 
-{"bar":"baz"}
+{"bap":"boz"}
 --YinLMzyUR9feB17okMytgKsylvh
 Content-Type: application/json
 Link: </riak/test>; rel="up"
 Etag: 6zRSZFUJlHXZ15o9CG0BYl
 Last-Modified: Wed, 10 Mar 2010 17:55:03 GMT
 
-{"foo":"bar"}
+{"foo":"boo"}
 --YinLMzyUR9feB17okMytgKsylvh--
