@@ -117,12 +117,28 @@ namespace Riak.Client
         {
             if (response.IsMultiPart)
             {
-                throw new NotImplementedException();
+                List<RiakObject> siblings = new List<RiakObject>();
+
+                Document doc = Document.Load(response);
+                MultiPartDocument mpDoc = doc as MultiPartDocument;
+                if (mpDoc != null)
+                {
+                    foreach (Document part in mpDoc.Parts)
+                    {
+                        Trace.WriteLine("Loaded document part:");
+                        Trace.WriteLine(part.Dump());
+                        siblings.Add(new RiakObject(this, keyName, part));
+                    }
+                }
+                else
+                {
+                    siblings.Add(new RiakObject(this, keyName, doc));
+                }
+
+                return siblings;
             }
-            else
-            {
-                return LoadConflictSiblings(response, keyName);
-            }
+         
+            return LoadConflictSiblings(response, keyName);
         }
 
         private ICollection<RiakObject> LoadConflictSiblings(RiakHttpResponse response, string keyName)

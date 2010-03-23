@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Riak.Client
 {
     public class Document
     {
-        protected Document(Dictionary<string,string> headers, byte[] content)
+        protected Document(Dictionary<string,string> headers, byte[] content, Document parent)
         {
             Headers = headers;
             Content = content;
+            Parent = parent;
         }
 
         public Dictionary<string, string> Headers
@@ -25,7 +25,58 @@ namespace Riak.Client
             get; protected set;
         }
 
+        public Document Parent
+        {
+            get; private set;
+        }
+
+        public static Document Load(RiakHttpResponse response)
+        {
+            Dictionary<string, string> headers = new Dictionary<string, string>
+                                                     {
+                                                         { HttpWellKnownHeader.ContentLength, response.ContentLength.ToString() },
+                                                         { HttpWellKnownHeader.ContentType, response.ContentType },
+                                                     };
+
+            foreach(string headerKey in response.Headers.AllKeys)
+            {
+                headers[headerKey] = response.Headers[headerKey];
+            }
+
+            return Load(response.GetResponseStream(), headers, null);
+        }
+
         public static Document Load(Stream stream)
+        {
+            return Load(stream, null);
+        }
+
+        protected static Document Load(Stream stream, Dictionary<string,string> headers, Document parent)
+        {
+            // if the header indicated a content length then respect that otherwise
+            // read everything left over.
+            long contentLength = headers.ContainsKey(HttpWellKnownHeader.ContentLength)
+                                     ? long.Parse(headers[HttpWellKnownHeader.ContentLength])
+                                     : Math.Max(0, stream.Length - stream.Position);
+
+            byte[] content = new byte[contentLength];
+
+            Util.CopyStream(stream, content);
+
+            Document doc = Util.IsMultiPart(headers[HttpWellKnownHeader.ContentType])
+                               ? new MultiPartDocument(headers, content, parent)
+                               : new Document(headers, content, parent);
+
+            return doc;            
+        }
+
+        protected static Document Load(Stream stream, Document parent)
+        {
+            Dictionary<string, string> headers = LoadHeadersFromStream(stream);
+            return Load(stream, headers, parent);
+        }
+
+        private static Dictionary<string, string> LoadHeadersFromStream(Stream stream)
         {
             List<byte> bytes = new List<byte>();
             bool headerBoundaryFound = false;
@@ -65,34 +116,51 @@ namespace Riak.Client
             using (MemoryStream ms = new MemoryStream(bytes.ToArray()))
             using (StreamReader reader = new StreamReader(ms, Encoding.GetEncoding(28591)))
             {
-                while (true)
+                while (!reader.EndOfStream)
                 {
                     string headerline = reader.ReadLine();
                     if (string.IsNullOrWhiteSpace(headerline))
                     {
-                        break;
+                        continue;
                     }
 
-                    string[] headerValues = headerline.Split(new char[] {':'}, 2);
+                    string[] headerValues = headerline.Split(new[] {':'}, 2);
                     headers[headerValues[0]] = headerValues[1].Trim();
                 }
             }
+            return headers;
+        }
 
-            // if the header indicated a content length then respect that otherwise
-            // read everything left over.
-            long contentLength = headers.ContainsKey(HttpWellKnownHeader.ContentLength)
-                                     ? long.Parse(headers[HttpWellKnownHeader.ContentLength])
-                                     : Math.Max(0, stream.Length - stream.Position);
+        public string GetLocalOrParentHeader(string name)
+        {
+            string value = null;
 
-            byte[] content = new byte[contentLength];
+            if(!Headers.TryGetValue(name, out value))
+            {
+                if(Parent != null)
+                {
+                    return Parent.GetLocalOrParentHeader(name);
+                }
 
-            Util.CopyStream(stream, content);
+                return null;
+            }
 
-            Document doc = Util.IsMultiPart(headers[HttpWellKnownHeader.ContentType])
-                               ? new MultiPartDocument(headers, content)
-                               : new Document(headers, content);
+            return value;
+        }
 
-            return doc;
+        internal string Dump()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(string key in Headers.Keys)
+            {
+                sb.AppendFormat("{0}: {1}{2}", key, Headers[key], Environment.NewLine);
+            }
+
+            sb.Append(Environment.NewLine);
+
+            sb.Append(Encoding.GetEncoding(28591).GetString(Content));
+
+            return sb.ToString();
         }
     }
 
@@ -107,8 +175,8 @@ namespace Riak.Client
         private int _currentIndex;
         private bool _terminatingBoundary;
 
-        public MultiPartDocument(Dictionary<string,string> headers, byte[] content)
-            : base(headers, content)
+        public MultiPartDocument(Dictionary<string,string> headers, byte[] content, Document parent)
+            : base(headers, content, parent)
         {
             _content = content;
             _boundary = LoadBoundary();
@@ -138,7 +206,7 @@ namespace Riak.Client
                 byte[] part = ReadUntilBoundary();
                 using (MemoryStream stream = new MemoryStream(part))
                 {
-                    Parts.Add(Document.Load(stream));
+                    Parts.Add(Document.Load(stream, this));
                 }
             }
         }
@@ -155,7 +223,6 @@ namespace Riak.Client
                 int immediateIndex = localCurrent;
 
                 boundaryFound = true;
-//                int index = Array.IndexOf(_content, _boundaryBytes[0], localCurrent);
 
                 for(int i = 0; i < _boundaryBytes.Length; i++)
                 {

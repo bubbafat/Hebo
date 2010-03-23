@@ -189,7 +189,7 @@ namespace Riak.Tests
             conflict2.Refresh();
             Assert.IsTrue(conflict2.HasSiblings);
 
-            Util.ReadString(keyToConflictOn.Data());
+            Util.ReadString(keyToConflictOn.Data(true));
         }
 
         [TestMethod]

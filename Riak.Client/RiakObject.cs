@@ -15,24 +15,33 @@ namespace Riak.Client
 
         public byte[] Data()
         {
-            if (HasSiblings)
-            {
-                throw new RiakUnresolvedConflictException("Error: key has conflicts that must be resolved.");
-            }
+            return Data(false);
+        }
 
-            if (_cachedData == null)
+        public byte[] Data(bool force)
+        {
+            if (force || _cachedData == null)
             {
-                using (RiakHttpResponse response = Bucket.Client.Http.Get(
-                    CreateUri()))
+                using (RiakHttpResponse response = Bucket.Client.Http.Get(CreateUri(),
+                                                                          Util.BuildListOf(
+                                                                          HttpStatusCode.OK,
+                                                                          HttpStatusCode.Ambiguous,
+                                                                          HttpStatusCode.NotModified,
+                                                                          HttpStatusCode.NotFound)))
                 {
-                    loadCachedData(response);
+                    if (response.StatusCode == HttpStatusCode.Ambiguous)
+                    {
+                        throw new RiakUnresolvedConflictException("Error: key has conflicts that must be resolved.");
+                    }
+
+                    LoadCachedData(response);
                 }
             }
 
             return _cachedData;
         }
 
-        private void loadCachedData(RiakHttpResponse response)
+        private void LoadCachedData(RiakHttpResponse response)
         {
             _cachedData = new byte[response.ContentLength];
             Util.CopyStream(response.GetResponseStream(), _cachedData);
@@ -106,6 +115,14 @@ namespace Riak.Client
             Refresh();
         }
 
+        public RiakObject(Bucket bucket, string keyName, Document part)
+        {
+            Bucket = bucket;
+            Name = keyName;
+            LoadDocumentHeaders(part);
+            _cachedData = part.Content;
+        }
+
         public Bucket Bucket
         {
             get;
@@ -146,7 +163,7 @@ namespace Riak.Client
                 LoadHeaders(response);
                 if (!HasSiblings)
                 {
-                    loadCachedData(response);
+                    LoadCachedData(response);
                 }
             }
             else
@@ -260,6 +277,24 @@ namespace Riak.Client
             get;
             private set;
         }
+
+        private void LoadDocumentHeaders(Document document)
+        {
+            MultiPartDocument mpParent = document.Parent as MultiPartDocument;
+            HasSiblings = (mpParent != null && mpParent.Parts.Count > 1);
+
+            VClock = document.GetLocalOrParentHeader(HttpWellKnownHeader.RiakVClock);
+
+            ContentType = document.Headers[HttpWellKnownHeader.ContentType];
+            ETag = document.Headers[HttpWellKnownHeader.ETag];
+            if (document.Headers.ContainsKey(HttpWellKnownHeader.LastModified))
+            {
+                LastModified = DateTime.Parse(document.Headers[HttpWellKnownHeader.LastModified]);
+            }
+            ContentLength = document.Content.Length;
+            Links = LinkCollection.Create(document.Headers[HttpWellKnownHeader.Link]);
+        }
+
 
         private void LoadHeaders(RiakHttpResponse response)
         {

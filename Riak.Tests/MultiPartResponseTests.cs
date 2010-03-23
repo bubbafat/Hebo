@@ -11,7 +11,7 @@ namespace Riak.Tests
     [TestClass]
     public class MultiPartResponseTests
     {
-        private readonly string MultiPartBucket = Guid.NewGuid().ToString();
+        private readonly string _multiPartBucket = Guid.NewGuid().ToString();
 
         private const string AllTextKeyName = "AllTextKey";
         private const string AllBinaryKeyName = "AllBinaryKey";
@@ -25,7 +25,7 @@ namespace Riak.Tests
         {
             _randomTextData = new List<string>();
             RiakClient client = new RiakClient(Settings.RiakServerUri);
-            Bucket bucket = client.Bucket(MultiPartBucket);
+            Bucket bucket = client.Bucket(_multiPartBucket);
             TestUtil.DeleteAllKeys(bucket);
             bucket.SetAllowMulti(true);
 
@@ -52,7 +52,7 @@ namespace Riak.Tests
         public void GetAllTextData()
         {
             RiakClient client = new RiakClient(Settings.RiakServerUri);
-            Bucket bucket = client.Bucket(MultiPartBucket);
+            Bucket bucket = client.Bucket(_multiPartBucket);
 
             ICollection<RiakObject> conflicts = bucket.GetAll(AllTextKeyName, false);
             Assert.AreEqual(4, conflicts.Count);
