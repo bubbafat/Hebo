@@ -11,7 +11,54 @@ namespace Riak.Client
 
     public class RiakObject
     {
-        private byte[] _cachedData;
+        protected RiakObject()
+        {
+        }
+
+        protected RiakObject(Bucket bucket, string name)
+        {
+            Bucket = bucket;
+            Name = name;
+        }
+
+        public static RiakObject Load(Bucket bucket, string keyName)
+        {
+            RiakObject ro = new RiakObject();
+            ro.Bucket = bucket;
+            ro.Name = keyName;
+            ro.Refresh();
+            return ro;
+        }
+
+        public static RiakObject Load(Bucket bucket, string keyName, Document part)
+        {
+            RiakObject ro = new RiakObject();
+            ro.Bucket = bucket;
+            ro.Name = keyName;
+            ro.LoadDocumentHeaders(part);
+            ro._cachedData = part.Content;
+            return ro;
+        }
+
+        public static RiakObject Load(Bucket bucket, RiakHttpResponse response)
+        {
+            RiakObject ro = new RiakObject();
+            ro.Bucket = bucket;
+            ro.LoadFromResponse(response);
+
+            return ro;
+        }
+
+        public static RiakObject Load(Bucket bucket, string keyName, string siblingId)
+        {
+            RiakObject ro = new RiakObject();
+            ro.Bucket = bucket;
+            ro.SiblingId = siblingId;
+            ro.Name = keyName;
+            ro.Refresh();
+
+            return ro;
+        }
 
         public byte[] Data()
         {
@@ -41,12 +88,6 @@ namespace Riak.Client
             return _cachedData;
         }
 
-        private void LoadCachedData(RiakHttpResponse response)
-        {
-            _cachedData = new byte[response.ContentLength];
-            Util.CopyStream(response.GetResponseStream(), _cachedData);
-        }
-
         public string DataString()
         {
             return Util.ReadString(Data());
@@ -55,13 +96,13 @@ namespace Riak.Client
         public long ContentLength
         {
             get;
-            private set;
+            protected set;
         }
 
         public string SiblingId
         {
             get;
-            private set;
+            protected set;
         }
 
         public string ContentType
@@ -79,7 +120,7 @@ namespace Riak.Client
         public DateTime LastModified
         {
             get;
-            private set;
+            protected set;
         }
 
         public string ETag
@@ -91,54 +132,25 @@ namespace Riak.Client
         public LinkCollection Links
         {
             get;
-            private set;
-        }
-
-        internal RiakObject(Bucket bucket, string name)
-        {
-            Bucket = bucket;
-            Name = name;
-            Refresh();
-        }
-
-        public RiakObject(Bucket bucket, RiakHttpResponse response)
-        {
-            Bucket = bucket;
-            LoadFromResponse(response);
-        }
-
-        public RiakObject(Bucket bucket, string keyName, string siblingId)
-        {
-            Bucket = bucket;
-            SiblingId = siblingId;
-            Name = keyName;
-            Refresh();
-        }
-
-        public RiakObject(Bucket bucket, string keyName, Document part)
-        {
-            Bucket = bucket;
-            Name = keyName;
-            LoadDocumentHeaders(part);
-            _cachedData = part.Content;
+            protected set;
         }
 
         public Bucket Bucket
         {
             get;
-            private set;
+            protected set;
         }
 
         public string Name
         {
             get;
-            private set;
+            protected set;
         }
 
         public bool Exists
         {
             get;
-            private set;
+            protected set;
         }
 
         public void Refresh()
@@ -154,72 +166,26 @@ namespace Riak.Client
             }
         }
 
-        private void LoadFromResponse(RiakHttpResponse response)
+        public void AddLink(RiakObject remoteObject, string riakTag)
         {
-            Exists = response.StatusCode != HttpStatusCode.NotFound;
+            Link newLink = new Link
+            {
+                UriResource = remoteObject.LinkPath,
+                RiakTag = riakTag
+            };
 
-            if (Exists)
-            {
-                LoadHeaders(response);
-                if (!HasSiblings)
-                {
-                    LoadCachedData(response);
-                }
-            }
-            else
-            {
-                InitializeNew();
-            }
+            Links.Add(newLink);
         }
 
-        private void InitializeNew()
+        public virtual string LinkPath
         {
-            HasSiblings = false;
-            Links = new LinkCollection();
-            Exists = false;
-            ETag = null;
-            LastModified = default(DateTime);
-            VClock = null;
-            ContentType = null;
-            ContentLength = 0;
-            _cachedData = null;
-        }
-
-        private Uri CreateUri()
-        {
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
-            if (!string.IsNullOrEmpty(SiblingId))
+            get
             {
-                parameters["vtag"] = SiblingId;
+                return string.Format("{0}/{1}/{2}",
+                              Bucket.Client.Http.Uri.AbsolutePath,
+                              Uri.EscapeDataString(Bucket.Name),
+                              Uri.EscapeDataString(Name));
             }
-
-            return Bucket.Client.Http.BuildUri(Bucket.Name, Name, parameters);
-        }
-
-        private Dictionary<string, string> GetHeaders(WebRequestVerb verb)
-        {
-            Dictionary<string, string> headers = new Dictionary<string, string>();
-
-            if (!string.IsNullOrEmpty(VClock))
-            {
-                headers[HttpWellKnownHeader.RiakVClock] = VClock;
-            }
-
-            if (verb == WebRequestVerb.POST || verb == WebRequestVerb.PUT)
-            {
-                if (Links.Count > 0)
-                {
-                    headers[HttpWellKnownHeader.Link] = Links.ToString();
-                }
-            }
-
-#if TRACE
-            foreach (string h in headers.Keys)
-            {
-                Trace.WriteLine(string.Format("{0}: {1}", h, headers[h]));
-            }
-#endif
-            return headers;
         }
 
         public virtual void Delete()
@@ -272,13 +238,81 @@ namespace Riak.Client
             }
         }
 
-        public bool HasSiblings
+        public virtual bool HasSiblings
         {
             get;
-            private set;
+            protected set;
         }
 
-        private void LoadDocumentHeaders(Document document)
+        protected virtual void LoadFromResponse(RiakHttpResponse response)
+        {
+            Exists = response.StatusCode != HttpStatusCode.NotFound;
+
+            if (Exists)
+            {
+                LoadHeaders(response);
+                if (!HasSiblings)
+                {
+                    LoadCachedData(response);
+                }
+            }
+            else
+            {
+                InitializeNew();
+            }
+        }
+
+        protected virtual void InitializeNew()
+        {
+            HasSiblings = false;
+            Links = new LinkCollection();
+            Exists = false;
+            ETag = null;
+            LastModified = default(DateTime);
+            VClock = null;
+            ContentType = null;
+            ContentLength = 0;
+            _cachedData = null;
+        }
+
+        protected virtual Uri CreateUri()
+        {
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(SiblingId))
+            {
+                parameters["vtag"] = SiblingId;
+            }
+
+            return Bucket.Client.Http.BuildUri(Bucket.Name, Name, parameters);
+        }
+
+        protected virtual Dictionary<string, string> GetHeaders(WebRequestVerb verb)
+        {
+            Dictionary<string, string> headers = new Dictionary<string, string>();
+
+            if (!string.IsNullOrEmpty(VClock))
+            {
+                headers[HttpWellKnownHeader.RiakVClock] = VClock;
+            }
+
+            if (verb == WebRequestVerb.POST || verb == WebRequestVerb.PUT)
+            {
+                if (Links.Count > 0)
+                {
+                    headers[HttpWellKnownHeader.Link] = Links.ToString();
+                }
+            }
+
+#if TRACE
+            foreach (string h in headers.Keys)
+            {
+                Trace.WriteLine(string.Format("{0}: {1}", h, headers[h]));
+            }
+#endif
+            return headers;
+        }
+
+        protected virtual void LoadDocumentHeaders(Document document)
         {
             MultiPartDocument mpParent = document.Parent as MultiPartDocument;
             HasSiblings = (mpParent != null && mpParent.Parts.Count > 1);
@@ -296,7 +330,7 @@ namespace Riak.Client
         }
 
 
-        private void LoadHeaders(RiakHttpResponse response)
+        protected virtual void LoadHeaders(RiakHttpResponse response)
         {
             HasSiblings = response.StatusCode == HttpStatusCode.Ambiguous;
 
@@ -308,26 +342,13 @@ namespace Riak.Client
             Links = LinkCollection.Create(response.Headers[HttpWellKnownHeader.Link]);
         }
 
-        public void AddLink(RiakObject remoteObject, string riakTag)
+        protected virtual void LoadCachedData(RiakHttpResponse response)
         {
-            Link newLink = new Link
-                           {
-                               UriResource = remoteObject.LinkPath,
-                               RiakTag = riakTag
-                           };
-
-            Links.Add(newLink);
+            _cachedData = new byte[response.ContentLength];
+            Util.CopyStream(response.GetResponseStream(), _cachedData);
         }
 
-        public string LinkPath
-        {
-            get
-            {
-                return string.Format("{0}/{1}/{2}",
-                              Bucket.Client.Http.Uri.AbsolutePath,
-                              Uri.EscapeDataString(Bucket.Name),
-                              Uri.EscapeDataString(Name));
-            }
-        }
+
+        private byte[] _cachedData;
     }
 }

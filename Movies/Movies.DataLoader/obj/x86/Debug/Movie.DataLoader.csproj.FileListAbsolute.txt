@@ -1,0 +1,5 @@
+c:\projects\Riak.Client\Movies\Movie.DataLoader\bin\Debug\Movie.DataLoader.exe
+c:\projects\Riak.Client\Movies\Movie.DataLoader\bin\Debug\Movie.DataLoader.pdb
+c:\projects\Riak.Client\Movies\Movie.DataLoader\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\projects\Riak.Client\Movies\Movie.DataLoader\obj\x86\Debug\Movie.DataLoader.exe
+c:\projects\Riak.Client\Movies\Movie.DataLoader\obj\x86\Debug\Movie.DataLoader.pdb

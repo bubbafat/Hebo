@@ -82,7 +82,7 @@ namespace Riak.Client
 
         public RiakObject Get(string name)
         {
-            return new RiakObject(this, name);
+            return RiakObject.Load(this, name);
         }
 
         public ICollection<RiakObject> GetAll(string keyName)
@@ -106,7 +106,7 @@ namespace Riak.Client
                     case HttpStatusCode.Ambiguous:
                         return LoadSiblingObjects(response, keyName);
                     case HttpStatusCode.OK:
-                        return new List<RiakObject> {new RiakObject(this, response)};
+                        return new List<RiakObject> { RiakObject.Load(this, response) };
                     default:
                         throw new RiakClientException("The response code {0} was unexpected", response.StatusCode);
                 }
@@ -127,12 +127,12 @@ namespace Riak.Client
                     {
                         Trace.WriteLine("Loaded document part:");
                         Trace.WriteLine(part.Dump());
-                        siblings.Add(new RiakObject(this, keyName, part));
+                        siblings.Add(RiakObject.Load(this, keyName, part));
                     }
                 }
                 else
                 {
-                    siblings.Add(new RiakObject(this, keyName, doc));
+                    siblings.Add(RiakObject.Load(this, keyName, doc));
                 }
 
                 return siblings;
@@ -160,7 +160,7 @@ namespace Riak.Client
 
             List<RiakObject> siblingObjects = new List<RiakObject>(siblingIds.Count);
 
-            siblingObjects.AddRange(siblingIds.Select(siblingId => new RiakObject(this, keyName, siblingId)));
+            siblingObjects.AddRange(siblingIds.Select(siblingId => RiakObject.Load(this, keyName, siblingId)));
 
             return siblingObjects;
         }

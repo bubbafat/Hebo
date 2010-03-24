@@ -1,0 +1,9 @@
+c:\projects\Riak.Client\Movies\Movie.Data\bin\Debug\Movie.Data.dll
+c:\projects\Riak.Client\Movies\Movie.Data\bin\Debug\Movie.Data.pdb
+c:\projects\Riak.Client\Movies\Movie.Data\bin\Debug\Riak.Client.dll
+c:\projects\Riak.Client\Movies\Movie.Data\bin\Debug\Jayrock.Json.dll
+c:\projects\Riak.Client\Movies\Movie.Data\bin\Debug\Riak.Client.pdb
+c:\projects\Riak.Client\Movies\Movie.Data\bin\Debug\Jayrock.Json.pdb
+c:\projects\Riak.Client\Movies\Movie.Data\obj\Debug\ResolveAssemblyReference.cache
+c:\projects\Riak.Client\Movies\Movie.Data\obj\Debug\Movie.Data.dll
+c:\projects\Riak.Client\Movies\Movie.Data\obj\Debug\Movie.Data.pdb
