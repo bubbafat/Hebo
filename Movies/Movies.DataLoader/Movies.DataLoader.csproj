@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Movies.DataLoader.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,9 +54,7 @@
     <None Include="app.config" />
     <None Include="Datasets\README" />
     <EmbeddedResource Include="Datasets\u.data" />
-    <EmbeddedResource Include="Datasets\u.genre" />
     <EmbeddedResource Include="Datasets\u.item" />
-    <EmbeddedResource Include="Datasets\u.occupation" />
     <EmbeddedResource Include="Datasets\u.userinfo" />
   </ItemGroup>
   <ItemGroup>

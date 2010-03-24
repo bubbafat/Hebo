@@ -6,3 +6,7 @@ Riak.Client/obj
 Riak.Tests/bin
 Riak.Tests/obj
 _ReSharper.Riak.Client
+Movies/Movies.Data/bin
+Movies/Movies.Data/obj
+Movies/Movies.DataLoader/bin
+Movies/Movies.DataLoader/obj

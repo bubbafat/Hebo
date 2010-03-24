@@ -48,7 +48,9 @@ namespace Riak.Client
         {
             using (StreamReader sr = new StreamReader(response.GetResponseStream()))
             {
-                JsonObject bucket = (JsonObject)JsonConvert.Import(sr);
+                string responseText = sr.ReadToEnd();
+                Trace.WriteLine(responseText);
+                JsonObject bucket = (JsonObject)JsonConvert.Import(responseText);
 
                 JsonArray keys = (JsonArray) bucket["keys"];
                 foreach(string key in keys)
@@ -149,8 +151,10 @@ namespace Riak.Client
             {
                 string siblingHeader = sr.ReadLine();
 
-                Debug.Assert(siblingHeader == "Siblings:",
-                             string.Format("The header was \"{0}\" but expected \"Siblings:\"", siblingHeader));
+                if(siblingHeader != "Siblings:")
+                {
+                    throw new RiakServerException("Expected a sibling header (\"Sibling:\") but was actually: \"{0}\"", siblingHeader);
+                }
 
                 while (!sr.EndOfStream)
                 {

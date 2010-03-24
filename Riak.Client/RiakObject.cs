@@ -13,6 +13,7 @@ namespace Riak.Client
     {
         protected RiakObject()
         {
+            InitializeNew();
         }
 
         protected RiakObject(Bucket bucket, string name)
@@ -23,27 +24,38 @@ namespace Riak.Client
 
         public static RiakObject Load(Bucket bucket, string keyName)
         {
-            RiakObject ro = new RiakObject();
-            ro.Bucket = bucket;
-            ro.Name = keyName;
+            RiakObject ro = new RiakObject
+                                {
+                                    Bucket = bucket, 
+                                    Name = keyName
+                                };
+
             ro.Refresh();
+
             return ro;
         }
 
         public static RiakObject Load(Bucket bucket, string keyName, Document part)
         {
-            RiakObject ro = new RiakObject();
-            ro.Bucket = bucket;
-            ro.Name = keyName;
+            RiakObject ro = new RiakObject
+                                {
+                                    Bucket = bucket, 
+                                    Name = keyName
+                                };
+
             ro.LoadDocumentHeaders(part);
             ro._cachedData = part.Content;
+
             return ro;
         }
 
         public static RiakObject Load(Bucket bucket, RiakHttpResponse response)
         {
-            RiakObject ro = new RiakObject();
-            ro.Bucket = bucket;
+            RiakObject ro = new RiakObject
+                                {
+                                    Bucket = bucket
+                                };
+
             ro.LoadFromResponse(response);
 
             return ro;
@@ -51,10 +63,12 @@ namespace Riak.Client
 
         public static RiakObject Load(Bucket bucket, string keyName, string siblingId)
         {
-            RiakObject ro = new RiakObject();
-            ro.Bucket = bucket;
-            ro.SiblingId = siblingId;
-            ro.Name = keyName;
+            RiakObject ro = new RiakObject
+                                {
+                                    Bucket = bucket, 
+                                    SiblingId = siblingId, 
+                                    Name = keyName
+                                };
             ro.Refresh();
 
             return ro;
@@ -138,13 +152,13 @@ namespace Riak.Client
         public Bucket Bucket
         {
             get;
-            protected set;
+            set;
         }
 
         public string Name
         {
             get;
-            protected set;
+            set;
         }
 
         public bool Exists
@@ -262,7 +276,7 @@ namespace Riak.Client
             }
         }
 
-        protected virtual void InitializeNew()
+        private void InitializeNew()
         {
             HasSiblings = false;
             Links = new LinkCollection();

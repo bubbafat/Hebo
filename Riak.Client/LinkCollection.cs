@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Riak.Client
@@ -86,18 +87,15 @@ namespace Riak.Client
             StringBuilder sb = new StringBuilder();
 
             bool needComma = false;
-            foreach (Link link in _links)
+            foreach (Link link in _links.Where(link => link.ShouldWrite))
             {
-                if (link.ShouldWrite)
+                if (needComma)
                 {
-                    if (needComma)
-                    {
-                        sb.Append(", ");
-                    }
-
-                    sb.Append(link);
-                    needComma = true;
+                    sb.Append(", ");
                 }
+
+                sb.Append(link);
+                needComma = true;
             }
 
             return sb.ToString();

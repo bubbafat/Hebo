@@ -1,4 +1,5 @@
 ﻿using System;
+using Jayrock.Json.Conversion;
 using Riak.Client;
 
 namespace Movies.Data
@@ -41,13 +42,25 @@ namespace Movies.Data
         Western = 262144,
     }
 
-    public class Movie : RiakObject
+    public abstract class MovieDatabaseObject : RiakObject
     {
-        public int Id { get; set; }
+        public MovieDatabaseObject()
+        {
+            ContentType = "application/json";
+        }
+
+        public virtual string ToJson()
+        {
+            return JsonConvert.ExportToString(this);
+        }
+    }
+
+    public class Movie : MovieDatabaseObject
+    {
         public string Title { get; set; }
         public DateTime ReleaseDate { get; set; }
         public DateTime VideoReleaseDate { get; set; }
-        public Uri IMDbUrl { get; set; }
-        public Genre Genre { get; set; }
+        public string IMDbUrl { get; set; }
+        public int Genre { get; set; } // bit fields are not supported by Jayrock so punt on that for now.
     }
 }

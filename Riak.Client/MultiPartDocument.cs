@@ -133,16 +133,13 @@ namespace Riak.Client
 
         public string GetLocalOrParentHeader(string name)
         {
-            string value = null;
+            string value;
 
             if(!Headers.TryGetValue(name, out value))
             {
-                if(Parent != null)
-                {
-                    return Parent.GetLocalOrParentHeader(name);
-                }
-
-                return null;
+                return Parent != null 
+                    ? Parent.GetLocalOrParentHeader(name) 
+                    : null;
             }
 
             return value;
@@ -167,9 +164,9 @@ namespace Riak.Client
     public class MultiPartDocument : Document
     {
         private const string BoundaryPrefix = "\n--";
-        private string _boundary;
-        private byte[] _content;
-        private byte[] _boundaryBytes;
+        private readonly string _boundary;
+        private readonly byte[] _content;
+        private readonly byte[] _boundaryBytes;
 
         private int _currentIndex;
         private bool _terminatingBoundary;
@@ -205,7 +202,7 @@ namespace Riak.Client
                 byte[] part = ReadUntilBoundary();
                 using (MemoryStream stream = new MemoryStream(part))
                 {
-                    Parts.Add(Document.Load(stream, this));
+                    Parts.Add(Load(stream, this));
                 }
             }
         }
@@ -215,15 +212,14 @@ namespace Riak.Client
             int start = _currentIndex;
             int localCurrent = _currentIndex;
             int localEnd = _content.Length - _boundaryBytes.Length;
-            bool boundaryFound = false;
 
-            while(localCurrent < localEnd)
+            while (localCurrent < localEnd)
             {
                 int immediateIndex = localCurrent;
 
-                boundaryFound = true;
+                bool boundaryFound = true;
 
-                for(int i = 0; i < _boundaryBytes.Length; i++)
+                for (int i = 0; i < _boundaryBytes.Length; i++)
                 {
                     if (localCurrent + i > _content.Length)
                     {
@@ -241,7 +237,7 @@ namespace Riak.Client
                     immediateIndex++;
                 }
 
-                if(boundaryFound)
+                if (boundaryFound)
                 {
                     int partLength = immediateIndex - start - _boundaryBytes.Length;
                     // don't return the boundary marker
@@ -249,7 +245,7 @@ namespace Riak.Client
                     byte[] part = new byte[partLength];
                     Array.Copy(_content, start, part, 0, partLength);
 
-                    if (_content[immediateIndex ] == '\n')
+                    if (_content[immediateIndex] == '\n')
                     {
                         // we're at a non-terminating boundary
                         _currentIndex = immediateIndex + 1; // skip past the one we just read.
@@ -264,15 +260,13 @@ namespace Riak.Client
                         _currentIndex = immediateIndex + 1; // skip past the one we just read.  
 
                         Debug.Fail(
-                            "The boundary marker was found but did not terminate with a newline or -- : this is malformed, but we'll try to work with it.");                      
+                            "The boundary marker was found but did not terminate with a newline or -- : this is malformed, but we'll try to work with it.");
                     }
 
                     return part;
                 }
-                else
-                {
-                    localCurrent++;                    
-                }
+
+                localCurrent++;
             }
 
             throw new RiakServerException("The returned multipart document was malformed.");

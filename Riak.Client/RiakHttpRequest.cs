@@ -25,6 +25,7 @@ namespace Riak.Client
         public const string ETag = "Etag";
         public const string Link = "Link";
         public const string LastModified = "Last-Modified";
+        public const string CacheControl = "Cache-Control";
     }
 
     public delegate void SetHeaderValue(string name, string value);
@@ -39,6 +40,7 @@ namespace Riak.Client
             _webRequest = (HttpWebRequest)WebRequest.Create(riakUri);
             _webRequest.Method = verb.ToString();
             _webRequest.Accept = "*/*";
+            _webRequest.AllowAutoRedirect = true;
 
             _headerMap = new Dictionary<string, SetHeaderValue>
                              {
@@ -56,6 +58,7 @@ namespace Riak.Client
                                  {HttpWellKnownHeader.UserAgent, SetUserAgent},
                                  {HttpWellKnownHeader.RiakClientId, SetNonReservedValue },
                                  {HttpWellKnownHeader.RiakVClock, SetNonReservedValue },
+                                 {HttpWellKnownHeader.CacheControl, SetNonReservedValue },
                              };
         }
 
