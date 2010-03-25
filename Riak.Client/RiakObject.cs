@@ -24,6 +24,11 @@ namespace Riak.Client
 
         public static RiakObject Load(Bucket bucket, string keyName)
         {
+            return Load(bucket, keyName, true);
+        }
+
+        public static RiakObject Load(Bucket bucket, string keyName, bool autoRefresh)
+        {
             RiakObject ro = new RiakObject
                                 {
                                     Bucket = bucket, 

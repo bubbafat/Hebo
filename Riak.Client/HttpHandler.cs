@@ -274,6 +274,5 @@ namespace Riak.Client
 
             return new Uri(fullUri.ToString(), UriKind.Absolute);
         }
-
     }
 }

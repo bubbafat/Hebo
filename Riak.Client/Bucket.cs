@@ -15,6 +15,7 @@ namespace Riak.Client
 
         internal Bucket(RiakClient client, string bucketName)
         {
+            Streaming = true;
             Client = client;
             Name = bucketName;
             _keys = new List<string>();
@@ -31,12 +32,24 @@ namespace Riak.Client
             get; private set;
         }
 
+        public bool Streaming
+        {
+            get; set;
+        }
+
         public void Refresh()
         {
             _keys.Clear();
 
+            Dictionary<string, string> parameters = Streaming
+                                                    ? new Dictionary<string, string>
+                                                        {
+                                                            {"keys", "streaming"}
+                                                        }
+                                                    : null;
+
             using (RiakHttpResponse response = Client.Http.Get(
-                        Client.Http.BuildUri(Name, null, null), 
+                        Client.Http.BuildUri(Name, null, parameters), 
                         "application/json"))
             {
                 Links = LinkCollection.Create(response.Headers[HttpWellKnownHeader.Link]);
@@ -83,6 +96,11 @@ namespace Riak.Client
         }
 
         public RiakObject Get(string name)
+        {
+            return Get(name, false);
+        }
+
+        public RiakObject Get(string name, bool lazy)
         {
             return RiakObject.Load(this, name);
         }

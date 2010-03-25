@@ -25,10 +25,20 @@ namespace Riak.Client
 
         public Bucket Bucket(string name)
         {
+            return Bucket(name, false);
+        }
+
+        public Bucket Bucket(string name, bool lazy)
+        {
             Bucket b = new Bucket(this, name);
-            b.Refresh();
+
+            if (!lazy)
+            {
+                b.Refresh();
+            }
 
             return b;
         }
+
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Movies.Data;
 using Riak.Client;
 
@@ -51,40 +53,55 @@ namespace Movies.DataLoader
         private static void ClearRiakData(RiakClient client)
         {
             ClearAllKeys(client, MovieBucketName);
-            ClearAllKeys(client, RatingsBucketName);
             ClearAllKeys(client, UsersBucketName);
+            ClearAllKeys(client, RatingsBucketName);
         }
 
         private static void ClearAllKeys(RiakClient client, string bucketName)
         {
             Bucket b = client.Bucket(bucketName);
             Console.WriteLine("Clearing {0} keys from {1}", b.Keys.Count, b.Name);
-            b.Keys.ForEach(k => b.Get(k).Delete());            
+            Parallel.ForEach(b.Keys, key => b.Get(key, true).Delete());
         }
 
         private static void UploadData(RiakClient client)
         {
             LoadAndVerifyData(client);
 
-            UploadObjects("Uploading movies", MovieCache.Values);
-            UploadObjects("Uploading ratings", RatingCache);
-            UploadObjects("Uploading users", UserCache.Values);
+            UploadObjects("Uploading movies", MovieCache.Values, MovieCache.Count);
+            UploadObjects("Uploading ratings", RatingCache, RatingCache.Count);
+            UploadObjects("Uploading users", UserCache.Values, UserCache.Count);
         }
 
-        private static void UploadObjects(string prompt, IEnumerable<MovieDatabaseObject> keys)
+        private static void UploadObjects(string prompt, IEnumerable<MovieDatabaseObject> keys, long count)
         {
             Console.WriteLine(prompt);
-            foreach (MovieDatabaseObject mdo in keys)
+            long current = 0;
+            long parallelRequests = 0;
+
+            Parallel.ForEach(keys, mdo =>
             {
-                Console.Write('.');
+                long currentRequests = Interlocked.Increment(ref parallelRequests);
+
                 mdo.Store(mdo.ToJson());
-            }
-            Console.WriteLine();            
+
+                long c = Interlocked.Increment(ref current);
+                
+                if(c % 100 == 0)
+                {
+                    Console.WriteLine("{0}: {1} of {2} ({3} concurrent requests)", prompt, c, count, currentRequests);                    
+                }
+
+                Interlocked.Decrement(ref parallelRequests);
+
+            });
+
+            Console.WriteLine("{0} complete.", prompt);            
         }
 
         private static void CreateMovieLinks(RiakClient client)
         {
-            Bucket movies = client.Bucket(MovieBucketName);
+            Bucket movies = client.Bucket(MovieBucketName, true);
             movies.SetAllowMulti(false);
 
             foreach(Movie m in MovieCache.Values)
@@ -92,7 +109,7 @@ namespace Movies.DataLoader
                 m.Bucket = movies;
             }
 
-            Bucket ratings = client.Bucket(RatingsBucketName);
+            Bucket ratings = client.Bucket(RatingsBucketName, true);
             ratings.SetAllowMulti(false);
 
             foreach(Rating r in RatingCache)
@@ -100,7 +117,7 @@ namespace Movies.DataLoader
                 r.Bucket = ratings;
             }
 
-            Bucket users = client.Bucket(UsersBucketName);
+            Bucket users = client.Bucket(UsersBucketName, true);
             users.SetAllowMulti(false);
 
             foreach(User u in UserCache.Values)
@@ -108,13 +125,11 @@ namespace Movies.DataLoader
                 u.Bucket = users;
             }
 
-            foreach (Rating r in RatingCache)
-            {
-                r.AddLink(r.Movie, "movie");
-                r.AddLink(r.User, "user");
-//                r.Movie.AddLink(r, "rating");
-//                r.User.AddLink(r, "rating");
-            }
+            Parallel.ForEach(RatingCache, r =>
+                                              {
+                                                  r.AddLink(r.Movie, "movie");
+                                                  r.AddLink(r.User, "user");
+                                              });
         }
 
         private static void PrintHelp()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Threading;
 
 namespace Riak.Client
 {
@@ -30,7 +31,7 @@ namespace Riak.Client
 
     public delegate void SetHeaderValue(string name, string value);
 
-    class RiakHttpRequest
+    public class RiakHttpRequest
     {
         private readonly HttpWebRequest _webRequest;
         private readonly Dictionary<string, SetHeaderValue> _headerMap;
@@ -41,6 +42,9 @@ namespace Riak.Client
             _webRequest.Method = verb.ToString();
             _webRequest.Accept = "*/*";
             _webRequest.AllowAutoRedirect = true;
+
+            _webRequest.MaximumResponseHeadersLength = -1;
+            _webRequest.Timeout = Timeout.Infinite;
 
             _headerMap = new Dictionary<string, SetHeaderValue>
                              {
