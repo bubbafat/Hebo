@@ -58,8 +58,8 @@ namespace Movies.Data
     public class Movie : MovieDatabaseObject
     {
         public string Title { get; set; }
-        public DateTime ReleaseDate { get; set; }
-        public DateTime VideoReleaseDate { get; set; }
+        public long ReleaseDate { get; set; }
+        public long VideoReleaseDate { get; set; }
         public string IMDbUrl { get; set; }
         public int Genre { get; set; } // bit fields are not supported by Jayrock so punt on that for now.
     }

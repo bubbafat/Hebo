@@ -68,9 +68,35 @@ namespace Movies.DataLoader
         {
             LoadAndVerifyData(client);
 
-            UploadObjects("Uploading movies", MovieCache.Values, MovieCache.Count);
-            UploadObjects("Uploading ratings", RatingCache, RatingCache.Count);
-            UploadObjects("Uploading users", UserCache.Values, UserCache.Count);
+            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("MOVIES_SMALL")))
+            {
+                UploadObjects("Uploading movies", MovieCache.Values, MovieCache.Count);
+                UploadObjects("Uploading ratings", RatingCache, RatingCache.Count);
+                UploadObjects("Uploading users", UserCache.Values, UserCache.Count);
+            }
+            else
+            {
+                Dictionary<string,Movie> movies = new Dictionary<string, Movie>();
+                Dictionary<string,User> users = new Dictionary<string, User>();
+                List<Rating> ratings = new List<Rating>();
+
+                Console.WriteLine("MOVIES_SMALL set - limiting to 1000 ratings");
+                int current = 0;
+                foreach(Rating r in RatingCache)
+                {
+                    if(current++ >= 1000)
+                    {
+                        break;
+                    }
+                    ratings.Add(r);
+                    users[r.User.Name] = r.User;
+                    movies[r.Movie.Name] = r.Movie;
+                }
+
+                UploadObjects("Uploading ratings...", ratings, ratings.Count);
+                UploadObjects("Uploading users...", users.Values, users.Values.Count);
+                UploadObjects("Uploading movies...", movies.Values, movies.Values.Count);
+            }
         }
 
         private static void UploadObjects(string prompt, IEnumerable<MovieDatabaseObject> keys, long count)
@@ -180,7 +206,8 @@ namespace Movies.DataLoader
                                        User = UserCache[ratingParts[0]],
                                        Movie = MovieCache[ratingParts[1]],
                                        Stars = int.Parse(ratingParts[2]),
-                                       When = DateTime.FromFileTimeUtc(long.Parse(ratingParts[3]))
+                                       When = DateTime.FromFileTimeUtc(long.Parse(ratingParts[3])),
+                                       Name = string.Format("{0}-{1}", ratingParts[0], ratingParts[1]),
                                    };
 
                     RatingCache.Add(r);
@@ -262,8 +289,8 @@ namespace Movies.DataLoader
                                       {
                                           Name = movieParts[0],
                                           Title = movieParts[1],
-                                          ReleaseDate = GetOrDefault(movieParts[2], default(DateTime)),
-                                          VideoReleaseDate = GetOrDefault(movieParts[3], default(DateTime)),
+                                          ReleaseDate = JsonDate(movieParts[2]),
+                                          VideoReleaseDate = JsonDate(movieParts[3]),
                                           IMDbUrl = movieParts[4],
                                       };
 
@@ -284,6 +311,20 @@ namespace Movies.DataLoader
                     MovieCache[movie.Name] = movie;
                 }
             }
+        }
+
+        private static long JsonDate(string datetime)
+        {
+            if(string.IsNullOrEmpty(datetime))
+            {
+                return 0;
+            }
+
+            DateTime start = new DateTime(1970, 1, 1).ToUniversalTime();
+            DateTime actual = DateTime.Parse(datetime);
+
+            return (long)(actual - start).TotalMilliseconds;
+            
         }
 
         static Stream LoadResourceStream(string filename)

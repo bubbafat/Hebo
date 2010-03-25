@@ -12,12 +12,6 @@ namespace Movies.Data
      */
     public class Rating : MovieDatabaseObject
     {
-        public Rating()
-        {
-            // it doesn't matter - it just can't be null
-            Name = Guid.NewGuid().ToString();
-        }
-
         public User User { get; set; }
         public Movie Movie { get; set; }
         public int Stars { get; set; }

@@ -37,16 +37,39 @@ namespace Riak.Client
             get; set;
         }
 
+        public bool ContainsKeys
+        {
+            get; private set;
+        }
+
         public void Refresh()
         {
+            Refresh(true);
+        }
+
+        public void Refresh(bool loadKeys)
+        {
+            ContainsKeys = loadKeys;
+
             _keys.Clear();
 
-            Dictionary<string, string> parameters = Streaming
-                                                    ? new Dictionary<string, string>
-                                                        {
-                                                            {"keys", "streaming"}
-                                                        }
-                                                    : null;
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+            if (ContainsKeys)
+            {
+                if (Streaming)
+                {
+                    parameters["keys"] = "streaming";
+                }
+                else
+                {
+                    parameters["keys"] = "true";
+                }
+            }
+            else
+            {
+                parameters["keys"] = "false";                
+            }
 
             using (RiakHttpResponse response = Client.Http.Get(
                         Client.Http.BuildUri(Name, null, parameters), 
@@ -65,10 +88,13 @@ namespace Riak.Client
                 Trace.WriteLine(responseText);
                 JsonObject bucket = (JsonObject)JsonConvert.Import(responseText);
 
-                JsonArray keys = (JsonArray) bucket["keys"];
-                foreach(string key in keys)
+                if (ContainsKeys)
                 {
-                    Keys.Add(Uri.UnescapeDataString(key));
+                    JsonArray keys = (JsonArray) bucket["keys"];
+                    foreach (string key in keys)
+                    {
+                        Keys.Add(Uri.UnescapeDataString(key));
+                    }
                 }
 
                 JsonObject properties = (JsonObject)bucket["props"];
@@ -97,12 +123,12 @@ namespace Riak.Client
 
         public RiakObject Get(string name)
         {
-            return Get(name, false);
+            return Get(name, true);
         }
 
-        public RiakObject Get(string name, bool lazy)
+        public RiakObject Get(string name, bool getKeys)
         {
-            return RiakObject.Load(this, name);
+            return RiakObject.Load(this, name, getKeys);
         }
 
         public ICollection<RiakObject> GetAll(string keyName)

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
+using Jayrock.Json.Conversion;
 
 namespace Riak.Client
 {
@@ -35,7 +36,10 @@ namespace Riak.Client
                                     Name = keyName
                                 };
 
-            ro.Refresh();
+            if (autoRefresh)
+            {
+                ro.Refresh();
+            }
 
             return ro;
         }
@@ -112,60 +116,70 @@ namespace Riak.Client
             return Util.ReadString(Data());
         }
 
+        [JsonIgnore]
         public long ContentLength
         {
             get;
             protected set;
         }
 
+        [JsonIgnore]
         public string SiblingId
         {
             get;
             protected set;
         }
 
+        [JsonIgnore]
         public string ContentType
         {
             get;
             set;
         }
 
+        [JsonIgnore]
         public string VClock
         {
             get;
             set;
         }
 
+        [JsonIgnore]
         public DateTime LastModified
         {
             get;
             protected set;
         }
 
+        [JsonIgnore]
         public string ETag
         {
             get;
             set;
         }
 
+        [JsonIgnore]
         public LinkCollection Links
         {
             get;
             protected set;
         }
 
+        [JsonIgnore]
         public Bucket Bucket
         {
             get;
             set;
         }
 
+        [JsonIgnore]
         public string Name
         {
             get;
             set;
         }
 
+        [JsonIgnore]
         public bool Exists
         {
             get;
@@ -257,6 +271,7 @@ namespace Riak.Client
             }
         }
 
+        [JsonIgnore]
         public virtual bool HasSiblings
         {
             get;
