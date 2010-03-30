@@ -92,7 +92,7 @@ namespace Riak.Client
         {
             if (force || _cachedData == null)
             {
-                using (RiakHttpResponse response = Bucket.Client.Http.Get(CreateUri(),
+                using (RiakHttpResponse response = Bucket.Client.Http.Get(CreateUri(WebRequestVerb.GET),
                                                                           Util.BuildListOf(
                                                                           HttpStatusCode.OK,
                                                                           HttpStatusCode.Ambiguous,
@@ -188,7 +188,7 @@ namespace Riak.Client
 
         public void Refresh()
         {
-            using (RiakHttpResponse response = Bucket.Client.Http.Get(CreateUri(),
+            using (RiakHttpResponse response = Bucket.Client.Http.Get(CreateUri(WebRequestVerb.GET),
                                                                       Util.BuildListOf(
                                                                           HttpStatusCode.OK,
                                                                           HttpStatusCode.Ambiguous,
@@ -224,7 +224,7 @@ namespace Riak.Client
         public virtual void Delete()
         {
             using (Bucket.Client.Http.Delete(
-                CreateUri(),
+                CreateUri(WebRequestVerb.DELETE),
                 GetHeaders(WebRequestVerb.DELETE),
                 Util.BuildListOf(HttpStatusCode.NoContent, HttpStatusCode.NotFound)))
             {
@@ -246,28 +246,22 @@ namespace Riak.Client
                 throw new InvalidOperationException("ContentType must not be null when performing a RiakObject PUT operation");
             }
 
-            using (Bucket.Client.Http.Put(
-                CreateUri(),
+            using (RiakHttpResponse response = Bucket.Client.Http.Put(
+                CreateUri(WebRequestVerb.PUT),
                 ContentType,
                 GetHeaders(WebRequestVerb.PUT),
-                Util.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent),
+                Util.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent, HttpStatusCode.Ambiguous),
                 data))
             {
+                LoadFromResponse(response);
             }
-
-            // TODO: just request the body be returned and
-            Refresh();
         }
 
         public virtual void Store()
         {
-            using (Bucket.Client.Http.Put(
-                CreateUri(),
-                ContentType,
-                GetHeaders(WebRequestVerb.PUT),
-                Util.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent),
-                Data()))
+            using(MemoryStream stream = new MemoryStream(Data(), false))
             {
+                Store(stream);
             }
         }
 
@@ -309,12 +303,17 @@ namespace Riak.Client
             _cachedData = null;
         }
 
-        protected virtual Uri CreateUri()
+        protected virtual Uri CreateUri(WebRequestVerb verb)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             if (!string.IsNullOrEmpty(SiblingId))
             {
                 parameters["vtag"] = SiblingId;
+            }
+
+            if(verb == WebRequestVerb.PUT || verb == WebRequestVerb.POST)
+            {
+                parameters["returnbody"] = "true";
             }
 
             return Bucket.Client.Http.BuildUri(Bucket.Name, Name, parameters);
