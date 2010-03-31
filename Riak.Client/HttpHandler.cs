@@ -128,6 +128,16 @@ namespace Riak.Client
                 data);
         }
 
+        public RiakHttpResponse Post(Uri uri, string contentType, Dictionary<string, string> headers, ICollection<HttpStatusCode> allowedCodes, Stream data)
+        {
+            headers[HttpWellKnownHeader.ContentType] = contentType;
+
+            return Execute(WebRequestVerb.POST,
+                uri,
+                headers,
+                allowedCodes,
+                data);
+        }
 
         public RiakHttpResponse Delete(Uri uri, Dictionary<string, string> headers, ICollection<HttpStatusCode> allowedCodes)
         {

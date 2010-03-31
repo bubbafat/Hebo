@@ -126,6 +126,11 @@ namespace Riak.Client
             return Get(name, true);
         }
 
+        public RiakObject GetNew()
+        {
+            return RiakObject.Load(this, null, false);
+        }
+
         public RiakObject Get(string name, bool getKeys)
         {
             return RiakObject.Load(this, name, getKeys);

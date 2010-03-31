@@ -27,6 +27,7 @@ namespace Riak.Client
         public const string Link = "Link";
         public const string LastModified = "Last-Modified";
         public const string CacheControl = "Cache-Control";
+        public const string Location = "Location";
     }
 
     public delegate void SetHeaderValue(string name, string value);

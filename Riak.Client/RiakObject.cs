@@ -38,6 +38,11 @@ namespace Riak.Client
 
             if (autoRefresh)
             {
+                if(string.IsNullOrEmpty(keyName))
+                {
+                    throw new RiakClientException("Loading a RiakObject requires a key name.");
+                }
+
                 ro.Refresh();
             }
 
@@ -246,15 +251,36 @@ namespace Riak.Client
                 throw new InvalidOperationException("ContentType must not be null when performing a RiakObject PUT operation");
             }
 
-            using (RiakHttpResponse response = Bucket.Client.Http.Put(
-                CreateUri(WebRequestVerb.PUT),
-                ContentType,
-                GetHeaders(WebRequestVerb.PUT),
-                Util.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent, HttpStatusCode.Ambiguous),
-                data))
+            // per the Riak docs PUT is used when adding an object with a key name and POST when 
+            // getting a Riak defined name.  POST should work in either case 
+
+            if (string.IsNullOrEmpty(Name))
             {
-                LoadFromResponse(response);
+                using (RiakHttpResponse response = Bucket.Client.Http.Post(
+                    CreateUri(WebRequestVerb.POST),
+                    ContentType,
+                    GetHeaders(WebRequestVerb.POST),
+                    Util.BuildListOf(HttpStatusCode.Created),
+                    data))
+                {
+                    LoadFromResponse(response);
+                }
+
             }
+            else
+            {
+                using (RiakHttpResponse response = Bucket.Client.Http.Put(
+                    CreateUri(WebRequestVerb.PUT),
+                    ContentType,
+                    GetHeaders(WebRequestVerb.PUT),
+                    Util.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent, HttpStatusCode.Ambiguous),
+                    data))
+                {
+                    LoadFromResponse(response);
+                }
+
+            }
+
         }
 
         public virtual void Store()
@@ -373,6 +399,28 @@ namespace Riak.Client
             LastModified = response.LastModified;
             ContentLength = response.ContentLength;
             Links = LinkCollection.Create(response.Headers[HttpWellKnownHeader.Link]);
+
+            string location = response.Headers[HttpWellKnownHeader.Location];
+            if(!string.IsNullOrEmpty(location))
+            {
+                Name = ParseLocation(location);
+            }
+        }
+
+        private string ParseLocation(string location)
+        {
+            // Location: /riak/RiakObjectTest/HllwgVMqgh4Ze8OKUSfRiwmJGE1
+
+            string root = string.Format("{0}/{1}/",
+                                        Bucket.Client.Http.Uri.PathAndQuery,
+                                        Bucket.Name);
+
+            if(location.StartsWith(root, StringComparison.OrdinalIgnoreCase))
+            {
+                return location.Substring(location.Length);
+            }
+
+            throw new RiakServerException("Unable to parse the Location header: {0}", location);
         }
 
         protected virtual void LoadCachedData(RiakHttpResponse response)
