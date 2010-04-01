@@ -194,7 +194,7 @@ namespace Riak.Tests
 
             RiakObject loadedMiles = artist.Get("Miles Davis");
              
-            Assert.AreEqual("Miles Davis", loadedMiles.Name);
+            Assert.AreEqual("Miles Davis", loadedMiles.KeyName);
 
             // the 4 we added plus the rel="up" for the key
             Assert.AreEqual(5, loadedMiles.Links.Count);
@@ -205,10 +205,9 @@ namespace Riak.Tests
 
         private static RiakObject CreateTextObject(Bucket bucket, string name)
         {
-            RiakObject o = bucket.Get(name);
+            RiakObject o = bucket.GetNew(name);
             o.ContentType = "text/plain";
             o.Store(name);
-            o.Refresh();
 
             return o;
         }

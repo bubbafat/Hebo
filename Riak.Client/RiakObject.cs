@@ -20,7 +20,7 @@ namespace Riak.Client
         protected RiakObject(Bucket bucket, string name)
         {
             Bucket = bucket;
-            Name = name;
+            KeyName = name;
         }
 
         public static RiakObject Load(Bucket bucket, string keyName)
@@ -33,7 +33,7 @@ namespace Riak.Client
             RiakObject ro = new RiakObject
                                 {
                                     Bucket = bucket, 
-                                    Name = keyName
+                                    KeyName = keyName
                                 };
 
             if (autoRefresh)
@@ -54,7 +54,7 @@ namespace Riak.Client
             RiakObject ro = new RiakObject
                                 {
                                     Bucket = bucket, 
-                                    Name = keyName
+                                    KeyName = keyName
                                 };
 
             ro.LoadDocumentHeaders(part);
@@ -81,7 +81,7 @@ namespace Riak.Client
                                 {
                                     Bucket = bucket, 
                                     SiblingId = siblingId, 
-                                    Name = keyName
+                                    KeyName = keyName
                                 };
             ro.Refresh();
 
@@ -178,7 +178,7 @@ namespace Riak.Client
         }
 
         [JsonIgnore]
-        public string Name
+        public string KeyName
         {
             get;
             set;
@@ -222,7 +222,7 @@ namespace Riak.Client
                 return string.Format("{0}/{1}/{2}",
                               Bucket.Client.Http.Uri.AbsolutePath,
                               Uri.EscapeDataString(Bucket.Name),
-                              Uri.EscapeDataString(Name));
+                              Uri.EscapeDataString(KeyName));
             }
         }
 
@@ -254,13 +254,15 @@ namespace Riak.Client
             // per the Riak docs PUT is used when adding an object with a key name and POST when 
             // getting a Riak defined name.  POST should work in either case 
 
-            if (string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(KeyName) || string.IsNullOrEmpty(VClock))
             {
                 using (RiakHttpResponse response = Bucket.Client.Http.Post(
                     CreateUri(WebRequestVerb.POST),
                     ContentType,
                     GetHeaders(WebRequestVerb.POST),
-                    Util.BuildListOf(HttpStatusCode.Created),
+                    Util.BuildListOf(HttpStatusCode.Created, 
+                                     HttpStatusCode.OK,
+                                     HttpStatusCode.Ambiguous),
                     data))
                 {
                     LoadFromResponse(response);
@@ -273,7 +275,8 @@ namespace Riak.Client
                     CreateUri(WebRequestVerb.PUT),
                     ContentType,
                     GetHeaders(WebRequestVerb.PUT),
-                    Util.BuildListOf(HttpStatusCode.OK, HttpStatusCode.NoContent, HttpStatusCode.Ambiguous),
+                    Util.BuildListOf(HttpStatusCode.OK,
+                                     HttpStatusCode.Ambiguous),
                     data))
                 {
                     LoadFromResponse(response);
@@ -342,7 +345,7 @@ namespace Riak.Client
                 parameters["returnbody"] = "true";
             }
 
-            return Bucket.Client.Http.BuildUri(Bucket.Name, Name, parameters);
+            return Bucket.Client.Http.BuildUri(Bucket.Name, KeyName, parameters);
         }
 
         protected virtual Dictionary<string, string> GetHeaders(WebRequestVerb verb)
@@ -403,7 +406,7 @@ namespace Riak.Client
             string location = response.Headers[HttpWellKnownHeader.Location];
             if(!string.IsNullOrEmpty(location))
             {
-                Name = ParseLocation(location);
+                KeyName = ParseLocation(location);
             }
         }
 
@@ -428,7 +431,6 @@ namespace Riak.Client
             _cachedData = new byte[response.ContentLength];
             Util.CopyStream(response.GetResponseStream(), _cachedData);
         }
-
 
         private byte[] _cachedData;
     }

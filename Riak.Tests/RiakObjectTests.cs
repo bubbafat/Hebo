@@ -19,7 +19,7 @@ namespace Riak.Tests
             o1.Store(storedValue);
 
             // the name should be auto-assigned to something valid
-            Assert.IsNotNull(o1.Name);
+            Assert.IsNotNull(o1.KeyName);
             Assert.AreEqual(storedValue, Util.ReadString(o1.Data()));
         }
     }

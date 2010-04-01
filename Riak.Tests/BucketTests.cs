@@ -117,10 +117,10 @@ namespace Riak.Tests
             keyToConflictOn.ContentType = "text/plain";
             keyToConflictOn.Store("Data1");
 
-            RiakObject conflict1 = bucket.Get(keyToConflictOn.Name);
+            RiakObject conflict1 = bucket.Get(keyToConflictOn.KeyName);
             Util.ReadString(conflict1.Data());
 
-            RiakObject conflict2 = bucket.Get(keyToConflictOn.Name);
+            RiakObject conflict2 = bucket.Get(keyToConflictOn.KeyName);
             Util.ReadString(conflict2.Data());
 
             Assert.IsNotNull(conflict1.VClock);
@@ -168,10 +168,10 @@ namespace Riak.Tests
             keyToConflictOn.ContentType = "text/plain";
             keyToConflictOn.Store("Data1");
 
-            RiakObject conflict1 = bucket.Get(keyToConflictOn.Name);
+            RiakObject conflict1 = bucket.Get(keyToConflictOn.KeyName);
             Util.ReadString(conflict1.Data());
 
-            RiakObject conflict2 = bucket.Get(keyToConflictOn.Name);
+            RiakObject conflict2 = bucket.Get(keyToConflictOn.KeyName);
             Util.ReadString(conflict2.Data());
 
             Assert.IsNotNull(conflict1.VClock);
@@ -203,10 +203,10 @@ namespace Riak.Tests
             keyToConflictOn.ContentType = "text/plain";
             keyToConflictOn.Store("Data1");
 
-            RiakObject conflict1 = bucket.Get(keyToConflictOn.Name);
+            RiakObject conflict1 = bucket.Get(keyToConflictOn.KeyName);
             Util.ReadString(conflict1.Data());
 
-            RiakObject conflict2 = bucket.Get(keyToConflictOn.Name);
+            RiakObject conflict2 = bucket.Get(keyToConflictOn.KeyName);
             Util.ReadString(conflict2.Data());
 
             Assert.IsNotNull(conflict1.VClock);
@@ -224,7 +224,7 @@ namespace Riak.Tests
             conflict2.Refresh();
             Assert.IsTrue(conflict2.HasSiblings);
 
-            ICollection<RiakObject> siblings = bucket.GetAll(keyToConflictOn.Name);
+            ICollection<RiakObject> siblings = bucket.GetAll(keyToConflictOn.KeyName);
             Assert.AreEqual(2, siblings.Count);
 
             string string0 = Util.ReadString(siblings.ElementAt(0).Data());

@@ -89,8 +89,8 @@ namespace Movies.DataLoader
                         break;
                     }
                     ratings.Add(r);
-                    users[r.User.Name] = r.User;
-                    movies[r.Movie.Name] = r.Movie;
+                    users[r.User.KeyName] = r.User;
+                    movies[r.Movie.KeyName] = r.Movie;
                 }
 
                 UploadObjects("Uploading ratings...", ratings, ratings.Count);
@@ -207,7 +207,7 @@ namespace Movies.DataLoader
                                        Movie = MovieCache[ratingParts[1]],
                                        Stars = int.Parse(ratingParts[2]),
                                        When = DateTime.FromFileTimeUtc(long.Parse(ratingParts[3])),
-                                       Name = string.Format("{0}-{1}", ratingParts[0], ratingParts[1]),
+                                       KeyName = string.Format("{0}-{1}", ratingParts[0], ratingParts[1]),
                                    };
 
                     RatingCache.Add(r);
@@ -231,14 +231,14 @@ namespace Movies.DataLoader
                     string[] userParts = userString.Split(new[] {'|'});
                     User u = new User
                                  {
-                                     Name = userParts[0],
+                                     KeyName = userParts[0],
                                      Age = GetOrDefault(userParts[1], -1),
                                      Gender = GetGender(userParts[2]),
                                      Occupation = userParts[3],
                                      ZipCode = userParts[4]
                                  };
 
-                    UserCache[u.Name] = u;
+                    UserCache[u.KeyName] = u;
                 }
             }
         }
@@ -287,7 +287,7 @@ namespace Movies.DataLoader
                     string[] movieParts = movieDescription.Split(new[] {'|'});
                     Movie movie = new Movie
                                       {
-                                          Name = movieParts[0],
+                                          KeyName = movieParts[0],
                                           Title = movieParts[1],
                                           ReleaseDate = JsonDate(movieParts[2]),
                                           VideoReleaseDate = JsonDate(movieParts[3]),
@@ -308,7 +308,7 @@ namespace Movies.DataLoader
                         }
                     }
 
-                    MovieCache[movie.Name] = movie;
+                    MovieCache[movie.KeyName] = movie;
                 }
             }
         }
