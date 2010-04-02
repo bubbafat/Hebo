@@ -294,7 +294,7 @@ namespace Movies.DataLoader
                                           IMDbUrl = movieParts[4],
                                       };
 
-                    // index 5 is "Unknown" which is our enum default so we can skipp
+                    // index 5 is "Unknown" which is our enum default so we can skip
                     // that.  So we want to read fields 6-24 mapping directly to genre enum 
 
                     const int offset = 5;

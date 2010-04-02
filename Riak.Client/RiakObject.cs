@@ -295,7 +295,7 @@ namespace Riak.Client
         }
 
         [JsonIgnore]
-        public virtual bool HasSiblings
+        public bool HasSiblings
         {
             get;
             protected set;

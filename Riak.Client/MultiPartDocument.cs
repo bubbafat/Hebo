@@ -128,6 +128,7 @@ namespace Riak.Client
                     headers[headerValues[0]] = headerValues[1].Trim();
                 }
             }
+
             return headers;
         }
 
